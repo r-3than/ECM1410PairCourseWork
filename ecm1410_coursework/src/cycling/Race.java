@@ -33,6 +33,8 @@ public class Race {
         return Integer.toString(this.raceId)+this.raceName+this.raceDescription;
     }
 
+    public int getRaceId() { return this.raceId; }
+
     public int[] getStages() {
         int length = this.stageIds.size();
         int[] stageIdsArray = new int[length];
