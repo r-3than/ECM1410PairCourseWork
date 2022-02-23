@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+// hello test comment
 
 /**
  * BadCyclingPortal is a minimally compiling, but non-functioning implementor
