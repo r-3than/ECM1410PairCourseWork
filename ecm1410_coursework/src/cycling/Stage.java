@@ -1,7 +1,7 @@
 package cycling;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 /** 
  * Stage encapsulates race stages, each of which has a number of associated
@@ -16,6 +16,13 @@ public class Stage {
     private static ArrayList<Stage> allStages = new ArrayList<Stage>();
 
     public static Stage getStage(int stageId) { return allStages.get(stageId); }
+    public static void removeStage(int stageId) {
+        allStages.remove(stageId);
+        Stage.idMax--;
+        for(int i=stageId+1;i<allStages.size();i++) {
+            getStage(i).stageId--;
+        }
+    }
 
     private int stageId;
     private int stageState; // use an enum for this?
