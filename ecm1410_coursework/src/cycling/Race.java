@@ -18,6 +18,13 @@ public class Race {
 
     // make this private? instance only accessable by static methods (id param)
     public static Race getRace(int raceId) { return allRaces.get(raceId); }
+    public static void removeRace(int raceId) {
+        allRaces.remove(raceId);
+        Race.idMax--;
+        for(int i=raceId;i<allRaces.size();i++) {
+            getRace(i).raceId--;
+        }
+    }
 
     // Instance attributes
     private int raceId;
