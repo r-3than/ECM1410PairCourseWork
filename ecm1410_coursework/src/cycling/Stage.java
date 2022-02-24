@@ -19,7 +19,7 @@ public class Stage {
     public static void removeStage(int stageId) {
         allStages.remove(stageId);
         Stage.idMax--;
-        for(int i=stageId+1;i<allStages.size();i++) {
+        for(int i=stageId;i<allStages.size();i++) {
             getStage(i).stageId--;
         }
     }
