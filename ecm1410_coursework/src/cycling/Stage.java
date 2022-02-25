@@ -30,7 +30,7 @@ public class Stage {
     }
 
     private int stageId;
-    private int stageState; // use an enum for this?
+    private StageState stageState;
     private String stageName;
     private String stageDescription;
     private double stageLength;
@@ -41,7 +41,7 @@ public class Stage {
     public Stage(String name, String description, double length,
                  LocalDateTime startTime, StageType type) {
         this.stageId = idMax++;
-        this.stageState = 0;
+        this.stageState = StageState.BUILDING;
         this.stageName = name;
         this.stageDescription = description;
         this.stageLength = length;
@@ -56,6 +56,17 @@ public class Stage {
      */
     public String toString() {
         String id = Integer.toString(this.stageId);
+        String state;
+        switch (this.stageState) {
+            case BUILDING:
+                state = "In preperation";
+                break;
+            case WAITING:
+                state = "Waiting for results";
+                break;
+            default:
+                state = "null state";
+        }
         String name = this.stageName;
         String description = this.stageDescription;
         String length = Double.toString(this.stageLength);
@@ -79,8 +90,9 @@ public class Stage {
             default:
                 type = "null type";
         }
-        return String.format("Stage[%s]: %s (%s); %s; %skm; %s; StageIds=%s;",
-                             id, name, type, description, length, startTime, list);
+        return String.format("Stage[%s](%s): %s (%s); %s; %skm; %s; StageIds=%s;",
+                             id, state, name, type, description, length,
+                             startTime, list);
     }
 
     /**
