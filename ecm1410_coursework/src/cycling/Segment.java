@@ -14,12 +14,25 @@ public class Segment {
     private static int idMax = 0;
     private static ArrayList<Segment> allSegments = new ArrayList<Segment>();
 
-    public static Segment getSegment(int segmentId) { return allSegments.get(segmentId); }
-    public static void removeSegment(int segmentId) {
-        allSegments.remove(segmentId);
-        Segment.idMax--;
-        for(int i=segmentId;i<allSegments.size();i++) {
-            getSegment(i).segmentId--; 
+    public static Segment getSegment(int segmentId) throws
+                                     IDNotRecognisedException {
+        if(segmentId<Segment.idMax && segmentId >= 0) {
+            return allSegments.get(segmentId);
+        } else {
+            throw new IDNotRecognisedException("segmentId out of range");
+        }
+    }
+
+    public static void removeSegment(int segmentId) throws
+                                     IDNotRecognisedException {
+        if(segmentId<Segment.idMax && segmentId >= 0) {
+            allSegments.remove(segmentId);
+            Segment.idMax--;
+            for(int i=segmentId;i<allSegments.size();i++) {
+                getSegment(i).segmentId--; 
+            }
+        } else {
+            throw new IDNotRecognisedException("segmentId out of range");
         }
     }
 
@@ -79,7 +92,7 @@ public class Segment {
      * @param id The ID of the segment
      * @return A string representation of the segment instance
      */
-    public static String toString(int id) {
+    public static String toString(int id) throws IDNotRecognisedException {
         return getSegment(id).toString();
     }
 
@@ -97,7 +110,8 @@ public class Segment {
      * @param id The ID of the segment
      * @return The integer representing the location of the segment instance
      */
-    public static double getSegmentLocation(int id) {
+    public static double getSegmentLocation(int id) throws
+                                            IDNotRecognisedException {
         return getSegment(id).segmentLocation;
     }
 
@@ -110,7 +124,8 @@ public class Segment {
      * @param id The ID of the segment
      * @return The type of the segment instance
      */
-    public static SegmentType getSegmentType(int id) {
+    public static SegmentType getSegmentType(int id) throws
+                                             IDNotRecognisedException {
         return getSegment(id).segmentType;
     }
 
@@ -125,7 +140,8 @@ public class Segment {
      * @param id The ID of the segment
      * @return The average gradient of the segment instance
      */
-    public static double getSegmentAverageGradient(int id) {
+    public static double getSegmentAverageGradient(int id) throws
+                                                   IDNotRecognisedException {
         return getSegment(id).segmentAverageGradient;
     }
 
@@ -138,7 +154,7 @@ public class Segment {
      * @param id The ID of the segment
      * @return The length of the segment instance
      */
-    public static double getSegmentLength(int id) {
+    public static double getSegmentLength(int id) throws IDNotRecognisedException {
         return getSegment(id).segmentLength;
     }
 
@@ -153,7 +169,8 @@ public class Segment {
      * @param id The ID of the segment to be updated
      * @param location The new location for the segment instance
      */
-    public static void setSegmentLocation(int id, double location) {
+    public static void setSegmentLocation(int id, double location) throws
+                                          IDNotRecognisedException {
         getSegment(id).setSegmentLocation(location);
     }
 
@@ -168,7 +185,8 @@ public class Segment {
      * @param id The ID of the segment to be updated
      * @param type The new type for the segment instance
      */
-    public static void setSegmentType(int id, SegmentType type) {
+    public static void setSegmentType(int id, SegmentType type) throws
+                                      IDNotRecognisedException {
         getSegment(id).setSegmentType(type);
     }
 
@@ -183,7 +201,8 @@ public class Segment {
      * @param id The ID of the segment to be updated
      * @param averageGradient The new average gradient for the segment instance
      */
-    public static void setSegmentAverageGradient(int id, double averageGradient) {
+    public static void setSegmentAverageGradient(int id, double averageGradient)
+                                                 throws IDNotRecognisedException {
         getSegment(id).setSegmentAverageGradient(averageGradient);
     }
 
@@ -198,7 +217,8 @@ public class Segment {
      * @param id The ID of the segment to be updated
      * @param length The new length for the segment instance
      */
-    public static void setSegmentLength(int id, double length) {
+    public static void setSegmentLength(int id, double length) throws
+                                        IDNotRecognisedException {
         getSegment(id).setSegmentLength(length);
     }
 }
