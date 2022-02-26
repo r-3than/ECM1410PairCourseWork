@@ -16,16 +16,25 @@ public class Race {
     private static int idMax = 0;
     private static ArrayList<Race> allRaces = new ArrayList<Race>();
 
-    // make this private? instance only accessable by static methods (id param)
-    public static Race getRace(int raceId) { return allRaces.get(raceId); }
-    public static void removeRace(int raceId) {
-        for(int id : allRaces.get(raceId).getStages()) {
-            Stage.removeStage(id);
+    public static Race getRace(int raceId) throws IDNotRecognisedException {
+        if(raceId<Race.idMax && raceId >= 0) {
+            return allRaces.get(raceId);
+        } else {
+            throw new IDNotRecognisedException("raceID out of range");
         }
-        allRaces.remove(raceId);
-        Race.idMax--;
-        for(int i=raceId;i<allRaces.size();i++) {
-            getRace(i).raceId--;
+    }
+    public static void removeRace(int raceId) throws IDNotRecognisedException {
+        if(raceId<Race.idMax && raceId >= 0) {
+            for(int id : allRaces.get(raceId).getStages()) {
+                Stage.removeStage(id);
+            }
+            allRaces.remove(raceId);
+            Race.idMax--;
+            for(int i=raceId;i<allRaces.size();i++) {
+                getRace(i).raceId--;
+            }
+        } else {
+            throw new IDNotRecognisedException("raceID out of range");
         }
     }
 
@@ -57,14 +66,15 @@ public class Race {
         String name = this.raceName;
         String description = this.raceDescription;
         String list = this.stageIds.toString();
-        return String.format("Race[%s]: %s; %s; StageIds=%s;", id, name, description, list);
+        return String.format("Race[%s]: %s; %s; StageIds=%s;", id, name,
+                             description, list);
     }
 
     /**
      * @param id The ID of the race
      * @return A string representation of the race instance
      */
-    public static String toString(int id) {
+    public static String toString(int id) throws IDNotRecognisedException {
         return getRace(id).toString();
     }
 
@@ -82,7 +92,7 @@ public class Race {
      * @param id The ID of the race
      * @return The string raceName for the race with the associated id
      */
-    public static String getRaceName(int id) {
+    public static String getRaceName(int id) throws IDNotRecognisedException {
         return getRace(id).raceName;
     }
 
@@ -95,7 +105,8 @@ public class Race {
      * @param id The ID of the race
      * @return The string raceDescription for the race with the associated id
      */
-    public static String getRaceDescription(int id) {
+    public static String getRaceDescription(int id) throws
+                                            IDNotRecognisedException {
         return getRace(id).raceDescription;
     }
 
@@ -122,7 +133,8 @@ public class Race {
      * @param id The ID of the race to be updated
      * @param name The new name for the race instance
      */
-    public static void setRaceName(int id, String name) {
+    public static void setRaceName(int id, String name) throws
+                                   IDNotRecognisedException {
         getRace(id).setRaceName(name);
     }
 
@@ -137,7 +149,8 @@ public class Race {
      * @param id The ID of the race to be updated
      * @param description The new description for the race instance
      */
-    public static void setRaceDescription(int id, String description) {
+    public static void setRaceDescription(int id, String description) throws
+                                          IDNotRecognisedException {
         getRace(id).setRaceDescription(description);
     }
 
@@ -168,7 +181,8 @@ public class Race {
      */
     public static void addStageToRace(int id, String name, String description,
                                       double length, LocalDateTime startTime,
-                                      StageType type) {
+                                      StageType type) throws
+                                      IDNotRecognisedException {
         getRace(id).addStageToRace(name, description, length, startTime, type);
     }
 
