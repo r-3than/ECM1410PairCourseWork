@@ -2,9 +2,6 @@ package cycling;
 
 import java.util.ArrayList;
 
-import javax.swing.SwingConstants;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -22,6 +19,9 @@ public class Stage {
 
     public static Stage getStage(int stageId) { return allStages.get(stageId); }
     public static void removeStage(int stageId) {
+        for(int id : allStages.get(stageId).getSegments()) {
+            Segment.removeSegment(id);
+        }
         allStages.remove(stageId);
         Stage.idMax--;
         for(int i=stageId;i<allStages.size();i++) {

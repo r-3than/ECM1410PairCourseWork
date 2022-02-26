@@ -15,6 +15,13 @@ public class Segment {
     private static ArrayList<Segment> allSegments = new ArrayList<Segment>();
 
     public static Segment getSegment(int segmentId) { return allSegments.get(segmentId); }
+    public static void removeSegment(int segmentId) {
+        allSegments.remove(segmentId);
+        Segment.idMax--;
+        for(int i=segmentId;i<allSegments.size();i++) {
+            getSegment(i).segmentId--; 
+        }
+    }
 
     // Instance attributes
     private int segmentId;

@@ -19,6 +19,9 @@ public class Race {
     // make this private? instance only accessable by static methods (id param)
     public static Race getRace(int raceId) { return allRaces.get(raceId); }
     public static void removeRace(int raceId) {
+        for(int id : allRaces.get(raceId).getStages()) {
+            Stage.removeStage(id);
+        }
         allRaces.remove(raceId);
         Race.idMax--;
         for(int i=raceId;i<allRaces.size();i++) {
