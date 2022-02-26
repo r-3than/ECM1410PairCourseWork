@@ -17,15 +17,25 @@ public class Stage {
     private static int idMax = 0;
     private static ArrayList<Stage> allStages = new ArrayList<Stage>();
 
-    public static Stage getStage(int stageId) { return allStages.get(stageId); }
-    public static void removeStage(int stageId) {
-        for(int id : allStages.get(stageId).getSegments()) {
-            Segment.removeSegment(id);
+    public static Stage getStage(int stageId) throws IDNotRecognisedException {
+        if(stageId<Stage.idMax && stageId >= 0) {
+            return allStages.get(stageId);
+        } else {
+            throw new IDNotRecognisedException("stageId out of range");
         }
-        allStages.remove(stageId);
-        Stage.idMax--;
-        for(int i=stageId;i<allStages.size();i++) {
-            getStage(i).stageId--;
+    }
+    public static void removeStage(int stageId) throws IDNotRecognisedException {
+        if(stageId<Stage.idMax && stageId >= 0) {
+            for(int id : allStages.get(stageId).getSegments()) {
+                Segment.removeSegment(id);
+            }
+            allStages.remove(stageId);
+            Stage.idMax--;
+            for(int i=stageId;i<allStages.size();i++) {
+                getStage(i).stageId--;
+            }
+        } else {
+            throw new IDNotRecognisedException("stageId out of range");
         }
     }
 
@@ -99,7 +109,7 @@ public class Stage {
      * @param id The ID of the stage
      * @return A string representation of the stage instance
      */
-    public static String toString(int id) {
+    public static String toString(int id) throws IDNotRecognisedException {
         return getStage(id).toString();
     }
 
@@ -117,7 +127,7 @@ public class Stage {
      * @param id The ID of the stage
      * @return The string stageName for the stage with the associated id
      */
-    public static String getStageName(int id) {
+    public static String getStageName(int id) throws IDNotRecognisedException {
         return getStage(id).stageName;
     }
 
@@ -130,7 +140,8 @@ public class Stage {
      * @param id The ID of the stage
      * @return The string stageDescription for the stage with the associated id
      */
-    public static String getStageDescription(int id) {
+    public static String getStageDescription(int id) throws
+                                             IDNotRecognisedException {
         return getStage(id).stageDescription;
     }
 
@@ -143,7 +154,7 @@ public class Stage {
      * @param id The ID of the stage
      * @return The length of the stage instance
      */
-    public static double getStageLength(int id) {
+    public static double getStageLength(int id) throws IDNotRecognisedException {
         return getStage(id).stageLength;
     }
 
@@ -156,7 +167,8 @@ public class Stage {
      * @param id The ID of the stage
      * @return The start time for the stage instance
      */
-    public static LocalDateTime getStageStartTime(int id) {
+    public static LocalDateTime getStageStartTime(int id) throws
+                                                  IDNotRecognisedException {
         return getStage(id).stageStartTime;
     }
 
@@ -183,7 +195,8 @@ public class Stage {
      * @param id The ID of the stage to be updated
      * @param name The new name for the stage instance
      */
-    public static void setStageName(int id, String name) {
+    public static void setStageName(int id, String name) throws
+                                    IDNotRecognisedException {
         getStage(id).setStageName(name);
     }
 
@@ -198,7 +211,8 @@ public class Stage {
      * @param id The ID of the stage to be updated
      * @param description The new description for the stage instance
      */
-    public static void setStageDescription(int id, String description) {
+    public static void setStageDescription(int id, String description) throws
+                                           IDNotRecognisedException {
         getStage(id).setStageDescription(description);
     }
 
@@ -213,7 +227,8 @@ public class Stage {
      * @param id The ID of the stage to be updated
      * @param length The new length for the stage instance
      */
-    public static void setStageLength(int id, double length) {
+    public static void setStageLength(int id, double length) throws 
+                                      IDNotRecognisedException {
         getStage(id).stageLength = length;
     }
 
@@ -228,7 +243,8 @@ public class Stage {
      * @param id The ID of the stage to be updated
      * @param startTime The new start time for the stage instance
      */
-    public static void setStageStartTime(int id, LocalDateTime startTime) {
+    public static void setStageStartTime(int id, LocalDateTime startTime)
+                                         throws IDNotRecognisedException {
         getStage(id).stageStartTime = startTime;
     }
 
