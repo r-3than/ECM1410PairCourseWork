@@ -1,6 +1,5 @@
 package cycling;
 
-import java.util.ArrayList;
 /** 
  * Race encapsulates tour races, each of which has a number of associated
  * Stages.
@@ -26,6 +25,18 @@ public class Rider {
         }
         this.name = name;
         this.yearOfBirth = yearOfBirth;
+    }
+    public int getRiderId(){
+        return this.riderId;
+    }
+    public int getRiderTeamId(){
+        return this.teamID;
+    }
+    public String getRiderName(){
+        return this.name;
+    }
+    public int getRiderYOB(){
+        return this.yearOfBirth;
     }
 
 }
