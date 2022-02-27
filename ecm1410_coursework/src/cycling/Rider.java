@@ -19,7 +19,6 @@ public class Rider {
     
 
     /**
-     * @param riderId int - A unique Id for each rider is given 
      * @param teamID int - A team Id that the rider will belong too
      * @param name String - A name for the rider, Has to be non-null or IllegalArgumentException is thrown.
      * @param yearOfBirth int - A year that the rider was born in. Has to be above 1900 or IllegalArgumentException is thrown.
