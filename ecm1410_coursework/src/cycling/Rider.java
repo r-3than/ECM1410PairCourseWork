@@ -1,8 +1,8 @@
 package cycling;
 
 /** 
- * Race encapsulates tour races, each of which has a number of associated
- * Stages.
+ * Rider Class holds the riders teamId,riderId,name and yearOfBirth
+ * 
  * 
  * @author Ethan Ray
  * @version 1.0
