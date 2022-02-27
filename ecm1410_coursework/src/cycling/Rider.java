@@ -11,6 +11,7 @@ package cycling;
 
 
 public class Rider {
+    public static int ridersTopId;
     private int riderId;
     private int teamID;
     private String name;
@@ -23,9 +24,9 @@ public class Rider {
      * @param name String - A name for the rider, Has to be non-null or IllegalArgumentException is thrown.
      * @param yearOfBirth int - A year that the rider was born in. Has to be above 1900 or IllegalArgumentException is thrown.
      */
-    public Rider(int riderId,int teamID, String name, int yearOfBirth)throws IllegalArgumentException
+    public Rider(int teamID, String name, int yearOfBirth)throws IllegalArgumentException
     {
-        this.riderId = riderId;
+        this.riderId = ridersTopId++;
         this.teamID = teamID;
         if (name == ""){
             throw new IllegalArgumentException("Illegal name entered for rider");
