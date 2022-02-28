@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class RiderManager {
     private static ArrayList<Rider> allRiders = new ArrayList<Rider>();
+    private static ArrayList<Team> allTeams = new ArrayList<Team>();
     
     int createRider(int teamID, String name, int yearOfBirth) throws IDNotRecognisedException,IllegalArgumentException{
         Rider newRider = new Rider(teamID,name,yearOfBirth);
@@ -31,4 +32,33 @@ public class RiderManager {
         }
         return index;
     }
+
+    int createTeam(String name, String description) throws IllegalNameException, InvalidNameException{
+        Team newTeam = new Team(name,description);
+        allTeams.add(newTeam);
+        return newTeam.getId();
+    }
+
+    void removeTeam(int teamId) throws IDNotRecognisedException{
+        int teamIndex = getIndexForTeamId(teamId);
+        allTeams.remove(teamIndex);
+    }
+    int getIndexForTeamId(int teamId) throws IDNotRecognisedException{
+        int index =-1;
+        if (allTeams.size() == 0){
+            throw new IDNotRecognisedException("No Team exists with that ID");
+        }
+        for (int i=0; i<allTeams.size();i++){
+            if (allTeams.get(i).getId()==teamId){
+                index = i;
+                break;
+            }
+        }
+        if (index == -1){
+            throw new IDNotRecognisedException("No rider exists with that ID");
+        }
+        return index;
+    }
+
+
 }
