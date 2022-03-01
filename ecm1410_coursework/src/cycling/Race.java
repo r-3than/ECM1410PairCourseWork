@@ -210,7 +210,8 @@ public class Race {
      * 
      * @param stageId The ID of the stage to be removed
      */
-    public static void removeStage(int stageId) {
+    public static void removeStage(int stageId) throws
+                                   IDNotRecognisedException {
         for (Race race : allRaces) {
             race.removeStageFromRace(stageId);
         }
