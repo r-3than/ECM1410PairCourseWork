@@ -252,4 +252,36 @@ public class Stage {
      * Creates a new stage and adds the ID to the stageIds array.
      */
     public void addSegmentToStage() {} // similar to addStageToRace
+
+    /**
+     * Removes a segmentId from the array of segmentIds for a stage instance.
+     * 
+     * @param segmentId The ID of the segment to be removed
+     */
+    public void removeSegmentFromStage(int segmentId) {
+        int index = -1;
+        for(int i=0;i<this.segmentIds.size();i++) {
+            int sId = segmentIds.get(i);
+            if(sId>segmentId) {
+                segmentIds.set(i,--sId);
+            } else if (sId==segmentId) {
+                index = i;
+            }
+        }
+        this.segmentIds.remove(index);
+    }
+
+    /**
+     * Removes a segmentId from the array of segmentIds for all stage instances,
+     * as well as from the static array of all segments in the Segment class.
+     * 
+     * @param segmentId The ID of the segment to be removed
+     */
+    public static void removeSegment(int segmentId) throws
+                                     IDNotRecognisedException {
+        for (Stage stage : allStages) {
+            stage.removeSegmentFromStage(segmentId);
+        }
+        Segment.removeSegment(segmentId);
+    }
 }
