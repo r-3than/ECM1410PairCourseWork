@@ -40,7 +40,13 @@ public class Team {
             }
         }
     }
-
+    public int[] getRiderIds(){
+        int [] currentRiderIds = new int[this.riderIds.size()];
+        for (int i=0; i<this.riderIds.size();i++){
+            currentRiderIds[i]=this.riderIds.get(i);
+        }
+        return currentRiderIds;
+    }
     public int getId(){
         return this.teamID;
     }

@@ -11,13 +11,17 @@ public class RiderManager {
 
         Rider newRider = new Rider(teamID,name,yearOfBirth);
         allRiders.add(newRider);
-        Team ridersTeam = allTeams.get(teamIndex)
+        Team ridersTeam = allTeams.get(teamIndex);
         ridersTeam.addRider(newRider);
         return newRider.getRiderId();
     }
     void removeRider(int riderId) throws IDNotRecognisedException
     {
         int riderIndex = getIndexForRiderId(riderId);
+        int teamId = allRiders.get(riderIndex).getRiderTeamId();
+        int teamIndex = getIndexForTeamId(teamId);
+        Team riderTeam = allTeams.get(teamIndex);
+        riderTeam.removeRiderId(riderId);
         allRiders.remove(riderIndex);
     }
     int getIndexForRiderId(int riderId) throws IDNotRecognisedException{
