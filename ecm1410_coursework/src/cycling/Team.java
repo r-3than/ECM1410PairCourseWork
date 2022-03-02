@@ -10,6 +10,7 @@ public class Team {
     private int teamID;
     private String name;
     private String description;
+    private ArrayList<Integer> riderIds = new ArrayList<Integer>();
 
     public Team(String name, String description) throws IllegalNameException, InvalidNameException
     {
@@ -26,6 +27,9 @@ public class Team {
         this.teamID = amtTeams++;
         this.name = name;
         this.description = description;
+    }
+    public void addRider(Integer riderId){
+        this.riderIds.add(riderId);
     }
 
     public int getId(){

@@ -43,6 +43,20 @@ public class RiderManager {
         int teamIndex = getIndexForTeamId(teamId);
         allTeams.remove(teamIndex);
     }
+
+    int[] getTeams(){
+        int [] allTeamIds = new int[allTeams.size()];
+        for (int i=0; i<allTeams.size();i++){
+            allTeamIds[i]=allTeams.get(i).getId();
+        }
+        return allTeamIds;
+    }
+    int[] getTeamRiders(int teamId) throws IDNotRecognisedException{
+        int teamIndex = getIndexForTeamId(teamId);
+        Team currentTeam = allTeams.get(teamIndex);
+        
+    }
+
     int getIndexForTeamId(int teamId) throws IDNotRecognisedException{
         int index =-1;
         if (allTeams.size() == 0){
