@@ -32,6 +32,14 @@ public class Team {
 
         this.riderIds.add(rider.getRiderId());
     }
+    public void removeRiderId(int riderId){
+        for (int i =0;i<this.riderIds.size();i++){
+            if (this.riderIds.get(i)==riderId){
+                this.riderIds.remove(i);
+                break;
+            }
+        }
+    }
 
     public int getId(){
         return this.teamID;
