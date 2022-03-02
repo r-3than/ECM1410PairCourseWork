@@ -11,13 +11,17 @@ public class RiderManager {
 
         Rider newRider = new Rider(teamID,name,yearOfBirth);
         allRiders.add(newRider);
-        Team ridersTeam = allTeams.get(teamIndex)
+        Team ridersTeam = allTeams.get(teamIndex);
         ridersTeam.addRider(newRider);
         return newRider.getRiderId();
     }
     void removeRider(int riderId) throws IDNotRecognisedException
     {
         int riderIndex = getIndexForRiderId(riderId);
+        int teamId = allRiders.get(riderIndex).getRiderTeamId();
+        int teamIndex = getIndexForTeamId(teamId);
+        Team riderTeam = allTeams.get(teamIndex);
+        riderTeam.removeRiderId(riderId);
         allRiders.remove(riderIndex);
     }
     int getIndexForRiderId(int riderId) throws IDNotRecognisedException{
@@ -43,9 +47,14 @@ public class RiderManager {
         return newTeam.getId();
     }
 
-    void removeTeam(int teamId) throws IDNotRecognisedException{
+    void removeTeam(int teamId) throws IDNotRecognisedException{ // Delete team and all riders in that team
         int teamIndex = getIndexForTeamId(teamId);
+        Team currentTeam = allTeams.get(teamIndex);
+        for (Integer riderId : currentTeam.getRiderIds()) {
+            removeRider(riderId);
+        }
         allTeams.remove(teamIndex);
+
     }
 
     int[] getTeams(){
@@ -58,6 +67,7 @@ public class RiderManager {
     int[] getTeamRiders(int teamId) throws IDNotRecognisedException{
         int teamIndex = getIndexForTeamId(teamId);
         Team currentTeam = allTeams.get(teamIndex);
+        return currentTeam.getRiderIds();
 
     }
 
