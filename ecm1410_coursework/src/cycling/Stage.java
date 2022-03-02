@@ -49,7 +49,15 @@ public class Stage {
     private ArrayList<Integer> segmentIds;
 
     private static boolean validName(String name) {
-        return true;
+        if(name==null || name.equals("")) {
+            return false;
+        } else if(name.length()>30) {
+            return false;
+        } else if(name.contains(" ")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public Stage(String name, String description, double length,

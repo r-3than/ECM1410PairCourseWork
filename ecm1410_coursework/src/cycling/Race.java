@@ -46,7 +46,15 @@ public class Race {
     private ArrayList<Integer> stageIds;
 
     private static boolean validName(String name) {
-        return true;
+        if(name==null || name.equals("")) {
+            return false;
+        } else if(name.length()>30) {
+            return false;
+        } else if(name.contains(" ")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
