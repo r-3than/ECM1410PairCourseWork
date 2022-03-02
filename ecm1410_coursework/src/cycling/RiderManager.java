@@ -47,9 +47,14 @@ public class RiderManager {
         return newTeam.getId();
     }
 
-    void removeTeam(int teamId) throws IDNotRecognisedException{
+    void removeTeam(int teamId) throws IDNotRecognisedException{ // Delete team and all riders in that team
         int teamIndex = getIndexForTeamId(teamId);
+        Team currentTeam = allTeams.get(teamIndex);
+        for (Integer riderId : currentTeam.getRiderIds()) {
+            removeRider(riderId);
+        }
         allTeams.remove(teamIndex);
+
     }
 
     int[] getTeams(){
