@@ -1,6 +1,7 @@
 package cycling;
 
 import java.util.ArrayList;
+
 import java.time.LocalDateTime;
 
 /** 
@@ -44,13 +45,26 @@ public class Race {
     private String raceDescription;
     private ArrayList<Integer> stageIds;
 
+    private static boolean validName(String name) {
+        return true;
+    }
+
     /**
      * Race constructor; creates new race and adds to allRaces array.
      * 
      * @param name The name of the new race
      * @param description The description for the new race
      */
-    public Race(String name, String description) {
+    public Race(String name, String description) throws IllegalNameException,
+                InvalidNameException {
+        for(Race race : allRaces) {
+            if(race.getRaceName().equals(name)) {
+                throw new IllegalNameException("name already exists");
+            }
+        }
+        if(!validName(name)) {
+            throw new InvalidNameException("invalid name");
+        }
         this.raceId = idMax++;
         this.raceName = name;
         this.raceDescription = description;
@@ -164,7 +178,9 @@ public class Race {
      * @param type The StageType, used to determine the point distribution
      */
     public void addStageToRace(String name, String description, double length,
-                               LocalDateTime startTime, StageType type) {
+                               LocalDateTime startTime, StageType type) throws
+                               IllegalNameException, InvalidNameException,
+                               InvalidLengthException {
         Stage newStage = new Stage(name, description, length, startTime, type);
         this.stageIds.add(newStage.getStageId());
     }
@@ -182,7 +198,9 @@ public class Race {
     public static void addStageToRace(int id, String name, String description,
                                       double length, LocalDateTime startTime,
                                       StageType type) throws
-                                      IDNotRecognisedException {
+                                      IDNotRecognisedException,
+                                      IllegalNameException, InvalidNameException,
+                                      InvalidLengthException  {
         getRace(id).addStageToRace(name, description, length, startTime, type);
     }
 

@@ -48,8 +48,25 @@ public class Stage {
     private StageType stageType;
     private ArrayList<Integer> segmentIds;
 
+    private static boolean validName(String name) {
+        return true;
+    }
+
     public Stage(String name, String description, double length,
-                 LocalDateTime startTime, StageType type) {
+                 LocalDateTime startTime, StageType type) throws
+                 IllegalNameException, InvalidNameException,
+                 InvalidLengthException {
+        for(Stage stage : allStages) {
+            if(stage.getStageName().equals(name)) {
+                throw new IllegalNameException("name already exists");
+            }
+        }
+        if(!validName(name)) {
+            throw new InvalidNameException("invalid name");
+        }
+        if(length<5) {
+            throw new InvalidLengthException("length less than 5km");
+        }
         this.stageId = idMax++;
         this.stageState = StageState.BUILDING;
         this.stageName = name;
@@ -119,6 +136,19 @@ public class Stage {
     public int getStageId() { return this.stageId; }
 
     /**
+     * @return The state of the stage instance
+     */
+    public StageState getStageState() { return this.stageState; }
+
+    /**
+     * @param id The ID of the stage
+     * @return The state of the stage instance
+     */
+    public static StageState getStageState(int id) throws
+                                           IDNotRecognisedException {
+        return getStage(id).getStageState();
+    }
+    /**
      * @return The string raceName for the stage instance
      */
     public String getStageName() { return this.stageName; }
@@ -173,6 +203,19 @@ public class Stage {
     }
 
     /**
+     * @return The type of the stage instance
+     */
+    public StageType getStageType() { return this.stageType; }
+
+    /**
+     * @param id The ID of the stage
+     * @return The type of the stage instance
+     */
+    public static StageType getStageType(int id) throws IDNotRecognisedException {
+        return getStage(id).getStageType();
+    }
+
+    /**
      * @return An integer array of segment IDs for the stage instance
      */
     public int[] getSegments() {
@@ -182,6 +225,22 @@ public class Stage {
             segmentIdsArray[i] = this.segmentIds.get(i);
         }
         return segmentIdsArray;
+    }
+
+    /**
+     * @param state The new state of the stage
+     */
+    public void setStageState(StageState state) {
+        this.stageState = state;
+    }
+
+    /**
+     * @param id The ID of the stage to be updated
+     * @param state The new state of the stage
+     */
+    public static void setStageState(int id, StageState state) throws
+                                     IDNotRecognisedException {
+        getStage(id).setStageState(state);
     }
 
     /**
@@ -250,8 +309,47 @@ public class Stage {
 
     /**
      * Creates a new stage and adds the ID to the stageIds array.
+     * 
+     * @param location The location of the new segment
+     * @param type The type of the new segment
+     * @param averageGradient The average gradient of the new segment
+     * @param length The length (in km) of the new segment
      */
-    public void addSegmentToStage() {} // similar to addStageToRace
+    public void addSegmentToStage(double location, SegmentType type, 
+                                  double averageGradient, double length) throws
+                                  InvalidLocationException,
+                                  InvalidStageStateException,
+                                  InvalidStageTypeException {
+        if(location > this.getStageLength()) {
+            throw new InvalidLocationException("segment finishes outside of stage bounds");
+        }
+        if(this.getStageState().equals(StageState.WAITING)) {
+            throw new InvalidStageStateException("stage is waiting for results");
+        }
+        if(this.getStageType().equals(StageType.TT)) {
+            throw new InvalidStageTypeException("time trial stages cannot contain segments");
+        }
+        Segment newSegment = new Segment(location, type, averageGradient, length);
+        this.segmentIds.add(newSegment.getSegmentId());
+    }
+
+    /**
+     * Creates a new stage and adds the ID to the stageIds array.
+     * 
+     * @param id The ID of the stage to which the segment will be added
+     * @param location The location of the new segment
+     * @param type The type of the new segment
+     * @param averageGradient The average gradient of the new segment
+     * @param length The length (in km) of the new segment
+     */
+    public void addSegmentToStage(int id, double location, SegmentType type, 
+                                  double averageGradient, double length) throws
+                                  IDNotRecognisedException,
+                                  InvalidLocationException,
+                                  InvalidStageStateException,
+                                  InvalidStageTypeException {
+        getStage(id).addSegmentToStage(location, type, averageGradient, length);
+    }
 
     /**
      * Removes a segmentId from the array of segmentIds for a stage instance.
