@@ -7,8 +7,12 @@ public class RiderManager {
     private static ArrayList<Team> allTeams = new ArrayList<Team>();
     
     int createRider(int teamID, String name, int yearOfBirth) throws IDNotRecognisedException,IllegalArgumentException{
+        int teamIndex = getIndexForTeamId(teamID);
+
         Rider newRider = new Rider(teamID,name,yearOfBirth);
         allRiders.add(newRider);
+        Team ridersTeam = allTeams.get(teamIndex)
+        ridersTeam.addRider(newRider);
         return newRider.getRiderId();
     }
     void removeRider(int riderId) throws IDNotRecognisedException
@@ -54,7 +58,7 @@ public class RiderManager {
     int[] getTeamRiders(int teamId) throws IDNotRecognisedException{
         int teamIndex = getIndexForTeamId(teamId);
         Team currentTeam = allTeams.get(teamIndex);
-        
+
     }
 
     int getIndexForTeamId(int teamId) throws IDNotRecognisedException{

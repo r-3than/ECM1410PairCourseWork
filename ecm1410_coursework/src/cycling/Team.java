@@ -28,8 +28,9 @@ public class Team {
         this.name = name;
         this.description = description;
     }
-    public void addRider(Integer riderId){
-        this.riderIds.add(riderId);
+    public void addRider(Rider rider){
+
+        this.riderIds.add(rider.getRiderId());
     }
 
     public int getId(){
