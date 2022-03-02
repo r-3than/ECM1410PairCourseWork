@@ -62,6 +62,7 @@ public class RiderManager {
     int[] getTeamRiders(int teamId) throws IDNotRecognisedException{
         int teamIndex = getIndexForTeamId(teamId);
         Team currentTeam = allTeams.get(teamIndex);
+        return currentTeam.getRiderIds();
 
     }
 
