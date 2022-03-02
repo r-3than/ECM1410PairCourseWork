@@ -28,8 +28,8 @@ public class Team {
      */
     public Team(String name, String description) throws IllegalNameException, InvalidNameException
     {
-        if (name == "" || name.length()>30){
-            throw new InvalidNameException("Team name cannot be empty or longer than 30 characters.");
+        if (name == "" || name.length()>30 || name.contains(" ")){
+            throw new InvalidNameException("Team name cannot be empty, longer than 30 characters , or has white spaces.");
         } 
         for (int i = 0;i<teamNames.size();i++){
             if (teamNames.get(i) == name){
