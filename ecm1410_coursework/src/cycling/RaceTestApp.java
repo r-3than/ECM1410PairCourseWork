@@ -1,6 +1,5 @@
 package cycling;
 
-import cycling.*;
 import java.time.LocalDateTime;
 
 public class RaceTestApp {
@@ -14,8 +13,9 @@ public class RaceTestApp {
         Stage s1 = Stage.getStage(stageIDs[0]);
         s1.addSegmentToStage(16.7, SegmentType.C1, 12.0, 16.7);
         int[] segmentIds = s1.getSegments();
-        r1.toString();
-        s1.toString();
-        Segment.getSegment(segmentIds[0]);
+        // instance states
+        System.out.println(r1.toString());
+        System.out.println(s1.toString());
+        System.out.println(Segment.getSegment(segmentIds[0]));
     }
 }
