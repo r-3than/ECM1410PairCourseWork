@@ -48,6 +48,10 @@ public class Stage {
     private StageType stageType;
     private ArrayList<Integer> segmentIds;
 
+    /**
+     * @param name String to be checked
+     * @return true if name is valid for the system
+     */
     private static boolean validName(String name) {
         if(name==null || name.equals("")) {
             return false;

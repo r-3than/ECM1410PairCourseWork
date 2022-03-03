@@ -45,6 +45,10 @@ public class Race {
     private String raceDescription;
     private ArrayList<Integer> stageIds;
 
+    /**
+     * @param name String to be checked
+     * @return true if name is valid for the system
+     */
     private static boolean validName(String name) {
         if(name==null || name.equals("")) {
             return false;
