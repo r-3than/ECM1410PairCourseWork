@@ -235,20 +235,20 @@ public class Stage {
         return segmentIdsArray;
     }
 
-    /**
-     * @param state The new state of the stage
-     */
-    public void setStageState(StageState state) {
-        this.stageState = state;
+    public void updateStageState() throws InvalidStageStateException {
+        if(this.stageState.equals(StageState.WAITING)) {
+            throw new InvalidStageStateException("stage is already waiting for results");
+        } else if(this.stageState.equals(StageState.BUILDING)) {
+            this.stageState = StageState.WAITING;
+        }
     }
 
     /**
      * @param id The ID of the stage to be updated
-     * @param state The new state of the stage
      */
-    public static void setStageState(int id, StageState state) throws
-                                     IDNotRecognisedException {
-        getStage(id).setStageState(state);
+    public static void updateStageState(int id) throws IDNotRecognisedException,
+                                        InvalidStageStateException {
+        getStage(id).updateStageState();
     }
 
     /**
