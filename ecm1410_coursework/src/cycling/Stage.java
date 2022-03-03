@@ -14,9 +14,15 @@ import java.time.format.DateTimeFormatter;
  * 
  */
 public class Stage {
+    // Static class attributes
     private static int idMax = 0;
     private static ArrayList<Stage> allStages = new ArrayList<Stage>();
 
+    /**
+     * @param stageId The ID of the stage instance to fetch
+     * @return The stage instance with the associated ID
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
+     */
     public static Stage getStage(int stageId) throws IDNotRecognisedException {
         if(stageId<Stage.idMax && stageId >= 0) {
             return allStages.get(stageId);
@@ -24,6 +30,11 @@ public class Stage {
             throw new IDNotRecognisedException("stageId out of range");
         }
     }
+
+    /**
+     * @param stageId The ID of the stage instance to remove
+     * @throws IDNotRecognisedException If no stage exists with the requested ID 
+     */
     public static void removeStage(int stageId) throws IDNotRecognisedException {
         if(stageId<Stage.idMax && stageId >= 0) {
             for(int id : allStages.get(stageId).getSegments()) {
@@ -39,6 +50,7 @@ public class Stage {
         }
     }
 
+    // Instance attributes
     private int stageId;
     private StageState stageState;
     private String stageName;
@@ -150,6 +162,7 @@ public class Stage {
     /**
      * @param id The ID of the stage
      * @return A string representation of the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static String toString(int id) throws IDNotRecognisedException {
         return getStage(id).toString();
@@ -168,6 +181,7 @@ public class Stage {
     /**
      * @param id The ID of the stage
      * @return The state of the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static StageState getStageState(int id) throws
                                            IDNotRecognisedException {
@@ -181,6 +195,7 @@ public class Stage {
     /**
      * @param id The ID of the stage
      * @return The string stageName for the stage with the associated id
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static String getStageName(int id) throws IDNotRecognisedException {
         return getStage(id).stageName;
@@ -194,6 +209,7 @@ public class Stage {
     /**
      * @param id The ID of the stage
      * @return The string stageDescription for the stage with the associated id
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static String getStageDescription(int id) throws
                                              IDNotRecognisedException {
@@ -208,6 +224,7 @@ public class Stage {
     /**
      * @param id The ID of the stage
      * @return The length of the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static double getStageLength(int id) throws IDNotRecognisedException {
         return getStage(id).stageLength;
@@ -221,6 +238,7 @@ public class Stage {
     /**
      * @param id The ID of the stage
      * @return The start time for the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static LocalDateTime getStageStartTime(int id) throws
                                                   IDNotRecognisedException {
@@ -235,6 +253,7 @@ public class Stage {
     /**
      * @param id The ID of the stage
      * @return The type of the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static StageType getStageType(int id) throws IDNotRecognisedException {
         return getStage(id).getStageType();
@@ -252,6 +271,11 @@ public class Stage {
         return segmentIdsArray;
     }
 
+    /**
+     * Updates the stage state from building to waiting for results.
+     * 
+     * @throws InvalidStageStateException If the stage is already waiting for results
+     */
     public void updateStageState() throws InvalidStageStateException {
         if(this.stageState.equals(StageState.WAITING)) {
             throw new InvalidStageStateException("stage is already waiting for results");
@@ -261,7 +285,11 @@ public class Stage {
     }
 
     /**
+     * Updates the stage state from building to waiting for results.
+     * 
      * @param id The ID of the stage to be updated
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
+     * @throws InvalidStageStateException If the stage is already waiting for results
      */
     public static void updateStageState(int id) throws IDNotRecognisedException,
                                         InvalidStageStateException {
@@ -278,6 +306,7 @@ public class Stage {
     /**
      * @param id The ID of the stage to be updated
      * @param name The new name for the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static void setStageName(int id, String name) throws
                                     IDNotRecognisedException {
@@ -294,6 +323,7 @@ public class Stage {
     /**
      * @param id The ID of the stage to be updated
      * @param description The new description for the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static void setStageDescription(int id, String description) throws
                                            IDNotRecognisedException {
@@ -310,6 +340,7 @@ public class Stage {
     /**
      * @param id The ID of the stage to be updated
      * @param length The new length for the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static void setStageLength(int id, double length) throws 
                                       IDNotRecognisedException {
@@ -326,6 +357,7 @@ public class Stage {
     /**
      * @param id The ID of the stage to be updated
      * @param startTime The new start time for the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static void setStageStartTime(int id, LocalDateTime startTime)
                                          throws IDNotRecognisedException {
@@ -339,6 +371,12 @@ public class Stage {
      * @param type The type of the new segment
      * @param averageGradient The average gradient of the new segment
      * @param length The length (in km) of the new segment
+     * @throws InvalidLocationException If the segment finishes outside of the
+     *                                  bounds of the stage
+     * @throws InvalidStageStateException If the segment state is waiting for
+     *                                    results
+     * @throws InvalidStageTypeException If the stage type is a time-trial
+     *                                   (cannot contain segments)
      */
     public void addSegmentToStage(double location, SegmentType type, 
                                   double averageGradient, double length) throws
@@ -366,6 +404,13 @@ public class Stage {
      * @param type The type of the new segment
      * @param averageGradient The average gradient of the new segment
      * @param length The length (in km) of the new segment
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
+     * @throws InvalidLocationException If the segment finishes outside of the
+     *                                  bounds of the stage
+     * @throws InvalidStageStateException If the segment state is waiting for
+     *                                    results
+     * @throws InvalidStageTypeException If the stage type is a time-trial
+     *                                   (cannot contain segments)
      */
     public void addSegmentToStage(int id, double location, SegmentType type, 
                                   double averageGradient, double length) throws
@@ -384,9 +429,9 @@ public class Stage {
     public void removeSegmentFromStage(int segmentId) {
         int index = -1;
         for(int i=0;i<this.segmentIds.size();i++) {
-            int sId = segmentIds.get(i);
+            int sId = this.segmentIds.get(i);
             if(sId>segmentId) {
-                segmentIds.set(i,--sId);
+                this.segmentIds.set(i,--sId);
             } else if (sId==segmentId) {
                 index = i;
             }
@@ -395,10 +440,33 @@ public class Stage {
     }
 
     /**
+     * Removes a segmentId from the array of segmentIds for a stage instance.
+     * 
+     * @param id The ID of the stage instance
+     * @param segmentId The ID of the segment to be removed
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
+     */
+    public static void removeSegmentFromStage(int id, int segmentId) throws
+                                              IDNotRecognisedException {
+        int index = -1;
+        Stage s = getStage(id);
+        for(int i=0;i<s.segmentIds.size();i++) {
+            int sId = s.segmentIds.get(i);
+            if(sId>segmentId) {
+                s.segmentIds.set(i,--sId);
+            } else if (sId==segmentId) {
+                index = i;
+            }
+        }
+        s.segmentIds.remove(index);
+    }
+
+    /**
      * Removes a segmentId from the array of segmentIds for all stage instances,
      * as well as from the static array of all segments in the Segment class.
      * 
      * @param segmentId The ID of the segment to be removed
+     * @throws IDNotRecognisedException If no segment exists with the requested ID
      */
     public static void removeSegment(int segmentId) throws
                                      IDNotRecognisedException {

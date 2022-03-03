@@ -14,6 +14,12 @@ public class Segment {
     private static int idMax = 0;
     private static ArrayList<Segment> allSegments = new ArrayList<Segment>();
 
+    /**
+     * @param segmentId The ID of the segment instance to fetch
+     * @return The segment instance with the associated ID
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
+     */
     public static Segment getSegment(int segmentId) throws
                                      IDNotRecognisedException {
         if(segmentId<Segment.idMax && segmentId >= 0) {
@@ -23,6 +29,11 @@ public class Segment {
         }
     }
 
+    /**
+     * @param segmentId The ID of the segment instance to remove
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID 
+     */
     public static void removeSegment(int segmentId) throws
                                      IDNotRecognisedException {
         if(segmentId<Segment.idMax && segmentId >= 0) {
@@ -99,6 +110,8 @@ public class Segment {
     /**
      * @param id The ID of the segment
      * @return A string representation of the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static String toString(int id) throws IDNotRecognisedException {
         return getSegment(id).toString();
@@ -117,6 +130,8 @@ public class Segment {
     /**
      * @param id The ID of the segment
      * @return The integer representing the location of the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static double getSegmentLocation(int id) throws
                                             IDNotRecognisedException {
@@ -131,6 +146,8 @@ public class Segment {
     /**
      * @param id The ID of the segment
      * @return The type of the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static SegmentType getSegmentType(int id) throws
                                              IDNotRecognisedException {
@@ -147,6 +164,8 @@ public class Segment {
     /**
      * @param id The ID of the segment
      * @return The average gradient of the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static double getSegmentAverageGradient(int id) throws
                                                    IDNotRecognisedException {
@@ -161,6 +180,8 @@ public class Segment {
     /**
      * @param id The ID of the segment
      * @return The length of the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static double getSegmentLength(int id) throws IDNotRecognisedException {
         return getSegment(id).segmentLength;
@@ -176,6 +197,8 @@ public class Segment {
     /**
      * @param id The ID of the segment to be updated
      * @param location The new location for the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static void setSegmentLocation(int id, double location) throws
                                           IDNotRecognisedException {
@@ -192,6 +215,8 @@ public class Segment {
     /**
      * @param id The ID of the segment to be updated
      * @param type The new type for the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static void setSegmentType(int id, SegmentType type) throws
                                       IDNotRecognisedException {
@@ -208,6 +233,8 @@ public class Segment {
     /**
      * @param id The ID of the segment to be updated
      * @param averageGradient The new average gradient for the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static void setSegmentAverageGradient(int id, double averageGradient)
                                                  throws IDNotRecognisedException {
@@ -224,6 +251,8 @@ public class Segment {
     /**
      * @param id The ID of the segment to be updated
      * @param length The new length for the segment instance
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
     public static void setSegmentLength(int id, double length) throws
                                         IDNotRecognisedException {
