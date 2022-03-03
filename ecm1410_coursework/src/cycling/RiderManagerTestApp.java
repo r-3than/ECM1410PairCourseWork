@@ -13,6 +13,9 @@ public class RiderManagerTestApp {
         myRiderManager.removeRider(0);
         printInfo(myRiderManager,testTeamId);
         myRiderManager.createRider(testTeamId, "Ethan", 2003);
+        //myRiderManager.createRider(testTeamId, "", 2003); // Throws Illegal Arg Exception as expected
+        //myRiderManager.createRider(testTeamId, "OldEthan", 1800); // Throws Illegal Arg Expection as edxpected
+        //myRiderManager.createRider(testTeamId, null, 2003); //Throws Illegal Arg Exception as expected
         printInfo(myRiderManager,testTeamId);
         System.out.println(Arrays.toString(myRiderManager.getTeams()));
         
