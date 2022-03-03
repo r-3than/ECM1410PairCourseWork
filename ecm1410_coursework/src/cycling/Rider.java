@@ -27,7 +27,7 @@ public class Rider {
     {
         this.riderId = ridersTopId++;
         this.teamID = teamID;
-        if (name == ""){
+        if (name == "" || name == null){
             throw new IllegalArgumentException("Illegal name entered for rider");
         }
         this.name = name;
