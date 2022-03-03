@@ -45,6 +45,10 @@ public class Race {
     private String raceDescription;
     private ArrayList<Integer> stageIds;
 
+    /**
+     * @param name String to be checked
+     * @return true if name is valid for the system
+     */
     private static boolean validName(String name) {
         if(name==null || name.equals("")) {
             return false;
@@ -62,6 +66,9 @@ public class Race {
      * 
      * @param name The name of the new race
      * @param description The description for the new race
+     * @throws IllegalNameException If name already exists in the system
+     * @throws InvalidNameException If name is empty/null, contains whitespace,
+     *                              or is longer than 30 characters
      */
     public Race(String name, String description) throws IllegalNameException,
                 InvalidNameException {

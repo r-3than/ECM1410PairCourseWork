@@ -48,6 +48,10 @@ public class Stage {
     private StageType stageType;
     private ArrayList<Integer> segmentIds;
 
+    /**
+     * @param name String to be checked
+     * @return true if name is valid for the system
+     */
     private static boolean validName(String name) {
         if(name==null || name.equals("")) {
             return false;
@@ -60,6 +64,19 @@ public class Stage {
         }
     }
 
+    /**
+     * Stage constructor; creates a new stage and adds to allStages array.
+     * 
+     * @param name The name of the new stage
+     * @param description The description of the new stage
+     * @param length The total length of the new stage
+     * @param startTime The start time for the new stage
+     * @param type The type of the new stage
+     * @throws IllegalNameException If name already exists in the system
+     * @throws InvalidNameException If name is empty/null, contains whitespace,
+     *                              or is longer than 30 characters
+     * @throws InvalidLengthException If the length is less than 5km
+     */
     public Stage(String name, String description, double length,
                  LocalDateTime startTime, StageType type) throws
                  IllegalNameException, InvalidNameException,
@@ -235,20 +252,20 @@ public class Stage {
         return segmentIdsArray;
     }
 
-    /**
-     * @param state The new state of the stage
-     */
-    public void setStageState(StageState state) {
-        this.stageState = state;
+    public void updateStageState() throws InvalidStageStateException {
+        if(this.stageState.equals(StageState.WAITING)) {
+            throw new InvalidStageStateException("stage is already waiting for results");
+        } else if(this.stageState.equals(StageState.BUILDING)) {
+            this.stageState = StageState.WAITING;
+        }
     }
 
     /**
      * @param id The ID of the stage to be updated
-     * @param state The new state of the stage
      */
-    public static void setStageState(int id, StageState state) throws
-                                     IDNotRecognisedException {
-        getStage(id).setStageState(state);
+    public static void updateStageState(int id) throws IDNotRecognisedException,
+                                        InvalidStageStateException {
+        getStage(id).updateStageState();
     }
 
     /**
