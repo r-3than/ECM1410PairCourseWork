@@ -64,6 +64,19 @@ public class Stage {
         }
     }
 
+    /**
+     * Stage constructor; creates a new stage and adds to allStages array.
+     * 
+     * @param name The name of the new stage
+     * @param description The description of the new stage
+     * @param length The total length of the new stage
+     * @param startTime The start time for the new stage
+     * @param type The type of the new stage
+     * @throws IllegalNameException If name already exists in the system
+     * @throws InvalidNameException If name is empty/null, contains whitespace,
+     *                              or is longer than 30 characters
+     * @throws InvalidLengthException If the length is less than 5km
+     */
     public Stage(String name, String description, double length,
                  LocalDateTime startTime, StageType type) throws
                  IllegalNameException, InvalidNameException,

@@ -43,6 +43,14 @@ public class Segment {
     private double segmentAverageGradient;
     private double segmentLength;
 
+    /**
+     * Segment constructor; creates a new segment and adds to allSegment array.
+     * 
+     * @param location The location of the finish of the new segment in the stage
+     * @param type The type of the new segment
+     * @param averageGradient The average gradient of the new segment
+     * @param length The length of the new segment
+     */
     public Segment(double location, SegmentType type, double averageGradient,
                    double length) {
         this.segmentId = idMax++;
