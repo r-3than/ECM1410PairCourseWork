@@ -79,7 +79,7 @@ public class Team {
     /**
      * @return A String - Name of the team.
      */
-    public String getName(){
+    public String getTeamName(){
         return this.name;
     }
     /**

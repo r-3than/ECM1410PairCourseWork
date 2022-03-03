@@ -79,7 +79,20 @@ public class RiderManager {
         return currentTeam.getRiderIds();
 
     }
-
+    String[] getTeamsNames(){
+        String [] allTeamNames = new String[allTeams.size()];
+        for (int i=0; i<allTeams.size();i++){
+            allTeamNames[i] = allTeams.get(i).getTeamName();
+        }
+        return allTeamNames;
+    }
+    String[] getRidersNames(){
+        String [] allRiderNames = new String[allRiders.size()];
+        for (int i=0; i<allRiders.size();i++){
+            allRiderNames[i] = allRiders.get(i).getRiderName();
+        }
+        return allRiderNames;
+    }
     int getIndexForTeamId(int teamId) throws IDNotRecognisedException{
         int index =-1;
         if (allTeams.size() == 0){
