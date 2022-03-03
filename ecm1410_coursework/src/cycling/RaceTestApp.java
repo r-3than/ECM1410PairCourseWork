@@ -1,5 +1,6 @@
 package cycling;
 
+import cycling.*;
 import java.time.LocalDateTime;
 
 public class RaceTestApp {
