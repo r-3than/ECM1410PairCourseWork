@@ -24,5 +24,14 @@ public class RaceTestApp {
         for(int id : segmentIds) {
             System.out.println(Segment.getSegment(segmentIds[id]));
         }
+        r1.removeStageFromRace(0);
+        s2 = Stage.getStage(stageIDs[0]);
+        segmentIds = s2.getSegments();
+        // instance states
+        System.out.println(r1.toString());
+        System.out.println(s2.toString());
+        for(int id : segmentIds) {
+            System.out.println(Segment.getSegment(segmentIds[id]));
+        }
     }
 }
