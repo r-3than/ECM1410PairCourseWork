@@ -103,7 +103,7 @@ public class Segment {
         }
         String averageGrad = Double.toString(this.segmentAverageGradient);
         String length = Double.toString(this.segmentLength);
-        return String.format("Race[%s]: %s; %skm; Location=%s; Gradient=%s;",
+        return String.format("Segment[%s]: %s; %skm; Location=%s; Gradient=%s;",
                              id, type, length, location, averageGrad);
     }
 
