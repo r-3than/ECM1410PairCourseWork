@@ -19,6 +19,7 @@ public class RaceTestApp {
         int[] segmentIds = s2.getSegments();
         // instance states
         System.out.println(r1.toString());
+        System.out.println(Stage.getStage(stageIDs[0]).toString());
         System.out.println(s2.toString());
         for(int id : segmentIds) {
             System.out.println(Segment.getSegment(segmentIds[id]));
