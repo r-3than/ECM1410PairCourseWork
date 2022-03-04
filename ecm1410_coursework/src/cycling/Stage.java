@@ -426,7 +426,7 @@ public class Stage {
      * 
      * @param segmentId The ID of the segment to be removed
      */
-    public void removeSegmentFromStage(int segmentId) {
+    private void removeSegmentFromStage(int segmentId) {
         int index = -1;
         for(int i=0;i<this.segmentIds.size();i++) {
             int sId = this.segmentIds.get(i);
@@ -446,6 +446,7 @@ public class Stage {
      * @param segmentId The ID of the segment to be removed
      * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
+    /*
     public static void removeSegmentFromStage(int id, int segmentId) throws
                                               IDNotRecognisedException {
         int index = -1;
@@ -460,6 +461,7 @@ public class Stage {
         }
         s.segmentIds.remove(index);
     }
+    */
 
     /**
      * Removes a segmentId from the array of segmentIds for all stage instances,

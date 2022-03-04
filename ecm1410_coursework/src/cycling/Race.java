@@ -240,7 +240,7 @@ public class Race {
      * 
      * @param stageId The ID of the stage to be removed
      */
-    public void removeStageFromRace(int stageId) {
+    private void removeStageFromRace(int stageId) {
         int index = -1;
         for(int i=0;i<this.stageIds.size();i++) {
             int sId = this.stageIds.get(i);
@@ -260,6 +260,7 @@ public class Race {
      * @param stageId The ID of the stage to be removed
      * @throws IDNotRecognisedException If no race exists with the requested ID
      */
+    /*
     public static void removeStageFromRace(int id, int stageId) throws
                                            IDNotRecognisedException {
         int index = -1;
@@ -274,6 +275,7 @@ public class Race {
         }
         r.stageIds.remove(index);
     }
+    */
 
     /**
      * Removes a stageId from the array of stageIds for all race instances,
