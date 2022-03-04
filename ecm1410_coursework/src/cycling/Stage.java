@@ -154,7 +154,7 @@ public class Stage {
             default:
                 type = "null type";
         }
-        return String.format("Stage[%s](%s): %s (%s); %s; %skm; %s; StageIds=%s;",
+        return String.format("Stage[%s](%s): %s (%s); %s; %skm; %s; SegmentIds=%s;",
                              id, state, name, type, description, length,
                              startTime, list);
     }
