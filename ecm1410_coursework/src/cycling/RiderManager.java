@@ -109,6 +109,14 @@ public class RiderManager {
         }
         return index;
     }
+    Team getTeam(int teamId) throws IDNotRecognisedException{
+        int teamIndex = getIndexForTeamId(teamId);
+        return allTeams.get(teamIndex);
+    }
+    Rider getRider(int riderId) throws IDNotRecognisedException{
+        int riderIndex = getIndexForRiderId(riderId);
+        return allRiders.get(riderIndex);
+    }
 
 
 }
