@@ -23,8 +23,10 @@ public class Team {
 
 
     /**
-     * @param name String - A name for the team, , If the name is null, empty, has more than 30 characters, or has white spaces will throw InvaildNameException
+     * @param name String - A name for the team, , If the name is null, empty, has more than 30 characters, or has white spaces will throw InvaildNameException.
      * @param description String - A description for the team.
+     * @throws IllegalNameException name String - Is a duplicate name of any other Team, IllegalNameException will be thrown.
+     * @throws InvailNameException name String - If the name is null, empty, has more than 30 characters, or has white spaces will throw InvaildNameException.
      */
     public Team(String name, String description) throws IllegalNameException, InvalidNameException
     {
