@@ -31,6 +31,18 @@ public class Race {
     }
 
     /**
+     * @return An integer array of the race IDs of all races
+     */
+    public static int[] getAllRaceIds() {
+        int length = Race.idMax;
+        int[] raceIdsArray = new int[length];
+        for(int i=0; i<length; i++) {
+            raceIdsArray[i] = i;
+        }
+        return raceIdsArray;
+    }
+
+    /**
      * @param raceId The ID of the race instance to remove
      * @throws IDNotRecognisedException If no race exists with the requested ID
      */
