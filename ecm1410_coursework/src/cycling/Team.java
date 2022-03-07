@@ -9,9 +9,6 @@ import java.util.ArrayList;
  * 
  */
 
-
-
-
 public class Team {
     public static ArrayList<String> teamNames = new ArrayList<String>();
     public static int amtTeams = 0;
