@@ -46,16 +46,10 @@ public class Race {
     public static int[] getAllRaceIds() {
         int length = Race.allRaces.size();
         int[] raceIdsArray = new int[length];
-        int index, id;
-        for(int i=0; i<length; i++) {
-            id = Race.allRaces.get(i).getRaceId();
-            index = i;
-            for(int j=0; j<Race.removedIds.size(); j++) {
-                if(Race.removedIds.get(j) < id) {
-                    index--;
-                }
-            }
-            raceIdsArray[i] = index;
+        int i = 0;
+        for(Race race : allRaces) {
+            raceIdsArray[i] = race.getRaceId();
+            i++;
         }
         return raceIdsArray;
     }

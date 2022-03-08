@@ -6,12 +6,13 @@ import java.util.ArrayList;
  * Segment encapsulates race segments
  * 
  * @author Thomas Newbold
- * @version 1.0
+ * @version 2.0
  * 
  */
 public class Segment {
     // Static class attributes
     private static int idMax = 0;
+    private static ArrayList<Integer> removedIds = new ArrayList<Integer>();
     private static ArrayList<Segment> allSegments = new ArrayList<Segment>();
 
     /**
@@ -22,8 +23,12 @@ public class Segment {
      */
     public static Segment getSegment(int segmentId) throws
                                      IDNotRecognisedException {
-        if(segmentId<Segment.idMax && segmentId >= 0) {
+        boolean removed = Segment.removedIds.contains(segmentId);
+        if(segmentId<Segment.idMax && segmentId >= 0 && !removed) {
             return allSegments.get(segmentId);
+        } else if (removed) {
+            throw new IDNotRecognisedException("no segment instance for "+
+                                                "segmentId");
         } else {
             throw new IDNotRecognisedException("segmentId out of range");
         }
@@ -36,12 +41,16 @@ public class Segment {
      */
     public static void removeSegment(int segmentId) throws
                                      IDNotRecognisedException {
-        if(segmentId<Segment.idMax && segmentId >= 0) {
+        boolean removed = Segment.removedIds.contains(segmentId);
+        if(segmentId<Segment.idMax && segmentId >= 0 && !removed) {
             allSegments.remove(segmentId);
             Segment.idMax--;
             for(int i=segmentId;i<allSegments.size();i++) {
                 getSegment(i).segmentId--; 
             }
+        } else if (removed) {
+            throw new IDNotRecognisedException("no segment instance for "+
+                                                "segmentId");
         } else {
             throw new IDNotRecognisedException("segmentId out of range");
         }
@@ -64,7 +73,12 @@ public class Segment {
      */
     public Segment(double location, SegmentType type, double averageGradient,
                    double length) {
-        this.segmentId = idMax++;
+        if(Segment.removedIds.size() > 0) {
+            this.segmentId = Segment.removedIds.get(0);
+            Segment.removedIds.remove(0);
+        } else {
+            this.segmentId = idMax++;
+        }
         this.segmentLocation = location;
         this.segmentType = type;
         this.segmentAverageGradient = averageGradient;
