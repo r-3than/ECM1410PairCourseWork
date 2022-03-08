@@ -26,7 +26,13 @@ public class Race {
     public static Race getRace(int raceId) throws IDNotRecognisedException {
         boolean removed = Race.removedIds.contains(raceId);
         if(raceId<Race.idMax && raceId >= 0 && !removed) {
-            return allRaces.get(raceId);
+            int index = raceId;
+            for(int j=0; j<Race.removedIds.size(); j++) {
+                if(Race.removedIds.get(j) < raceId) {
+                    index--;
+                }
+            }
+            return allRaces.get(index);
         } else if (removed) {
             throw new IDNotRecognisedException("no race instance for raceID");
         } else {
@@ -61,8 +67,9 @@ public class Race {
     public static void removeRace(int raceId) throws IDNotRecognisedException {
         boolean removed = Race.removedIds.contains(raceId);
         if(raceId<Race.idMax && raceId >= 0 && !removed) {
-            for(int id : allRaces.get(raceId).getStages()) {
-                Stage.removeStage(id);
+            Race r = getRace(raceId);
+            for(int id : r.getStages()) {
+                r.removeStageFromRace(id);
             }
             allRaces.remove(raceId);
             removedIds.add(raceId);
@@ -307,5 +314,5 @@ public class Race {
                 break;
             }
         }
-    }    
+    }
 }
