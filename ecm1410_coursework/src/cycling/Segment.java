@@ -25,7 +25,13 @@ public class Segment {
                                      IDNotRecognisedException {
         boolean removed = Segment.removedIds.contains(segmentId);
         if(segmentId<Segment.idMax && segmentId >= 0 && !removed) {
-            return allSegments.get(segmentId);
+            int index = segmentId;
+            for(int j=0; j<Segment.removedIds.size(); j++) {
+                if(Segment.removedIds.get(j) < segmentId) {
+                    index--;
+                }
+            }
+            return allSegments.get(index);
         } else if (removed) {
             throw new IDNotRecognisedException("no segment instance for "+
                                                 "segmentId");

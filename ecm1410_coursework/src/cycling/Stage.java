@@ -28,7 +28,7 @@ public class Stage {
         boolean removed = Stage.removedIds.contains(stageId);
         if(stageId<Stage.idMax && stageId >= 0 && !removed) {
             int index = stageId;
-            for(int j=0; j<Stage.allStages.size(); j++) {
+            for(int j=0; j<Stage.removedIds.size(); j++) {
                 if(Stage.removedIds.get(j) < stageId) {
                     index--;
                 }
