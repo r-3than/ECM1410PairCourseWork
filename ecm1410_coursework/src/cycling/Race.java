@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
  * Stages.
  * 
  * @author Thomas Newbold
- * @version 1.0
+ * @version 2.0
  * 
  */
 public class Race {
     // Static class attributes
     private static int idMax = 0;
+    private static ArrayList<Integer> removedIds = new ArrayList<Integer>();
     private static ArrayList<Race> allRaces = new ArrayList<Race>();
 
     /**
@@ -23,8 +24,11 @@ public class Race {
      * @throws IDNotRecognisedException If no race exists with the requested ID
      */
     public static Race getRace(int raceId) throws IDNotRecognisedException {
-        if(raceId<Race.idMax && raceId >= 0) {
+        boolean removed = Race.removedIds.contains(raceId);
+        if(raceId<Race.idMax && raceId >= 0 && !removed) {
             return allRaces.get(raceId);
+        } else if (removed) {
+            throw new IDNotRecognisedException("no race instance for raceID");
         } else {
             throw new IDNotRecognisedException("raceID out of range");
         }
@@ -34,10 +38,18 @@ public class Race {
      * @return An integer array of the race IDs of all races
      */
     public static int[] getAllRaceIds() {
-        int length = Race.idMax;
+        int length = Race.allRaces.size();
         int[] raceIdsArray = new int[length];
+        int index, id;
         for(int i=0; i<length; i++) {
-            raceIdsArray[i] = i;
+            id = Race.allRaces.get(i).getRaceId();
+            index = i;
+            for(int j=0; j<Race.removedIds.size(); j++) {
+                if(Race.removedIds.get(j) < id) {
+                    index--;
+                }
+            }
+            raceIdsArray[i] = index;
         }
         return raceIdsArray;
     }
@@ -47,15 +59,15 @@ public class Race {
      * @throws IDNotRecognisedException If no race exists with the requested ID
      */
     public static void removeRace(int raceId) throws IDNotRecognisedException {
-        if(raceId<Race.idMax && raceId >= 0) {
+        boolean removed = Race.removedIds.contains(raceId);
+        if(raceId<Race.idMax && raceId >= 0 && !removed) {
             for(int id : allRaces.get(raceId).getStages()) {
                 Stage.removeStage(id);
             }
             allRaces.remove(raceId);
-            Race.idMax--;
-            for(int i=raceId;i<allRaces.size();i++) {
-                getRace(i).raceId--;
-            }
+            removedIds.add(raceId);
+        } else if (removed) {
+            throw new IDNotRecognisedException("no race instance for raceID");
         } else {
             throw new IDNotRecognisedException("raceID out of range");
         }
@@ -102,7 +114,12 @@ public class Race {
         if(!validName(name)) {
             throw new InvalidNameException("invalid name");
         }
-        this.raceId = idMax++;
+        if(Race.removedIds.size() > 0) {
+            this.raceId = Race.removedIds.get(0);
+            Race.removedIds.remove(0);
+        } else {
+            this.raceId = idMax++;
+        }
         this.raceName = name;
         this.raceDescription = description;
         this.stageIds = new ArrayList<Integer>();
@@ -248,59 +265,47 @@ public class Race {
     }
 
     /**
-     * Removes a stageId from the array of stageIds for a race instance.
-     * 
-     * @param stageId The ID of the stage to be removed
-     */
-    private void removeStageFromRace(int stageId) {
-        int index = -1;
-        for(int i=0;i<this.stageIds.size();i++) {
-            int sId = this.stageIds.get(i);
-            if(sId>stageId) {
-                this.stageIds.set(i,--sId);
-            } else if (sId==stageId) {
-                index = i;
-            }
-        }
-        this.stageIds.remove(index);
-    }
-
-    /**
-     * Removes a stageId from the array of stageIds for a race instance.
-     * 
-     * @param id The ID of the race instance
-     * @param stageId The ID of the stage to be removed
-     * @throws IDNotRecognisedException If no race exists with the requested ID
-     */
-    /*
-    public static void removeStageFromRace(int id, int stageId) throws
-                                           IDNotRecognisedException {
-        int index = -1;
-        Race r = getRace(id);
-        for(int i=0;i<r.stageIds.size();i++) {
-            int sId = r.stageIds.get(i);
-            if(sId>stageId) {
-                r.stageIds.set(i,--sId);
-            } else if (sId==stageId) {
-                index = i;
-            }
-        }
-        r.stageIds.remove(index);
-    }
-    */
-
-    /**
-     * Removes a stageId from the array of stageIds for all race instances,
+     * Removes a stageId from the array of stageIds for a race instance,
      * as well as from the static array of all stages in the Stage class.
      * 
      * @param stageId The ID of the stage to be removed
      * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
-    public static void removeStage(int stageId) throws
-                                   IDNotRecognisedException {
-        for (Race race : allRaces) {
-            race.removeStageFromRace(stageId);
+    private void removeStageFromRace(int stageId) throws IDNotRecognisedException {
+        if(this.stageIds.contains(stageId)) {
+            this.stageIds.remove(stageId);
+            Stage.removeStage(stageId);
+        } else {
+            throw new IDNotRecognisedException("stageID not found in race");
         }
-        Stage.removeStage(stageId);
     }
+
+    /**
+     * Removes a stageId from the array of stageIds for a race instance,
+     * as well as from the static array of all stages in the Stage class.
+     * 
+     * @param id The ID of the race to which the stage will be removed
+     * @param stageId The ID of the stage to be removed
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
+     */
+    public static void removeStageFromRace(int id, int stageId) throws
+                                           IDNotRecognisedException {
+        getRace(id).removeStageFromRace(stageId);
+    }
+
+    /**
+     * Removes a stageId from the array of stageIds for a race instance,
+     * as well as from the static array of all stages in the Stage class.
+     * 
+     * @param stageId The ID of the stage to be removed
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
+     */
+    public static void removeStage(int stageId) throws IDNotRecognisedException {
+        for(Race race : allRaces) {
+            if(race.stageIds.contains(stageId)) {
+                race.removeStageFromRace(stageId);
+                break;
+            }
+        }
+    }    
 }
