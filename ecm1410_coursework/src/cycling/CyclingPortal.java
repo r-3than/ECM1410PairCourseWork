@@ -141,26 +141,28 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpoints)
 			throws IDNotRecognisedException, DuplicatedResultException, InvalidCheckpointsException,
 			InvalidStageStateException {
-		// TODO Auto-generated method stub
-
+		new Result(stageId, riderId, checkpoints);
 	}
 
 	@Override
 	public LocalTime[] getRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		return Result.getResult(stageId, riderId).getCheckpoints();
 	}
 
 	@Override
 	public LocalTime getRiderAdjustedElapsedTimeInStage(int stageId, int riderId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		LocalTime[] adjustedTimes = Result.getResult(stageId, riderId).adjustedCheckpoints();
+		LocalTime elapsedTime = adjustedTimes[0];
+		for(int i=1; i<adjustedTimes.length; i++) {
+			LocalTime t = adjustedTimes[i];
+			elapsedTime.plusHours(t.getHour()).plusMinutes(t.getMinute()).plusSeconds(t.getSecond()).plusNanos(t.getNano());
+		}
+		return elapsedTime;
 	}
 
 	@Override
 	public void deleteRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-
+		Result.removeResult(stageId, riderId);
 	}
 
 	@Override
