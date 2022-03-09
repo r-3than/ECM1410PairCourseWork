@@ -70,18 +70,24 @@ public class Result {
     public int getRiderId() { return this.riderId; }
 
     public LocalTime[] getCheckpoints() {
-        LocalTime[] out = new LocalTime[this.checkpoints.length+1];;
-        for(int n=0;n<this.checkpoints.length; n++) {
-            out[n] = checkpoints[n];
+        LocalTime[] out = new LocalTime[this.checkpoints.length-1];;
+        for(int n=0;n<this.checkpoints.length-1; n++) {
+            out[n] = getElapsed(checkpoints[n],checkpoints[n+1]);
         }
-        int hours = (int)this.checkpoints[0].until(this.checkpoints[-1], ChronoUnit.HOURS);
-        int minuites = (int)this.checkpoints[0].until(this.checkpoints[-1], ChronoUnit.MINUTES);
-        int seconds = (int)this.checkpoints[0].until(this.checkpoints[-1], ChronoUnit.SECONDS);
-        out[-1] = LocalTime.of(hours, minuites, seconds);
         return out;
     }
 
-    // TO DO fix both these functions
+    public LocalTime getElasped() {
+        return Result.getElapsed(this.checkpoints[0], this.checkpoints[-1]);
+    }
+
+    public static LocalTime getElapsed(LocalTime a, LocalTime b) {
+        int hours = (int)a.until(b, ChronoUnit.HOURS);
+        int minuites = (int)a.until(b, ChronoUnit.MINUTES);
+        int seconds = (int)a.until(b, ChronoUnit.SECONDS);
+        return LocalTime.of(hours, minuites, seconds);
+    }
+    
     public LocalTime[] adjustedCheckpoints() {
         LocalTime[] adjusted = this.getCheckpoints();
         for(int n=0; n<adjusted.length; n++) {
