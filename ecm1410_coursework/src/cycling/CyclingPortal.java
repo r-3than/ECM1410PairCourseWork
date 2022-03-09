@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
+
+
 
 /**
  * CyclingPortal (//TODO ADD STUFF LATER )
@@ -189,13 +195,35 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public void saveCyclingPortal(String filename) throws IOException {
-		// TODO Auto-generated method stub
+		try {
+			FileOutputStream fos = new FileOutputStream(filename);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(this);
+			oos.close();
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void loadCyclingPortal(String filename) throws IOException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+		try {
+ 
+            FileInputStream fos = new FileInputStream(filename);
+            ObjectInputStream oos = new ObjectInputStream(fos);
+ 
+			Object obj = oos.readObject();
+            CyclingPortal CycObj = (CyclingPortal) obj;
+			this.riderManager = CycObj.riderManager;
+ 
+            oos.close();
+ 
+        }
+		catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
 	}
 
