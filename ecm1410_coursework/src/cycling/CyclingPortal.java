@@ -1,5 +1,7 @@
 package cycling;
 
+import java.util.Arrays;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -189,8 +191,34 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public int[] getRidersRankInStage(int stageId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		Result[] results = Result.getResultsInStage(stageId);
+		int[] riderRanks = new int[results.length];
+		Arrays.fill(riderRanks, -1);
+		for(Result r : results) {
+			for(int i=0; i<riderRanks.length; i++) {
+				if(riderRanks[i] == -1) {
+					riderRanks[i] = r.getRiderId();
+				} else {
+					Result compare = Result.getResult(stageId, riderRanks[i]);
+					if(r.getCheckpoints()[-1].isBefore(compare.getCheckpoints()[-1])) {
+						int temp;
+						int prev = r.getRiderId();
+						for(int j=i; j<riderRanks.length; j++) {
+							temp = riderRanks[j];
+							riderRanks[j] = prev;
+							if(j!=riderRanks.length) {
+								if(riderRanks[j+1] == -1) {
+									break;
+								}
+								prev = riderRanks[j+1];
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+		return riderRanks;
 	}
 
 	@Override
