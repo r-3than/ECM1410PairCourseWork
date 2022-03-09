@@ -14,6 +14,7 @@ import java.time.LocalTime;
  *
  */
 public class CyclingPortal implements CyclingPortalInterface {
+	public RiderManager riderManager = new RiderManager();
 
 	@Override
 	public int[] getRaceIds() {
@@ -106,38 +107,34 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
-		// TODO Auto-generated method stub
-		return 0;
+		return riderManager.createTeam(name, description);
 	}
 
 	@Override
 	public void removeTeam(int teamId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
+		riderManager.removeTeam(teamId);
 
 	}
 
 	@Override
 	public int[] getTeams() {
-		// TODO Auto-generated method stub
-		return null;
+		return riderManager.getTeams();
 	}
 
 	@Override
 	public int[] getTeamRiders(int teamId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		return riderManager.getTeamRiders(teamId);
 	}
 
 	@Override
-	public int createRider(int teamID, String name, int yearOfBirth)
-			throws IDNotRecognisedException, IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int createRider(int teamID, String name, int yearOfBirth) throws IDNotRecognisedException, IllegalArgumentException {
+		return riderManager.createRider(teamID, name, yearOfBirth);
+		
 	}
 
 	@Override
 	public void removeRider(int riderId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
+		riderManager.removeRider(riderId);
 
 	}
 
