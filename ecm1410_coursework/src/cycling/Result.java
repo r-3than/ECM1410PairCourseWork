@@ -131,6 +131,10 @@ public class Result {
         return LocalTime.of(hours, minuites, seconds);
     }
     
+    /**
+     * @return An array of the checkpoint times, adjusted to a threshold of
+     *         one second
+     */
     public LocalTime[] adjustedCheckpoints() {
         LocalTime[] adjusted = this.getCheckpoints();
         for(int n=0; n<adjusted.length; n++) {
@@ -139,6 +143,12 @@ public class Result {
         return adjusted;
     }
 
+    /**
+     * Recursive adjuster, used in {@link #adjustedCheckpoints()}.
+     * 
+     * @param n The index of the checkpoint to adjust
+     * @return The adjusted time for checkpoint n
+     */
     public LocalTime adjustedCheckpoint(int n) {
         for(int i=0; i<allResults.size(); i++) {
             Result r = allResults.get(i);
