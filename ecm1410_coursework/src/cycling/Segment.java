@@ -41,6 +41,20 @@ public class Segment {
     }
 
     /**
+     * @return An integer array of the segment IDs of all segment
+     */
+    public static int[] getAllSegmentIds() {
+        int length = Segment.allSegments.size();
+        int[] segmentIdsArray = new int[length];
+        int i = 0;
+        for(Segment segment : allSegments) {
+            segmentIdsArray[i] = segment.getSegmentId();
+            i++;
+        }
+        return segmentIdsArray;
+    }
+
+    /**
      * @param segmentId The ID of the segment instance to remove
      * @throws IDNotRecognisedException If no segment exists with the requested
      *                                  ID 

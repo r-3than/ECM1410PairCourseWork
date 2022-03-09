@@ -42,6 +42,20 @@ public class Stage {
     }
 
     /**
+     * @return An integer array of the stage IDs of all stage
+     */
+    public static int[] getAllStageIds() {
+        int length = Stage.allStages.size();
+        int[] stageIdsArray = new int[length];
+        int i = 0;
+        for(Stage stage : allStages) {
+            stageIdsArray[i] = stage.getStageId();
+            i++;
+        }
+        return stageIdsArray;
+    }
+
+    /**
      * @param stageId The ID of the stage instance to remove
      * @throws IDNotRecognisedException If no stage exists with the requested ID 
      */
