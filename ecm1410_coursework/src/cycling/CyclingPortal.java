@@ -1,5 +1,7 @@
 package cycling;
 
+import java.util.Arrays;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -141,16 +143,35 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpoints)
 			throws IDNotRecognisedException, DuplicatedResultException, InvalidCheckpointsException,
 			InvalidStageStateException {
-		new Result(stageId, riderId, checkpoints);
+		if(Stage.getStageState(stageId).equals(StageState.BUILDING)) {
+			throw new InvalidStageStateException("stage is not waiting for results");
+		} else if(Stage.getSegments(stageId).length+2 != checkpoints.length) {
+			throw new InvalidCheckpointsException("checkpoint count mismatch");
+		}
+		try {
+			Result.getResult(stageId, riderId);
+			throw new DuplicatedResultException();
+		} catch(IDNotRecognisedException ex) {
+			Stage.getStage(stageId);
+			riderManager.getRider(riderId);
+			// above should throw exceptions if IDs are not in system
+			new Result(stageId, riderId, checkpoints);
+		}
 	}
 
 	@Override
 	public LocalTime[] getRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
+		Stage.getStage(stageId);
+		riderManager.getRider(riderId);
+		// above should throw exceptions if IDs are not in system
 		return Result.getResult(stageId, riderId).getCheckpoints();
 	}
 
 	@Override
 	public LocalTime getRiderAdjustedElapsedTimeInStage(int stageId, int riderId) throws IDNotRecognisedException {
+		Stage.getStage(stageId);
+		riderManager.getRider(riderId);
+		// above should throw exceptions if IDs are not in system
 		LocalTime[] adjustedTimes = Result.getResult(stageId, riderId).adjustedCheckpoints();
 		LocalTime elapsedTime = adjustedTimes[0];
 		for(int i=1; i<adjustedTimes.length; i++) {
@@ -162,13 +183,40 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public void deleteRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
+		Stage.getStage(stageId);
+		riderManager.getRider(riderId);
+		// above should throw exceptions if IDs are not in system
 		Result.removeResult(stageId, riderId);
 	}
 
 	@Override
 	public int[] getRidersRankInStage(int stageId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		Result[] results = Result.getResultsInStage(stageId);
+		int[] riderRanks = new int[results.length];
+		Arrays.fill(riderRanks, -1);
+		for(Result r : results) {
+			for(int i=0; i<riderRanks.length; i++) {
+				if(riderRanks[i] == -1) {
+					riderRanks[i] = r.getRiderId();
+				} else {
+					Result compare = Result.getResult(stageId, riderRanks[i]);
+					if(r.getCheckpoints()[-1].isBefore(compare.getCheckpoints()[-1])) {
+						int temp;
+						int prev = r.getRiderId();
+						for(int j=i; j<riderRanks.length; j++) {
+							temp = riderRanks[j];
+							riderRanks[j] = prev;
+							prev = temp;
+							if(prev == -1) {
+								break;
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+		return riderRanks;
 	}
 
 	@Override

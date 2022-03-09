@@ -41,11 +41,6 @@ public class Result {
     private LocalTime[] checkpoints;
 
     public Result(int sId, int rId, LocalTime... check) {
-        /*
-        if(Stage.getStageState(sId).equals(StageState.BUILDING)) {
-            throw new InvalidStageStateException("stage is not waiting for results");
-        }
-        */
         this.stageId = sId;
         this.riderId = rId;
         this.checkpoints = check;
@@ -75,12 +70,27 @@ public class Result {
     public int getRiderId() { return this.riderId; }
 
     public LocalTime[] getCheckpoints() {
-        return this.checkpoints;
+        LocalTime[] out = new LocalTime[this.checkpoints.length-1];;
+        for(int n=0;n<this.checkpoints.length-1; n++) {
+            out[n] = getElapsed(checkpoints[n],checkpoints[n+1]);
+        }
+        return out;
     }
 
+    public LocalTime getElasped() {
+        return Result.getElapsed(this.checkpoints[0], this.checkpoints[-1]);
+    }
+
+    public static LocalTime getElapsed(LocalTime a, LocalTime b) {
+        int hours = (int)a.until(b, ChronoUnit.HOURS);
+        int minuites = (int)a.until(b, ChronoUnit.MINUTES);
+        int seconds = (int)a.until(b, ChronoUnit.SECONDS);
+        return LocalTime.of(hours, minuites, seconds);
+    }
+    
     public LocalTime[] adjustedCheckpoints() {
-        LocalTime[] adjusted = this.checkpoints;
-        for(int n=0; n<this.checkpoints.length; n++) {
+        LocalTime[] adjusted = this.getCheckpoints();
+        for(int n=0; n<adjusted.length; n++) {
             adjusted[n] = adjustedCheckpoint(n);            
         }
         return adjusted;
