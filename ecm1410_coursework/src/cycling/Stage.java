@@ -1,7 +1,7 @@
 package cycling;
 
 import java.util.ArrayList;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,11 +13,11 @@ import java.time.format.DateTimeFormatter;
  * @version 2.0
  * 
  */
-public class Stage {
+public class Stage implements Serializable{
     // Static class attributes
     private static int idMax = 0;
-    private static ArrayList<Integer> removedIds = new ArrayList<Integer>();
-    private static ArrayList<Stage> allStages = new ArrayList<Stage>();
+    public static ArrayList<Integer> removedIds = new ArrayList<Integer>();
+    public static ArrayList<Stage> allStages = new ArrayList<Stage>();
 
     /**
      * @param stageId The ID of the stage instance to fetch

@@ -1,7 +1,7 @@
 package cycling;
 
 import java.util.ArrayList;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /** 
@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
  * @version 2.0
  * 
  */
-public class Race {
+public class Race implements Serializable{
     // Static class attributes
     private static int idMax = 0;
-    private static ArrayList<Integer> removedIds = new ArrayList<Integer>();
-    private static ArrayList<Race> allRaces = new ArrayList<Race>();
+    public static ArrayList<Integer> removedIds = new ArrayList<Integer>();
+    public static ArrayList<Race> allRaces = new ArrayList<Race>();
 
     /**
      * @param raceId The ID of the race instance to fetch

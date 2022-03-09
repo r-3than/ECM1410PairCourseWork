@@ -1,7 +1,7 @@
 package cycling;
 
 import java.util.ArrayList;
-
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
@@ -13,9 +13,9 @@ import java.time.temporal.ChronoUnit;
  * @author Thomas Newbold
  * @version 1.1
  */
-public class Result {
+public class Result implements Serializable{
     // Static class attributes
-    private static ArrayList<Result> allResults = new ArrayList<Result>();
+    public static ArrayList<Result> allResults = new ArrayList<Result>();
 
     /**
      * @param stageId The ID of the stage

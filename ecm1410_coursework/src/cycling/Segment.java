@@ -1,5 +1,6 @@
 package cycling;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /** 
@@ -9,11 +10,11 @@ import java.util.ArrayList;
  * @version 2.0
  * 
  */
-public class Segment {
+public class Segment implements Serializable{
     // Static class attributes
     private static int idMax = 0;
-    private static ArrayList<Integer> removedIds = new ArrayList<Integer>();
-    private static ArrayList<Segment> allSegments = new ArrayList<Segment>();
+    public static ArrayList<Integer> removedIds = new ArrayList<Integer>();
+    public static ArrayList<Segment> allSegments = new ArrayList<Segment>();
 
     /**
      * @param segmentId The ID of the segment instance to fetch
