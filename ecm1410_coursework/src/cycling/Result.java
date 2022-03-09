@@ -105,7 +105,7 @@ public class Result {
      * @return An array of the split times between each checkpoint
      */
     public LocalTime[] getCheckpoints() {
-        LocalTime[] out = new LocalTime[this.checkpoints.length-1];;
+        LocalTime[] out = new LocalTime[this.checkpoints.length-1];
         for(int n=0;n<this.checkpoints.length-1; n++) {
             out[n] = getElapsed(checkpoints[n],checkpoints[n+1]);
         }
