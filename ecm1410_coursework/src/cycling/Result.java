@@ -70,12 +70,21 @@ public class Result {
     public int getRiderId() { return this.riderId; }
 
     public LocalTime[] getCheckpoints() {
-        return this.checkpoints;
+        LocalTime[] out = new LocalTime[this.checkpoints.length+1];;
+        for(int n=0;n<this.checkpoints.length; n++) {
+            out[n] = checkpoints[n];
+        }
+        int hours = (int)this.checkpoints[0].until(this.checkpoints[-1], ChronoUnit.HOURS);
+        int minuites = (int)this.checkpoints[0].until(this.checkpoints[-1], ChronoUnit.MINUTES);
+        int seconds = (int)this.checkpoints[0].until(this.checkpoints[-1], ChronoUnit.SECONDS);
+        out[-1] = LocalTime.of(hours, minuites, seconds);
+        return out;
     }
 
+    // TO DO fix both these functions
     public LocalTime[] adjustedCheckpoints() {
-        LocalTime[] adjusted = this.checkpoints;
-        for(int n=0; n<this.checkpoints.length; n++) {
+        LocalTime[] adjusted = this.getCheckpoints();
+        for(int n=0; n<adjusted.length; n++) {
             adjusted[n] = adjustedCheckpoint(n);            
         }
         return adjusted;

@@ -143,22 +143,33 @@ public class CyclingPortal implements CyclingPortalInterface {
 			InvalidStageStateException {
 		if(Stage.getStageState(stageId).equals(StageState.BUILDING)) {
 			throw new InvalidStageStateException("stage is not waiting for results");
+		} else if(Stage.getSegments(stageId).length+2 != checkpoints.length) {
+			throw new InvalidCheckpointsException("checkpoint count mismatch");
 		}
 		try {
 			Result.getResult(stageId, riderId);
 			throw new DuplicatedResultException();
 		} catch(IDNotRecognisedException ex) {
+			Stage.getStage(stageId);
+			riderManager.getRider(riderId);
+			// above should throw exceptions if IDs are not in system
 			new Result(stageId, riderId, checkpoints);
 		}
 	}
 
 	@Override
 	public LocalTime[] getRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
+		Stage.getStage(stageId);
+		riderManager.getRider(riderId);
+		// above should throw exceptions if IDs are not in system
 		return Result.getResult(stageId, riderId).getCheckpoints();
 	}
 
 	@Override
 	public LocalTime getRiderAdjustedElapsedTimeInStage(int stageId, int riderId) throws IDNotRecognisedException {
+		Stage.getStage(stageId);
+		riderManager.getRider(riderId);
+		// above should throw exceptions if IDs are not in system
 		LocalTime[] adjustedTimes = Result.getResult(stageId, riderId).adjustedCheckpoints();
 		LocalTime elapsedTime = adjustedTimes[0];
 		for(int i=1; i<adjustedTimes.length; i++) {
@@ -170,6 +181,9 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public void deleteRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
+		Stage.getStage(stageId);
+		riderManager.getRider(riderId);
+		// above should throw exceptions if IDs are not in system
 		Result.removeResult(stageId, riderId);
 	}
 
