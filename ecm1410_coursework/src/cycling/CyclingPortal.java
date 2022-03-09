@@ -29,8 +29,11 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public String viewRaceDetails(int raceId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		double sum = 0.0;
+		for(int id : Race.getStages(raceId)) {
+			sum += Stage.getStageLength(id);
+		}
+		return Race.toString(raceId)+Double.toString(sum)+";";
 	}
 
 	@Override
