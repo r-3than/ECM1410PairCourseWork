@@ -234,14 +234,91 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public int[] getRidersPointsInStage(int stageId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		StageType type = Stage.getStageType(stageId);
+		int[] points = new int[Result.getResultsInStage(stageId).length];
+		int[] distribution = new int[15];
+		// distributions from https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
+		switch(type) {
+			case FLAT:
+				distribution = new int[]{50,30,20,18,16,14,12,10,8,7,6,5,4,3,2};
+				break;
+			case MEDIUM_MOUNTAIN:
+				distribution = new int[]{30,25,22,19,17,15,13,11,9,7,6,5,4,3,2};
+				break;
+			case HIGH_MOUNTAIN:
+				distribution = new int[]{20,17,15,13,11,10,9,8,7,6,5,4,3,2,1};
+				break;
+			case TT:
+				distribution = new int[]{20,17,15,13,11,10,9,8,7,6,5,4,3,2,1};
+				break;
+		}
+		for(int i=0; i<15; i++) {
+			points[i] = distribution[i];
+		}
+		return points;
 	}
 
 	@Override
 	public int[] getRidersMountainPointsInStage(int stageId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		Result[] results = Result.getResultsInStage(stageId);
+		int[] riders = getRidersRankInStage(stageId);
+		int[] segments = Stage.getSegments(stageId);
+		int[] points = new int[riders.length];
+		for(int segmentId : segments) {
+			SegmentType type = Segment.getSegmentType(segmentId);
+			int[] distribution = new int[1];
+			switch(type) {
+				case C4:
+					distribution = new int[]{1};
+					break;
+				case C3:
+					distribution = new int[]{2,1};
+					break;
+				case C2:
+					distribution = new int[]{5,3,2,1};
+					break;
+				case C1:
+					distribution = new int[]{10,8,6,4,2,1};
+					break;
+				case HC:
+					distribution = new int[]{20,15,12,10,8,6,4,2};
+					break;
+				case SPRINT:
+			}
+			// get ranks for segment
+			int index = 0; // TO DO ????
+			int[] riderRanks = new int[results.length];
+			Arrays.fill(riderRanks, -1);
+			for(Result r : results) {
+				for(int i=0; i<riderRanks.length; i++) {
+					if(riderRanks[i] == -1) {
+						riderRanks[i] = r.getRiderId();
+					} else {
+						Result compare = Result.getResult(stageId, riderRanks[i]);
+						if(r.getCheckpoints()[index].isBefore(compare.getCheckpoints()[index])) {
+							int temp;
+							int prev = r.getRiderId();
+							for(int j=i; j<riderRanks.length; j++) {
+								temp = riderRanks[j];
+								riderRanks[j] = prev;
+								prev = temp;
+								if(prev == -1) {
+									break;
+								}
+							}
+						}
+						break;
+					}
+				}
+			}
+			//return riderRanks;
+			ArrayList<Integer> ridersArray = new ArrayList<Integer>();
+			for(int r : riders) { ridersArray.add(r); }
+			for(int i=0; i<distribution.length; i++) {
+				points[ridersArray.indexOf(riderRanks[i])] += distribution[i];
+			}
+		}
+		return points;
 	}
 
 	@Override
