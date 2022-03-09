@@ -340,6 +340,11 @@ public class CyclingPortal implements CyclingPortalInterface {
 			ArrayList<ArrayList> allObj = new ArrayList<>();
 			allObj.add(RiderManager.allTeams);
 			allObj.add(RiderManager.allRiders);
+			allObj.add(Stage.allStages);
+			allObj.add(Stage.removedIds);
+			allObj.add(Race.allRaces);
+			allObj.add(Race.removedIds);
+
 			oos.writeObject(allObj);
 
 			oos.flush();
