@@ -164,6 +164,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 		Stage.getStage(stageId);
 		riderManager.getRider(riderId);
 		// above should throw exceptions if IDs are not in system
+		// TO DO append TotalElapsed to end of returned list
 		return Result.getResult(stageId, riderId).getCheckpoints();
 	}
 
