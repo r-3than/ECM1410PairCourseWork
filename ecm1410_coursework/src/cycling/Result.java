@@ -11,9 +11,10 @@ import java.time.temporal.ChronoUnit;
  * Cycling Portal)
  * 
  * @author Thomas Newbold
- * @version 1.0
+ * @version 1.1
  */
 public class Result {
+    // Static class attributes
     private static ArrayList<Result> allResults = new ArrayList<Result>();
 
     public static Result[] getResultsInStage(int stageId) {
@@ -36,16 +37,34 @@ public class Result {
         return resultsForRider;
     }
 
+    // Instance attributes
     private int stageId;
     private int riderId;
     private LocalTime[] checkpoints;
 
+    /**
+     * Result constructor; creates a new result entry and adds to the
+     * allResults array.
+     * 
+     * @param sId The ID of the stage the result refers to
+     * @param rId The ID of the rider who achieved the result
+     * @param check An array of times at which the rider reached each
+     *              checkpoint (including start and finish)
+     */
     public Result(int sId, int rId, LocalTime... check) {
         this.stageId = sId;
         this.riderId = rId;
         this.checkpoints = check;
     }
 
+    /**
+     * @param sId The ID of the stage of the result instance
+     * @param rId The ID of the associated rider to the result instance
+     * @return The Result instance
+     * @throws IDNotRecognisedException If an instance for the rider/stage
+     *                                  combination is not found in the
+     *                                  allResults array
+     */
     public static Result getResult(int sId, int rId) throws IDNotRecognisedException {
         for(Result r : allResults) {
             if(r.getRiderId()==rId && r.getStageId()==sId) {
@@ -55,6 +74,13 @@ public class Result {
         throw new IDNotRecognisedException("results not found for rider in stage");
     }
 
+    /**
+     * @param sId The ID of the stage of the result instance to remove
+     * @param rId The ID of the associated rider to the result instance to remove
+     * @throws IDNotRecognisedException If an instance for the rider/stage
+     *                                  combination is not found in the
+     *                                  allResults array
+     */
     public static void removeResult(int sId, int rId) throws IDNotRecognisedException {
         for(Result r : allResults) {
             if(r.getRiderId()==rId && r.getStageId()==sId) {
@@ -65,10 +91,19 @@ public class Result {
         throw new IDNotRecognisedException("results not found for rider in stage");
     }
 
+    /**
+     * @return The stageId of the stage the result refers to
+     */
     public int getStageId() { return this.stageId; }
 
+    /**
+     * @return The riderId of the rider associated with the result
+     */
     public int getRiderId() { return this.riderId; }
 
+    /**
+     * @return An array of the split times between each checkpoint
+     */
     public LocalTime[] getCheckpoints() {
         LocalTime[] out = new LocalTime[this.checkpoints.length-1];;
         for(int n=0;n<this.checkpoints.length-1; n++) {
@@ -77,10 +112,18 @@ public class Result {
         return out;
     }
 
-    public LocalTime getElasped() {
+    /**
+     * @return The total time elapsed between the start and end checkpoints
+     */
+    public LocalTime getTotalElasped() {
         return Result.getElapsed(this.checkpoints[0], this.checkpoints[-1]);
     }
 
+    /**
+     * @param a Start time
+     * @param b End time
+     * @return The time difference between two times, a and b
+     */
     public static LocalTime getElapsed(LocalTime a, LocalTime b) {
         int hours = (int)a.until(b, ChronoUnit.HOURS);
         int minuites = (int)a.until(b, ChronoUnit.MINUTES);
