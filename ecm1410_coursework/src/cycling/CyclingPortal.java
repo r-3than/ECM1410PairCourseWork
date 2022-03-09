@@ -206,11 +206,9 @@ public class CyclingPortal implements CyclingPortalInterface {
 						for(int j=i; j<riderRanks.length; j++) {
 							temp = riderRanks[j];
 							riderRanks[j] = prev;
-							if(j!=riderRanks.length) {
-								if(riderRanks[j+1] == -1) {
-									break;
-								}
-								prev = riderRanks[j+1];
+							prev = temp;
+							if(prev == -1) {
+								break;
 							}
 						}
 					}
