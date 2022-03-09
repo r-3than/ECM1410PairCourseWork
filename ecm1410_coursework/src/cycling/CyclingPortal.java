@@ -14,8 +14,13 @@ import java.io.FileInputStream;
 
 
 /**
- * CyclingPortal (//TODO ADD STUFF LATER )
- * 
+ * CyclingPortal implements CyclingPortalInterface; contains methods for
+ * handling the following classes: Race, Stage, Segment, RiderManager (and in
+ * turn Rider and Team), and Result.
+ * These classes are used manage races and their subdivisions, teams and their
+ * riders, and to calculate and assign points.
+ * Also contains methods for saving and loading MiniCyclingPortalInterface to
+ * and from a file.
  * 
  * @author Ethan Ray & Thomas Newbold
  * @version 1.0
