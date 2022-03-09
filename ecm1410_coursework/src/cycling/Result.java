@@ -17,6 +17,10 @@ public class Result {
     // Static class attributes
     private static ArrayList<Result> allResults = new ArrayList<Result>();
 
+    /**
+     * @param stageId The ID of the stage
+     * @return An array of all results for a stage
+     */
     public static Result[] getResultsInStage(int stageId) {
         ArrayList<Result> stage = new ArrayList<Result>(allResults);
         stage.removeIf(r -> r.getStageId()!=stageId);
@@ -27,6 +31,10 @@ public class Result {
         return resultsForStage;
     }
 
+    /**
+     * @param riderId The ID of the driver
+     * @return An array of all results for a driver
+     */
     public static Result[] getResultsForRider(int riderId) {
         ArrayList<Result> rider = new ArrayList<Result>(allResults);
         rider.removeIf(r -> r.getRiderId()!=riderId);
