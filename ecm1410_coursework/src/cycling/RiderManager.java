@@ -1,11 +1,13 @@
 package cycling;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class RiderManager implements Serializable{
-    private static ArrayList<Rider> allRiders = new ArrayList<Rider>();
-    private static ArrayList<Team> allTeams = new ArrayList<Team>();
+    public static ArrayList<Rider> allRiders = new ArrayList<>();
+    public static ArrayList<Team> allTeams = new ArrayList<>();
     
 
     /**
@@ -162,6 +164,11 @@ public class RiderManager implements Serializable{
         int riderIndex = getIndexForRiderId(riderId);
         return allRiders.get(riderIndex);
     }
-
+    void setAllTeams(ArrayList<Team> allTeams){
+        RiderManager.allTeams = allTeams;
+    }
+    void setAllRiders(ArrayList<Rider> allRiders){
+        RiderManager.allRiders = allRiders;
+    }
 
 }

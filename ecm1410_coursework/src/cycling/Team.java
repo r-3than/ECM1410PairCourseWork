@@ -1,4 +1,5 @@
 package cycling;
+import java.io.Serializable;
 import java.util.ArrayList;
 /** 
  * Team Class holds the teamId,name,description and riderIds belonging to that team.
@@ -9,14 +10,14 @@ import java.util.ArrayList;
  * 
  */
 
-public class Team {
-    public static ArrayList<String> teamNames = new ArrayList<String>();
+public class Team implements Serializable {
+    public static ArrayList<String> teamNames = new ArrayList<>();
     public static int amtTeams = 0;
 
     private int teamID;
     private String name;
     private String description;
-    private ArrayList<Integer> riderIds = new ArrayList<Integer>();
+    private ArrayList<Integer> riderIds = new ArrayList<>();
 
 
     /**

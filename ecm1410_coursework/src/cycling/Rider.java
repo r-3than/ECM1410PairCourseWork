@@ -1,5 +1,7 @@
 package cycling;
 
+import java.io.Serializable;
+
 /** 
  * Rider Class holds the riders teamId,riderId,name and yearOfBirth
  * 
@@ -10,7 +12,7 @@ package cycling;
  */
 
 
-public class Rider {
+public class Rider implements Serializable {
     public static int ridersTopId;
     private int riderId;
     private int teamID;

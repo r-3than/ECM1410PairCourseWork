@@ -3,7 +3,7 @@ package cycling;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
+import java.util.ArrayList;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -200,7 +200,12 @@ public class CyclingPortal implements CyclingPortalInterface {
 		try {
 			FileOutputStream fos = new FileOutputStream(filename);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(this);
+			ArrayList<ArrayList> allObj = new ArrayList<>();
+			allObj.add(RiderManager.allTeams);
+			allObj.add(RiderManager.allRiders);
+			oos.writeObject(allObj);
+
+			oos.flush();
 			oos.close();
 
 		} catch (IOException ex) {
@@ -213,14 +218,31 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public void loadCyclingPortal(String filename) throws IOException, ClassNotFoundException {
 		try {
  
-            FileInputStream fos = new FileInputStream(filename);
-            ObjectInputStream oos = new ObjectInputStream(fos);
- 
-			Object obj = oos.readObject();
-            CyclingPortal CycObj = (CyclingPortal) obj;
-			this.riderManager = CycObj.riderManager;
- 
-            oos.close();
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+			ArrayList<Object> allObjects = new ArrayList<>();
+			ArrayList<Team> allTeams = new ArrayList<>();
+			ArrayList<Rider> allRiders = new ArrayList<>();
+			allObjects = (ArrayList) ois.readObject();
+			for (Object tempObj : allObjects){
+				ArrayList Objects = (ArrayList) tempObj;
+			for (Object obj : Objects){
+				if (obj.getClass() == Rider.class){
+					Rider newRider = (Rider) obj;
+					allRiders.add(newRider);
+					System.out.println("NEW RIDER");
+				}
+				if (obj.getClass() == Team.class){
+					Team newTeam = (Team) obj;
+					allTeams.add(newTeam);
+					System.out.println("NEW TEAM");
+				}
+				System.out.println(obj.getClass());
+			}
+		}
+			this.riderManager.setAllTeams(allTeams);
+			this.riderManager.setAllRiders(allRiders);
+            ois.close();
  
         }
 		catch (Exception ex) {
