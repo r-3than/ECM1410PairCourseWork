@@ -16,6 +16,26 @@ import java.time.temporal.ChronoUnit;
 public class Result {
     private static ArrayList<Result> allResults = new ArrayList<Result>();
 
+    public static Result[] getResultsInStage(int stageId) {
+        ArrayList<Result> stage = new ArrayList<Result>(allResults);
+        stage.removeIf(r -> r.getStageId()!=stageId);
+        Result[] resultsForStage = new Result[stage.size()];
+        for(int i=0; i<stage.size(); i++) {
+            resultsForStage[i] = stage.get(i);
+        }
+        return resultsForStage;
+    }
+
+    public static Result[] getResultsForRider(int riderId) {
+        ArrayList<Result> rider = new ArrayList<Result>(allResults);
+        rider.removeIf(r -> r.getRiderId()!=riderId);
+        Result[] resultsForRider = new Result[rider.size()];
+        for(int i=0; i<rider.size(); i++) {
+            resultsForRider[i] = rider.get(i);
+        }
+        return resultsForRider;
+    }
+
     private int stageId;
     private int riderId;
     private LocalTime[] checkpoints;
@@ -35,6 +55,16 @@ public class Result {
         for(Result r : allResults) {
             if(r.getRiderId()==rId && r.getStageId()==sId) {
                 return r;
+            }
+        }
+        throw new IDNotRecognisedException("results not found for rider in stage");
+    }
+
+    public static void removeResult(int sId, int rId) throws IDNotRecognisedException {
+        for(Result r : allResults) {
+            if(r.getRiderId()==rId && r.getStageId()==sId) {
+                allResults.remove(r);
+                break;
             }
         }
         throw new IDNotRecognisedException("results not found for rider in stage");
