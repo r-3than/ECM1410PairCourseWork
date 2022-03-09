@@ -302,6 +302,21 @@ public class Stage {
     }
 
     /**
+     * @param id The ID of the stage
+     * @return An integer array of segment IDs for the stage instance
+     * @throws IDNotRecognisedException If no stage exists with the requested ID
+     */
+    public static int[] getSegments(int id) throws IDNotRecognisedException {
+        Stage stage = getStage(id);
+        int length = stage.segmentIds.size();
+        int[] segmentIdsArray = new int[length];
+        for(int i=0; i<length; i++) {
+            segmentIdsArray[i] = stage.segmentIds.get(i);
+        }
+        return segmentIdsArray;
+    }
+
+    /**
      * Updates the stage state from building to waiting for results.
      * 
      * @throws InvalidStageStateException If the stage is already waiting for results
@@ -408,11 +423,11 @@ public class Stage {
      * @throws InvalidStageTypeException If the stage type is a time-trial
      *                                   (cannot contain segments)
      */
-    public void addSegmentToStage(double location, SegmentType type, 
-                                  double averageGradient, double length) throws
-                                  InvalidLocationException,
-                                  InvalidStageStateException,
-                                  InvalidStageTypeException {
+    public int addSegmentToStage(double location, SegmentType type, 
+                                 double averageGradient, double length) throws
+                                 InvalidLocationException,
+                                 InvalidStageStateException,
+                                 InvalidStageTypeException {
         if(location > this.getStageLength()) {
             throw new InvalidLocationException("segment finishes outside of stage bounds");
         }
@@ -424,6 +439,7 @@ public class Stage {
         }
         Segment newSegment = new Segment(location, type, averageGradient, length);
         this.segmentIds.add(newSegment.getSegmentId());
+        return newSegment.getSegmentId();
     }
 
     /**
@@ -442,13 +458,13 @@ public class Stage {
      * @throws InvalidStageTypeException If the stage type is a time-trial
      *                                   (cannot contain segments)
      */
-    public void addSegmentToStage(int id, double location, SegmentType type, 
-                                  double averageGradient, double length) throws
-                                  IDNotRecognisedException,
-                                  InvalidLocationException,
-                                  InvalidStageStateException,
-                                  InvalidStageTypeException {
-        getStage(id).addSegmentToStage(location, type, averageGradient, length);
+    public static int addSegmentToStage(int id, double location, SegmentType type, 
+                                        double averageGradient, double length) throws
+                                        IDNotRecognisedException,
+                                        InvalidLocationException,
+                                        InvalidStageStateException,
+                                        InvalidStageTypeException {
+        return getStage(id).addSegmentToStage(location, type, averageGradient, length);
     }
 
     /**

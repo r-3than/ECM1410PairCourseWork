@@ -195,6 +195,21 @@ public class Race {
     }
 
     /**
+     * @param id The ID of the race
+     * @return An integer array of stage IDs for the race instance
+     * @throws IDNotRecognisedException If no race exists with the requested ID
+     */
+    public static int[] getStages(int id) throws IDNotRecognisedException {
+        Race race = getRace(id);
+        int length = race.stageIds.size();
+        int[] stageIdsArray = new int[length];
+        for(int i=0; i<length; i++) {
+            stageIdsArray[i] = race.stageIds.get(i);
+        }
+        return stageIdsArray;
+    }
+
+    /**
      * @param name The new name for the race instance
      */
     public void setRaceName(String name) {
@@ -236,13 +251,15 @@ public class Race {
      * @param length The length of the new stage (in km)
      * @param startTime The date and time at which the stage will be held
      * @param type The StageType, used to determine the point distribution
+     * @return The ID of the new stage
      */
-    public void addStageToRace(String name, String description, double length,
+    public int addStageToRace(String name, String description, double length,
                                LocalDateTime startTime, StageType type) throws
                                IllegalNameException, InvalidNameException,
                                InvalidLengthException {
         Stage newStage = new Stage(name, description, length, startTime, type);
         this.stageIds.add(newStage.getStageId());
+        return newStage.getStageId();
     }
 
     /**
@@ -254,15 +271,16 @@ public class Race {
      * @param length The length of the new stage (in km)
      * @param startTime The date and time at which the stage will be held
      * @param type The StageType, used to determine the point distribution
+     * @return The ID of the new stage
      * @throws IDNotRecognisedException If no race exists with the requested ID
      */
-    public static void addStageToRace(int id, String name, String description,
-                                      double length, LocalDateTime startTime,
-                                      StageType type) throws
-                                      IDNotRecognisedException,
-                                      IllegalNameException, InvalidNameException,
-                                      InvalidLengthException  {
-        getRace(id).addStageToRace(name, description, length, startTime, type);
+    public static int addStageToRace(int id, String name, String description,
+                                     double length, LocalDateTime startTime,
+                                     StageType type) throws
+                                     IDNotRecognisedException,
+                                     IllegalNameException, InvalidNameException,
+                                     InvalidLengthException  {
+        return getRace(id).addStageToRace(name, description, length, startTime, type);
     }
 
     /**
