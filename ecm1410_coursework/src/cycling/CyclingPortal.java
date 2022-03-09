@@ -141,7 +141,15 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpoints)
 			throws IDNotRecognisedException, DuplicatedResultException, InvalidCheckpointsException,
 			InvalidStageStateException {
-		new Result(stageId, riderId, checkpoints);
+		if(Stage.getStageState(stageId).equals(StageState.BUILDING)) {
+			throw new InvalidStageStateException("stage is not waiting for results");
+		}
+		try {
+			Result.getResult(stageId, riderId);
+			throw new DuplicatedResultException();
+		} catch(IDNotRecognisedException ex) {
+			new Result(stageId, riderId, checkpoints);
+		}
 	}
 
 	@Override

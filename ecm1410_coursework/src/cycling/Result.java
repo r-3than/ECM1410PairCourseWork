@@ -41,11 +41,6 @@ public class Result {
     private LocalTime[] checkpoints;
 
     public Result(int sId, int rId, LocalTime... check) {
-        /*
-        if(Stage.getStageState(sId).equals(StageState.BUILDING)) {
-            throw new InvalidStageStateException("stage is not waiting for results");
-        }
-        */
         this.stageId = sId;
         this.riderId = rId;
         this.checkpoints = check;
