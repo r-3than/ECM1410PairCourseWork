@@ -6,12 +6,13 @@ import java.util.ArrayList;
  * Segment encapsulates race segments
  * 
  * @author Thomas Newbold
- * @version 1.0
+ * @version 2.0
  * 
  */
 public class Segment {
     // Static class attributes
     private static int idMax = 0;
+    private static ArrayList<Integer> removedIds = new ArrayList<Integer>();
     private static ArrayList<Segment> allSegments = new ArrayList<Segment>();
 
     /**
@@ -22,11 +23,35 @@ public class Segment {
      */
     public static Segment getSegment(int segmentId) throws
                                      IDNotRecognisedException {
-        if(segmentId<Segment.idMax && segmentId >= 0) {
-            return allSegments.get(segmentId);
+        boolean removed = Segment.removedIds.contains(segmentId);
+        if(segmentId<Segment.idMax && segmentId >= 0 && !removed) {
+            int index = segmentId;
+            for(int j=0; j<Segment.removedIds.size(); j++) {
+                if(Segment.removedIds.get(j) < segmentId) {
+                    index--;
+                }
+            }
+            return allSegments.get(index);
+        } else if (removed) {
+            throw new IDNotRecognisedException("no segment instance for "+
+                                                "segmentId");
         } else {
             throw new IDNotRecognisedException("segmentId out of range");
         }
+    }
+
+    /**
+     * @return An integer array of the segment IDs of all segment
+     */
+    public static int[] getAllSegmentIds() {
+        int length = Segment.allSegments.size();
+        int[] segmentIdsArray = new int[length];
+        int i = 0;
+        for(Segment segment : allSegments) {
+            segmentIdsArray[i] = segment.getSegmentId();
+            i++;
+        }
+        return segmentIdsArray;
     }
 
     /**
@@ -36,12 +61,16 @@ public class Segment {
      */
     public static void removeSegment(int segmentId) throws
                                      IDNotRecognisedException {
-        if(segmentId<Segment.idMax && segmentId >= 0) {
+        boolean removed = Segment.removedIds.contains(segmentId);
+        if(segmentId<Segment.idMax && segmentId >= 0 && !removed) {
             allSegments.remove(segmentId);
             Segment.idMax--;
             for(int i=segmentId;i<allSegments.size();i++) {
                 getSegment(i).segmentId--; 
             }
+        } else if (removed) {
+            throw new IDNotRecognisedException("no segment instance for "+
+                                                "segmentId");
         } else {
             throw new IDNotRecognisedException("segmentId out of range");
         }
@@ -64,7 +93,12 @@ public class Segment {
      */
     public Segment(double location, SegmentType type, double averageGradient,
                    double length) {
-        this.segmentId = idMax++;
+        if(Segment.removedIds.size() > 0) {
+            this.segmentId = Segment.removedIds.get(0);
+            Segment.removedIds.remove(0);
+        } else {
+            this.segmentId = idMax++;
+        }
         this.segmentLocation = location;
         this.segmentType = type;
         this.segmentAverageGradient = averageGradient;

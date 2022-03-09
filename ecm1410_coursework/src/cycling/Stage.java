@@ -10,12 +10,13 @@ import java.time.format.DateTimeFormatter;
  * Segments.
  * 
  * @author Thomas Newbold
- * @version 1.0
+ * @version 2.0
  * 
  */
 public class Stage {
     // Static class attributes
     private static int idMax = 0;
+    private static ArrayList<Integer> removedIds = new ArrayList<Integer>();
     private static ArrayList<Stage> allStages = new ArrayList<Stage>();
 
     /**
@@ -24,11 +25,34 @@ public class Stage {
      * @throws IDNotRecognisedException If no stage exists with the requested ID
      */
     public static Stage getStage(int stageId) throws IDNotRecognisedException {
-        if(stageId<Stage.idMax && stageId >= 0) {
-            return allStages.get(stageId);
+        boolean removed = Stage.removedIds.contains(stageId);
+        if(stageId<Stage.idMax && stageId >= 0 && !removed) {
+            int index = stageId;
+            for(int j=0; j<Stage.removedIds.size(); j++) {
+                if(Stage.removedIds.get(j) < stageId) {
+                    index--;
+                }
+            }
+            return allStages.get(index);
+        } else if (removed) {
+            throw new IDNotRecognisedException("no stage instance for stageID");
         } else {
             throw new IDNotRecognisedException("stageId out of range");
         }
+    }
+
+    /**
+     * @return An integer array of the stage IDs of all stage
+     */
+    public static int[] getAllStageIds() {
+        int length = Stage.allStages.size();
+        int[] stageIdsArray = new int[length];
+        int i = 0;
+        for(Stage stage : allStages) {
+            stageIdsArray[i] = stage.getStageId();
+            i++;
+        }
+        return stageIdsArray;
     }
 
     /**
@@ -36,15 +60,16 @@ public class Stage {
      * @throws IDNotRecognisedException If no stage exists with the requested ID 
      */
     public static void removeStage(int stageId) throws IDNotRecognisedException {
-        if(stageId<Stage.idMax && stageId >= 0) {
-            for(int id : allStages.get(stageId).getSegments()) {
-                Segment.removeSegment(id);
+        boolean removed = Stage.removedIds.contains(stageId);
+        if(stageId<Stage.idMax && stageId >= 0 && !removed) {
+            Stage s = getStage(stageId);
+            for(int id : s.getSegments()) {
+                s.removeSegmentFromStage(id);
             }
             allStages.remove(stageId);
-            Stage.idMax--;
-            for(int i=stageId;i<allStages.size();i++) {
-                getStage(i).stageId--;
-            }
+            removedIds.add(stageId);
+        } else if (removed) {
+            throw new IDNotRecognisedException("no stage instance for stageID");
         } else {
             throw new IDNotRecognisedException("stageId out of range");
         }
@@ -104,7 +129,12 @@ public class Stage {
         if(length<5) {
             throw new InvalidLengthException("length less than 5km");
         }
-        this.stageId = idMax++;
+        if(Stage.removedIds.size() > 0) {
+            this.stageId = Stage.removedIds.get(0);
+            Stage.removedIds.remove(0);
+        } else {
+            this.stageId = idMax++;
+        }
         this.stageState = StageState.BUILDING;
         this.stageName = name;
         this.stageDescription = description;
@@ -422,59 +452,51 @@ public class Stage {
     }
 
     /**
-     * Removes a segmentId from the array of segmentIds for a stage instance.
-     * 
-     * @param segmentId The ID of the segment to be removed
-     */
-    private void removeSegmentFromStage(int segmentId) {
-        int index = -1;
-        for(int i=0;i<this.segmentIds.size();i++) {
-            int sId = this.segmentIds.get(i);
-            if(sId>segmentId) {
-                this.segmentIds.set(i,--sId);
-            } else if (sId==segmentId) {
-                index = i;
-            }
-        }
-        this.segmentIds.remove(index);
-    }
-
-    /**
-     * Removes a segmentId from the array of segmentIds for a stage instance.
-     * 
-     * @param id The ID of the stage instance
-     * @param segmentId The ID of the segment to be removed
-     * @throws IDNotRecognisedException If no stage exists with the requested ID
-     */
-    /*
-    public static void removeSegmentFromStage(int id, int segmentId) throws
-                                              IDNotRecognisedException {
-        int index = -1;
-        Stage s = getStage(id);
-        for(int i=0;i<s.segmentIds.size();i++) {
-            int sId = s.segmentIds.get(i);
-            if(sId>segmentId) {
-                s.segmentIds.set(i,--sId);
-            } else if (sId==segmentId) {
-                index = i;
-            }
-        }
-        s.segmentIds.remove(index);
-    }
-    */
-
-    /**
-     * Removes a segmentId from the array of segmentIds for all stage instances,
+     * Removes a segmentId from the array of segmentIds for a stage instance,
      * as well as from the static array of all segments in the Segment class.
      * 
      * @param segmentId The ID of the segment to be removed
-     * @throws IDNotRecognisedException If no segment exists with the requested ID
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
      */
-    public static void removeSegment(int segmentId) throws
-                                     IDNotRecognisedException {
-        for (Stage stage : allStages) {
-            stage.removeSegmentFromStage(segmentId);
+    private void removeSegmentFromStage(int segmentId) throws
+                                        IDNotRecognisedException {
+        if(this.segmentIds.contains(segmentId)) {
+            this.segmentIds.remove(segmentId);
+            Segment.removeSegment(segmentId);
+        } else {
+            throw new IDNotRecognisedException("segmentID not found in race");
         }
-        Segment.removeSegment(segmentId);
+    }
+
+    /**
+     * Removes a segmentId from the array of segmentIds for a stage instance,
+     * as well as from the static array of all segments in the Segment class.
+     * 
+     * @param id The ID of the stage to which the segment will be removed
+     * @param segmentId The ID of the segment to be removed
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
+     */
+    public static void removeSegmentFromStage(int id, int segmentId) throws
+                                           IDNotRecognisedException {
+        getStage(id).removeSegmentFromStage(segmentId);
+    }
+
+    /**
+     * Removes a segmentId from the array of segmentIds for a stage instance,
+     * as well as from the static array of all segments in the Segment class.
+     * 
+     * @param segmentId The ID of the segment to be removed
+     * @throws IDNotRecognisedException If no segment exists with the requested
+     *                                  ID
+     */
+    public static void removeSegment(int segmentId) throws IDNotRecognisedException {
+        for(Stage stage : allStages) {
+            if(stage.segmentIds.contains(segmentId)) {
+                stage.removeSegmentFromStage(segmentId);
+                break;
+            }
+        }
     }
 }
