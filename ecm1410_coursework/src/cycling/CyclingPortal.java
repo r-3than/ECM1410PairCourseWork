@@ -269,8 +269,8 @@ public class CyclingPortal implements CyclingPortalInterface {
 		int[] riders = getRidersRankInStage(stageId);
 		int[] segments = Stage.getSegments(stageId);
 		int[] points = new int[riders.length];
-		for(int segmentId : segments) {
-			SegmentType type = Segment.getSegmentType(segmentId);
+		for(int s=0; s<segments.length; s++) {
+			SegmentType type = Segment.getSegmentType(segments[s]);
 			int[] distribution = new int[1];
 			switch(type) {
 				case C4:
@@ -291,7 +291,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 				case SPRINT:
 			}
 			// get ranks for segment
-			int index = 0; // TO DO ????
 			int[] riderRanks = new int[results.length];
 			Arrays.fill(riderRanks, -1);
 			for(Result r : results) {
@@ -300,7 +299,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 						riderRanks[i] = r.getRiderId();
 					} else {
 						Result compare = Result.getResult(stageId, riderRanks[i]);
-						if(r.getCheckpoints()[index].isBefore(compare.getCheckpoints()[index])) {
+						if(r.getCheckpoints()[s].isBefore(compare.getCheckpoints()[s])) {
 							int temp;
 							int prev = r.getRiderId();
 							for(int j=i; j<riderRanks.length; j++) {
