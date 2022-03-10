@@ -257,7 +257,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 				distribution = new int[]{20,17,15,13,11,10,9,8,7,6,5,4,3,2,1};
 				break;
 		}
-		for(int i=0; i<15; i++) {
+		for(int i=0; i<Math.min(points.length, distribution.length); i++) {
 			points[i] = distribution[i];
 		}
 		return points;
@@ -269,8 +269,8 @@ public class CyclingPortal implements CyclingPortalInterface {
 		int[] riders = getRidersRankInStage(stageId);
 		int[] segments = Stage.getSegments(stageId);
 		int[] points = new int[riders.length];
-		for(int segmentId : segments) {
-			SegmentType type = Segment.getSegmentType(segmentId);
+		for(int s=0; s<segments.length; s++) {
+			SegmentType type = Segment.getSegmentType(segments[s]);
 			int[] distribution = new int[1];
 			switch(type) {
 				case C4:
@@ -291,7 +291,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 				case SPRINT:
 			}
 			// get ranks for segment
-			int index = 0; // TO DO ????
 			int[] riderRanks = new int[results.length];
 			Arrays.fill(riderRanks, -1);
 			for(Result r : results) {
@@ -300,7 +299,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 						riderRanks[i] = r.getRiderId();
 					} else {
 						Result compare = Result.getResult(stageId, riderRanks[i]);
-						if(r.getCheckpoints()[index].isBefore(compare.getCheckpoints()[index])) {
+						if(r.getCheckpoints()[s].isBefore(compare.getCheckpoints()[s])) {
 							int temp;
 							int prev = r.getRiderId();
 							for(int j=i; j<riderRanks.length; j++) {
@@ -319,7 +318,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			//return riderRanks;
 			ArrayList<Integer> ridersArray = new ArrayList<Integer>();
 			for(int r : riders) { ridersArray.add(r); }
-			for(int i=0; i<distribution.length; i++) {
+			for(int i=0; i<Math.min(points.length, distribution.length); i++) {
 				points[ridersArray.indexOf(riderRanks[i])] += distribution[i];
 			}
 		}
@@ -415,8 +414,10 @@ public class CyclingPortal implements CyclingPortalInterface {
 			Race.allRaces = allRaces;
 			Race.loadId();
 			Stage.allStages = allStages;
-			Result.allResults = allResults;
+			Stage.loadId();
 			Segment.allSegments = allSegments;
+			Stage.loadId();
+			Result.allResults = allResults;
             ois.close();
  
         }

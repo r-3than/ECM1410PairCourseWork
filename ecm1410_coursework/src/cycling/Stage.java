@@ -13,11 +13,20 @@ import java.time.format.DateTimeFormatter;
  * @version 2.0
  * 
  */
-public class Stage implements Serializable{
+public class Stage implements Serializable {
     // Static class attributes
     private static int idMax = 0;
     public static ArrayList<Integer> removedIds = new ArrayList<Integer>();
     public static ArrayList<Stage> allStages = new ArrayList<Stage>();
+
+    /**
+     * Loads the value of idMax.
+     */
+    public static void loadId(){
+        if(Stage.allStages.size()!=0) {
+            Stage.idMax = Stage.allStages.get(-1).getStageId() + 1;
+        }
+    }
 
     /**
      * @param stageId The ID of the stage instance to fetch

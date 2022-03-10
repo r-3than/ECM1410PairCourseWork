@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
  * @author Thomas Newbold
  * @version 1.1
  */
-public class Result implements Serializable{
+public class Result implements Serializable {
     // Static class attributes
     public static ArrayList<Result> allResults = new ArrayList<Result>();
 
@@ -63,6 +63,18 @@ public class Result implements Serializable{
         this.stageId = sId;
         this.riderId = rId;
         this.checkpoints = check;
+    }
+
+    /**
+     * @return A string representation of the Result instance
+     */
+    public String toString() {
+        String sId = Integer.toString(this.stageId);
+        String rId = Integer.toString(this.riderId);
+        String list = this.checkpoints.toString();
+        String splitList = this.getCheckpoints().toString();
+        return String.format("Stage[%s]-Rider[%s]: Checkpoints=%s;"+
+                             "SplitTimes=%s", sId, rId, list, splitList);
     }
 
     /**

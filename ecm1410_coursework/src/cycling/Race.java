@@ -12,11 +12,20 @@ import java.time.LocalDateTime;
  * @version 2.0
  * 
  */
-public class Race implements Serializable{
+public class Race implements Serializable {
     // Static class attributes
     private static int idMax = 0;
     public static ArrayList<Integer> removedIds = new ArrayList<Integer>();
     public static ArrayList<Race> allRaces = new ArrayList<Race>();
+
+    /**
+     * Loads the value of idMax.
+     */
+    public static void loadId(){
+        if(Race.allRaces.size()!=0) {
+            Race.idMax = Race.allRaces.get(-1).getRaceId() + 1;
+        }
+    }
 
     /**
      * @param raceId The ID of the race instance to fetch
@@ -310,9 +319,6 @@ public class Race implements Serializable{
     public static void removeStageFromRace(int id, int stageId) throws
                                            IDNotRecognisedException {
         getRace(id).removeStageFromRace(stageId);
-    }
-    public static void loadId(){
-        Race.idMax = Race.allRaces.size();
     }
 
     /**
