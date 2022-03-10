@@ -66,6 +66,18 @@ public class Result implements Serializable {
     }
 
     /**
+     * @return A string representation of the Result instance
+     */
+    public String toString() {
+        String sId = Integer.toString(this.stageId);
+        String rId = Integer.toString(this.riderId);
+        String list = this.checkpoints.toString();
+        String splitList = this.getCheckpoints().toString();
+        return String.format("Stage[%s]-Rider[%s]: Checkpoints=%s;"+
+                             "SplitTimes=%s", sId, rId, list, splitList);
+    }
+
+    /**
      * @param sId The ID of the stage of the result instance
      * @param rId The ID of the associated rider to the result instance
      * @return The Result instance
