@@ -257,7 +257,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 				distribution = new int[]{20,17,15,13,11,10,9,8,7,6,5,4,3,2,1};
 				break;
 		}
-		for(int i=0; i<15; i++) {
+		for(int i=0; i<Math.min(points.length, distribution.length); i++) {
 			points[i] = distribution[i];
 		}
 		return points;
@@ -318,7 +318,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			//return riderRanks;
 			ArrayList<Integer> ridersArray = new ArrayList<Integer>();
 			for(int r : riders) { ridersArray.add(r); }
-			for(int i=0; i<distribution.length; i++) {
+			for(int i=0; i<Math.min(points.length, distribution.length); i++) {
 				points[ridersArray.indexOf(riderRanks[i])] += distribution[i];
 			}
 		}
