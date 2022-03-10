@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Team implements Serializable {
     public static ArrayList<String> teamNames = new ArrayList<>();
-    public static int amtTeams = 0;
+    public static int teamTopId = 0;
 
     private int teamID;
     private String name;
@@ -38,7 +38,7 @@ public class Team implements Serializable {
         }
 
         teamNames.add(name);
-        this.teamID = amtTeams++;
+        this.teamID = teamTopId++;
         this.name = name;
         this.description = description;
     }

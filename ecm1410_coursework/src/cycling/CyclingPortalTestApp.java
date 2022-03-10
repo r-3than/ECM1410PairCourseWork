@@ -9,7 +9,7 @@ public class CyclingPortalTestApp {
         CyclingPortal testCyclingPortal = new CyclingPortal();
         int teamId = testCyclingPortal.createTeam("TESTTEAM", "SOME DESC");
         testCyclingPortal.createRace("TESTRACE", "SOME RACE DESC");
-        testCyclingPortal.createRider(teamId, "SOMETEAM", 2001);
+        testCyclingPortal.createRider(teamId, "somename", 2001);
         testCyclingPortal.saveCyclingPortal("testsave.data");
         }
         CyclingPortal testCyclingPortal2 = new CyclingPortal();
@@ -21,6 +21,15 @@ public class CyclingPortalTestApp {
             System.out.println(raceID);
             System.out.println(testCyclingPortal2.viewRaceDetails(raceID));
         }
+        System.out.println("RIDER 0 ID : "+testCyclingPortal2.riderManager.getRider(0));
+        System.out.println(Rider.ridersTopId);
+        int testriderId = testCyclingPortal2.riderManager.createRider(0, "testrider", 2000);
+        System.out.println(testriderId);
+        System.out.println("RIDER IDS");
+        for (int riderId : testCyclingPortal2.riderManager.getTeamRiders(0)){
+            System.out.println(riderId);
+        }
+
         
     }
     

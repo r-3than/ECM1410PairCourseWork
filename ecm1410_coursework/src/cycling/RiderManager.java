@@ -165,10 +165,19 @@ public class RiderManager implements Serializable{
         return allRiders.get(riderIndex);
     }
     void setAllTeams(ArrayList<Team> allTeams){
+
         RiderManager.allTeams = allTeams;
+        if (allTeams.size() != 0){
+        Team lastTeam = allTeams.get(allTeams.size()-1);
+        Team.teamTopId = lastTeam.getId()+1;
+        }
     }
     void setAllRiders(ArrayList<Rider> allRiders){
         RiderManager.allRiders = allRiders;
+        if (allRiders.size() != 0){
+            Rider lastRider = allRiders.get(allRiders.size()-1);
+            Rider.ridersTopId = lastRider.getRiderId()+1;
+        }
     }
 
 }
