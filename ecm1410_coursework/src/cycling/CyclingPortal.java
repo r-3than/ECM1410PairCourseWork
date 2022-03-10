@@ -344,6 +344,9 @@ public class CyclingPortal implements CyclingPortalInterface {
 			allObj.add(Stage.removedIds);
 			allObj.add(Race.allRaces);
 			allObj.add(Race.removedIds);
+			allObj.add(Result.allResults);
+			allObj.add(Segment.allSegments);
+			allObj.add(Segment.removedIds);
 
 			oos.writeObject(allObj);
 
@@ -365,6 +368,11 @@ public class CyclingPortal implements CyclingPortalInterface {
 			ArrayList<Object> allObjects = new ArrayList<>();
 			ArrayList<Team> allTeams = new ArrayList<>();
 			ArrayList<Rider> allRiders = new ArrayList<>();
+			ArrayList<Result> allResults = new ArrayList<Result>();
+			ArrayList<Race> allRaces = new ArrayList<Race>();
+			ArrayList<Stage> allStages = new ArrayList<Stage>();
+			ArrayList<Segment> allSegments = new ArrayList<Segment>();
+			
 			allObjects = (ArrayList) ois.readObject();
 			for (Object tempObj : allObjects){
 				ArrayList Objects = (ArrayList) tempObj;
@@ -379,11 +387,36 @@ public class CyclingPortal implements CyclingPortalInterface {
 					allTeams.add(newTeam);
 					System.out.println("NEW TEAM");
 				}
+				if (obj.getClass() == Result.class){
+					Result newResult = (Result) obj;
+					allResults.add(newResult);
+					System.out.println("NEW RESULT");
+				}
+				if (obj.getClass() == Stage.class){
+					Stage newStage = (Stage) obj;
+					allStages.add(newStage);
+					System.out.println("NEW STAGE");
+				}
+				if (obj.getClass() == Race.class){
+					Race newRace = (Race) obj;
+					allRaces.add(newRace);
+					System.out.println("NEW Race");
+				}
+				if (obj.getClass() == Segment.class){
+					Segment newSeg = (Segment) obj;
+					allSegments.add(newSeg);
+					System.out.println("NEW SEGMENT");
+				}
 				System.out.println(obj.getClass());
 			}
 		}
 			this.riderManager.setAllTeams(allTeams);
 			this.riderManager.setAllRiders(allRiders);
+			Race.allRaces = allRaces;
+			Race.loadId();
+			Stage.allStages = allStages;
+			Result.allResults = allResults;
+			Segment.allSegments = allSegments;
             ois.close();
  
         }

@@ -311,6 +311,9 @@ public class Race implements Serializable{
                                            IDNotRecognisedException {
         getRace(id).removeStageFromRace(stageId);
     }
+    public static void loadId(){
+        Race.idMax = Race.allRaces.size();
+    }
 
     /**
      * Removes a stageId from the array of stageIds for a race instance,
