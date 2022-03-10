@@ -415,8 +415,10 @@ public class CyclingPortal implements CyclingPortalInterface {
 			Race.allRaces = allRaces;
 			Race.loadId();
 			Stage.allStages = allStages;
-			Result.allResults = allResults;
+			Stage.loadId();
 			Segment.allSegments = allSegments;
+			Stage.loadId();
+			Result.allResults = allResults;
             ois.close();
  
         }

@@ -10,11 +10,20 @@ import java.util.ArrayList;
  * @version 2.0
  * 
  */
-public class Segment implements Serializable{
+public class Segment implements Serializable {
     // Static class attributes
     private static int idMax = 0;
     public static ArrayList<Integer> removedIds = new ArrayList<Integer>();
     public static ArrayList<Segment> allSegments = new ArrayList<Segment>();
+
+    /**
+     * Loads the value of idMax.
+     */
+    public static void loadId(){
+        if(Segment.allSegments.size()!=0) {
+            Segment.idMax = Segment.allSegments.get(-1).getSegmentId() + 1;
+        }
+    }
 
     /**
      * @param segmentId The ID of the segment instance to fetch

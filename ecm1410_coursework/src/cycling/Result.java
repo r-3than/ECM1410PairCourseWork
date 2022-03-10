@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
  * @author Thomas Newbold
  * @version 1.1
  */
-public class Result implements Serializable{
+public class Result implements Serializable {
     // Static class attributes
     public static ArrayList<Result> allResults = new ArrayList<Result>();
 
