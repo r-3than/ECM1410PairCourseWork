@@ -417,6 +417,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			Stage.loadId();
 			Segment.allSegments = allSegments;
 			Segment.loadId();
+			Result.allResults = allResults;
             ois.close();
  
         }
