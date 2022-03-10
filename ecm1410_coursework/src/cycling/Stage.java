@@ -24,7 +24,7 @@ public class Stage implements Serializable {
      */
     public static void loadId(){
         if(Stage.allStages.size()!=0) {
-            Stage.idMax = Stage.allStages.get(-1).getStageId() + 1;
+            Stage.idMax = Stage.allStages.get(Stage.allStages.size()-1).getStageId() + 1;
         }
     }
 
