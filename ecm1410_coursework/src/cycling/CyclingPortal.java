@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
@@ -371,11 +372,46 @@ public class CyclingPortal implements CyclingPortalInterface {
 			ArrayList<Race> allRaces = new ArrayList<Race>();
 			ArrayList<Stage> allStages = new ArrayList<Stage>();
 			ArrayList<Segment> allSegments = new ArrayList<Segment>();
+			ArrayList<Integer> removedIds = new ArrayList<>();
 			
+			Class<?> classFlag = null;
+			Object currentObj = null;
+
 			allObjects = (ArrayList) ois.readObject();
 			for (Object tempObj : allObjects){
 				ArrayList Objects = (ArrayList) tempObj;
 			for (Object obj : Objects){
+				if (classFlag != null){
+					if (obj.getClass() != classFlag && obj.getClass() != Integer.class){
+						System.out.println("------------------");
+						System.out.println(obj.getClass());
+						System.out.println("------------------");
+						if (classFlag == Race.class){
+							Race.removedIds = removedIds;
+						}
+						if (classFlag == Segment.class){
+							Segment.removedIds = removedIds;
+						}
+						if (classFlag == Stage.class){
+							Stage.removedIds = removedIds;
+						}
+						classFlag = null;
+						removedIds.clear();
+
+
+					}
+					else{
+						System.out.print("ADDED");
+						Integer removedId = (Integer) obj;
+						removedIds.add(removedId);
+						System.out.println("------2-----------");
+						System.out.println(obj.getClass());
+						System.out.println("------------------");
+
+					}
+				}
+				String objClass = obj.getClass().getName();
+				System.out.println(objClass);
 				if (obj.getClass() == Rider.class){
 					Rider newRider = (Rider) obj;
 					allRiders.add(newRider);
@@ -395,20 +431,36 @@ public class CyclingPortal implements CyclingPortalInterface {
 					Stage newStage = (Stage) obj;
 					allStages.add(newStage);
 					System.out.println("NEW STAGE");
+					classFlag = Stage.class;
 				}
 				if (obj.getClass() == Race.class){
 					Race newRace = (Race) obj;
 					allRaces.add(newRace);
 					System.out.println("NEW Race");
+					classFlag = Race.class;
 				}
 				if (obj.getClass() == Segment.class){
 					Segment newSeg = (Segment) obj;
 					allSegments.add(newSeg);
 					System.out.println("NEW SEGMENT");
+					classFlag = Segment.class;
 				}
+			
+				
 				System.out.println(obj.getClass());
 			}
 		}
+
+		if (classFlag == Race.class){
+			Race.removedIds = removedIds;
+		}
+		if (classFlag == Segment.class){
+			Segment.removedIds = removedIds;
+		}
+		if (classFlag == Stage.class){
+			Stage.removedIds = removedIds;
+		}
+		
 			this.riderManager.setAllTeams(allTeams);
 			this.riderManager.setAllRiders(allRiders);
 			Race.allRaces = allRaces;
