@@ -36,7 +36,8 @@ public class CyclingPortalTestApp {
             System.out.println(removedID);
         }
         
-
+        testCyclingPortal2.eraseCyclingPortal();
+        
         
     }
     

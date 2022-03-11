@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Field;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
@@ -328,7 +327,24 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public void eraseCyclingPortal() {
-		// TODO Auto-generated method stub
+		
+		this.riderManager = null;
+		this.riderManager = new RiderManager();
+
+		Race.allRaces.clear();
+		Race.removedIds.clear();
+		Race.loadId();
+
+		Segment.allSegments.clear();
+		Segment.removedIds.clear();
+		Segment.loadId();
+
+		Stage.allStages.clear();
+		Stage.removedIds.clear();
+		Stage.loadId();
+
+		Result.allResults.clear();
+
 
 	}
 
@@ -375,7 +391,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 			ArrayList<Integer> removedIds = new ArrayList<>();
 			
 			Class<?> classFlag = null;
-			Object currentObj = null;
 
 			allObjects = (ArrayList) ois.readObject();
 			for (Object tempObj : allObjects){
@@ -383,9 +398,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 			for (Object obj : Objects){
 				if (classFlag != null){
 					if (obj.getClass() != classFlag && obj.getClass() != Integer.class){
-						System.out.println("------------------");
-						System.out.println(obj.getClass());
-						System.out.println("------------------");
 						if (classFlag == Race.class){
 							Race.removedIds = removedIds;
 						}
@@ -401,12 +413,8 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 					}
 					else{
-						System.out.print("ADDED");
 						Integer removedId = (Integer) obj;
 						removedIds.add(removedId);
-						System.out.println("------2-----------");
-						System.out.println(obj.getClass());
-						System.out.println("------------------");
 
 					}
 				}
@@ -450,7 +458,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 				System.out.println(obj.getClass());
 			}
 		}
-
 		if (classFlag == Race.class){
 			Race.removedIds = removedIds;
 		}
@@ -460,7 +467,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 		if (classFlag == Stage.class){
 			Stage.removedIds = removedIds;
 		}
-		
+
 			this.riderManager.setAllTeams(allTeams);
 			this.riderManager.setAllRiders(allRiders);
 			Race.allRaces = allRaces;
