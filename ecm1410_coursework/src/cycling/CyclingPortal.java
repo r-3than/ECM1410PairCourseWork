@@ -211,8 +211,9 @@ public class CyclingPortal implements CyclingPortalInterface {
 				if(riderRanks[i] == -1) {
 					riderRanks[i] = r.getRiderId();
 				} else {
-					Result compare = Result.getResult(stageId, riderRanks[i]);
-					if(r.getCheckpoints()[-1].isBefore(compare.getCheckpoints()[-1])) {
+					LocalTime[] rTimes = r.getCheckpoints();
+					LocalTime[] compTimes = Result.getResult(stageId, riderRanks[i]).getCheckpoints();
+					if(rTimes[rTimes.length-1].isBefore(compTimes[compTimes.length-1])) {
 						int temp;
 						int prev = r.getRiderId();
 						for(int j=i; j<riderRanks.length; j++) {
@@ -266,12 +267,17 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public int[] getRidersMountainPointsInStage(int stageId) throws IDNotRecognisedException {
 		Result[] results = Result.getResultsInStage(stageId);
+		// All results refering to the stage with id *stageId*
 		int[] riders = getRidersRankInStage(stageId);
+		// An int array of rider ids, from first to last
 		int[] segments = Stage.getSegments(stageId);
+		// An int array of the segment ids in the stage
 		int[] points = new int[riders.length];
+		// The int in position i is the number of points to be awarded to the rider with id riders[i]
 		for(int s=0; s<segments.length; s++) {
 			SegmentType type = Segment.getSegmentType(segments[s]);
 			int[] distribution = new int[1];
+			// The points to be awarded in order for the segment
 			switch(type) {
 				case C4:
 					distribution = new int[]{1};
@@ -319,7 +325,10 @@ public class CyclingPortal implements CyclingPortalInterface {
 			ArrayList<Integer> ridersArray = new ArrayList<Integer>();
 			for(int r : riders) { ridersArray.add(r); }
 			for(int i=0; i<Math.min(points.length, distribution.length); i++) {
-				points[ridersArray.indexOf(riderRanks[i])] += distribution[i];
+				int overallPos = ridersArray.indexOf(riderRanks[i]);
+				if(overallPos<points.length) {
+					points[overallPos] += distribution[i];
+				}
 			}
 		}
 		return points;
