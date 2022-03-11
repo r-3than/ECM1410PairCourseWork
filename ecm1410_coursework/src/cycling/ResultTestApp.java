@@ -70,18 +70,21 @@ public class ResultTestApp {
         portal.registerRiderResultsInStage(stages[1], riders[2], new LocalTime[]{LocalTime.of(9,0,0),LocalTime.of(9,10,10),
                                                                                  LocalTime.of(9,33,1),LocalTime.of(9,45,0),
                                                                                  LocalTime.of(10,1,4),LocalTime.of(10,1,4)});
-        portal.registerRiderResultsInStage(stages[1], riders[3], new LocalTime[]{LocalTime.of(9,0,0),LocalTime.of(13,10,11),
+        portal.registerRiderResultsInStage(stages[1], riders[3], new LocalTime[]{LocalTime.of(9,0,0),LocalTime.of(9,10,11),
                                                                                  LocalTime.of(9,32,58),LocalTime.of(9,44,40),
                                                                                  LocalTime.of(10,0,11),LocalTime.of(10,0,11)});
         // fetching points
+        //System.out.println(Result.getResult(0, 0).toString());
         Result[] stage1 = Result.getResultsInStage(stages[0]);
         Result[] stage2 = Result.getResultsInStage(stages[1]);
+        //System.out.println(stage1.length);
         for(Result r : stage1) {
             System.out.println(r.toString());
         }
         for(Result r : stage2) {
             System.out.println(r.toString());
         }
+        System.out.println("Rider Ranks:");
         System.out.println(portal.getRidersRankInStage(stages[0]));
         System.out.println(portal.getRidersPointsInStage(stages[0]));
         System.out.println(portal.getRidersRankInStage(stages[1]));

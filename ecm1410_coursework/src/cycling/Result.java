@@ -1,8 +1,10 @@
 package cycling;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -22,7 +24,10 @@ public class Result implements Serializable {
      * @return An array of all results for a stage
      */
     public static Result[] getResultsInStage(int stageId) {
-        ArrayList<Result> stage = new ArrayList<Result>(allResults);
+        ArrayList<Result> stage = new ArrayList<Result>();
+        for(Result r : allResults) {
+            stage.add(r);
+        }
         stage.removeIf(r -> r.getStageId()!=stageId);
         Result[] resultsForStage = new Result[stage.size()];
         for(int i=0; i<stage.size(); i++) {
@@ -63,6 +68,7 @@ public class Result implements Serializable {
         this.stageId = sId;
         this.riderId = rId;
         this.checkpoints = check;
+        Result.allResults.add(this);
     }
 
     /**
@@ -71,8 +77,13 @@ public class Result implements Serializable {
     public String toString() {
         String sId = Integer.toString(this.stageId);
         String rId = Integer.toString(this.riderId);
-        String list = this.getCheckpoints().toString();
-        return String.format("Stage[%s]-Rider[%s]: SplitTimes=%s", sId, rId, list);
+        int l = this.getCheckpoints().length;
+        String times[] = new String[l];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        for(int i=0; i<l; i++) {
+            times[i] = this.getCheckpoints()[i].format(formatter);
+        }
+        return String.format("Stage[%s]-Rider[%s]: SplitTimes=%s", sId, rId, Arrays.toString(times));
     }
 
     /**
@@ -146,7 +157,7 @@ public class Result implements Serializable {
         int hours = (int)a.until(b, ChronoUnit.HOURS);
         int minuites = (int)a.until(b, ChronoUnit.MINUTES);
         int seconds = (int)a.until(b, ChronoUnit.SECONDS);
-        return LocalTime.of(hours, minuites, seconds);
+        return LocalTime.of(hours%24, minuites%60, seconds%60);
     }
     
     /**
