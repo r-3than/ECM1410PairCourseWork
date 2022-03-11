@@ -24,6 +24,8 @@ public class Race implements Serializable {
     public static void loadId(){
         if(Race.allRaces.size()!=0) {
             Race.idMax = Race.allRaces.get(Race.allRaces.size()-1).getRaceId() + 1;
+        } else {
+            Race.idMax = 0;
         }
     }
 
