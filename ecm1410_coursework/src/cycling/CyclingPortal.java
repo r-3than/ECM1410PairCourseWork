@@ -503,7 +503,20 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public void removeRaceByName(String name) throws NameNotRecognisedException {
-		// TODO Auto-generated method stub
+		boolean found = false;
+		for (int raceId : Race.getAllRaceIds()){
+			try {
+				if (name == Race.getRaceName(raceId)){
+					Race.removeRace(raceId);
+				}
+			}
+			catch(Exception c){
+				assert(false);
+			}
+
+		}
+		if (!found){ throw new NameNotRecognisedException("Name not in System.");}
+
 	}
 
 	@Override
