@@ -22,6 +22,8 @@ public class Segment implements Serializable {
     public static void loadId(){
         if(Segment.allSegments.size()!=0) {
             Segment.idMax = Segment.allSegments.get(-1).getSegmentId() + 1;
+        } else {
+            Segment.idMax = 0;
         }
     }
 

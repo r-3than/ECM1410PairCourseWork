@@ -85,9 +85,9 @@ public class ResultTestApp {
             System.out.println(r.toString());
         }
         System.out.println("Rider Ranks:");
-        System.out.println(portal.getRidersRankInStage(stages[0]));
-        System.out.println(portal.getRidersPointsInStage(stages[0]));
-        System.out.println(portal.getRidersRankInStage(stages[1]));
-        System.out.println(portal.getRidersMountainPointsInStage(stages[1]));
+        System.out.println(portal.getRidersRankInStage(stages[0]).toString());
+        System.out.println(portal.getRidersPointsInStage(stages[0]).toString());
+        System.out.println(portal.getRidersRankInStage(stages[1]).toString());
+        System.out.println(portal.getRidersMountainPointsInStage(stages[1]).toString());
     }
 }
