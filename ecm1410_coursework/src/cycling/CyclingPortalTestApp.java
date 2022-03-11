@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class CyclingPortalTestApp {
     public static void main(String[] args) throws IDNotRecognisedException,IllegalNameException,InvalidNameException,IOException,ClassNotFoundException{
-        if (false){
+        if (true){
         CyclingPortal testCyclingPortal = new CyclingPortal();
         int teamId = testCyclingPortal.createTeam("TESTTEAM", "SOME DESC");
         testCyclingPortal.createRace("TESTRACE", "SOME RACE DESC");
@@ -13,7 +13,9 @@ public class CyclingPortalTestApp {
         testCyclingPortal.removeRaceById(removeID);
         testCyclingPortal.createRider(teamId, "somename", 2001);
         testCyclingPortal.saveCyclingPortal("testsave.data");
-        }
+        testCyclingPortal.eraseCyclingPortal();
+        
+        }     
         CyclingPortal testCyclingPortal2 = new CyclingPortal();
         testCyclingPortal2.loadCyclingPortal("testsave.data");
         for (int teamID : testCyclingPortal2.riderManager.getTeams()){
