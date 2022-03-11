@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.3.11)  11 MAR 2022 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.3.11)  11 MAR 2022 17:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -110,19 +110,124 @@ LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 21
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) (../src/cycling/CyclingPortal.java [1
 
-{C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]) [14] (printout.aux) ) 
+{C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]) (../src/cycling/Race.java [14] [15] [16] [17]
+Overfull \hbox (22.20374pt too wide) in paragraph at lines 192--193
+[][][][][] 
+ []
+
+[18]
+Overfull \hbox (11.40363pt too wide) in paragraph at lines 253--254
+[][][][][] 
+ []
+
+[19] [20]
+Overfull \hbox (16.80368pt too wide) in paragraph at lines 322--323
+[][][][][] 
+ []
+
+[21]) (../src/cycling/Stage.java [22] [23] [24] [25] [26]
+Overfull \hbox (16.80368pt too wide) in paragraph at lines 228--229
+[][][][][] 
+ []
+
+[27]
+Overfull \hbox (27.60379pt too wide) in paragraph at lines 256--257
+[][][][][] 
+ []
+
+[28]
+Overfull \hbox (54.60406pt too wide) in paragraph at lines 285--286
+[][][][][] 
+ []
+
+[29]
+Overfull \hbox (11.40363pt too wide) in paragraph at lines 351--352
+[][][][][] 
+ []
+
+[30]
+Overfull \hbox (16.80368pt too wide) in paragraph at lines 385--386
+[][][][][] 
+ []
+
+[31]
+Overfull \hbox (26.00357pt too wide) in paragraph at lines 419--420
+[][] 
+ []
+
+[32]
+Overfull \hbox (0.60352pt too wide) in paragraph at lines 474--475
+[][][][][] 
+ []
+
+
+Overfull \hbox (0.60352pt too wide) in paragraph at lines 475--476
+[][][][][] 
+ []
+
+
+Overfull \hbox (11.40363pt too wide) in paragraph at lines 476--477
+[][][][][] 
+ []
+
+[33]
+Overfull \hbox (6.00357pt too wide) in paragraph at lines 477--478
+[][][][][] 
+ []
+
+
+Overfull \hbox (0.60352pt too wide) in paragraph at lines 490--491
+[][][][][] 
+ []
+
+
+Overfull \hbox (16.80368pt too wide) in paragraph at lines 509--510
+[][][][][] 
+ []
+
+[34]) (../src/cycling/StageState.java) [35] (../src/cycling/Segment.java [36] [37] [38] [39]
+Overfull \hbox (22.20374pt too wide) in paragraph at lines 183--184
+[][][][][] 
+ []
+
+
+Overfull \hbox (27.60379pt too wide) in paragraph at lines 199--200
+[][][][][] 
+ []
+
+[40]
+Overfull \hbox (60.00412pt too wide) in paragraph at lines 217--218
+[][][][][] 
+ []
+
+
+Overfull \hbox (11.40363pt too wide) in paragraph at lines 250--251
+[][][][][] 
+ []
+
+[41]
+Overfull \hbox (69.20401pt too wide) in paragraph at lines 286--287
+[][] 
+ []
+
+[42]
+Overfull \hbox (0.60352pt too wide) in paragraph at lines 304--305
+[][][][][] 
+ []
+
+) (../src/cycling/Result.java [43] [44] [45] [46]) [47] (../src/cycling/Team.java [48] [49]) (../src/cycling/Rider.java [50]) (../src/cycling/RiderManager.java [51] [52] [53] [54] [55]) [56] (printout.aux) ) 
 Here is how much of TeX's memory you used:
- 3397 strings out of 478659
- 48356 string characters out of 2858166
- 746127 words of memory out of 3000000
- 21529 multiletter control sequences out of 15000+600000
+ 3553 strings out of 478659
+ 51917 string characters out of 2858166
+ 798129 words of memory out of 3000000
+ 21661 multiletter control sequences out of 15000+600000
  404849 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,6n,48p,324b,1686s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,6n,48p,347b,1686s stack positions out of 5000i,500n,10000p,200000b,80000s
 {D:/PROGRAMS/MiKTeX/fonts/enc/dvips/base/8r.enc}<D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on printout.pdf (14 pages, 72226 bytes).
+Output written on printout.pdf (56 pages, 143591 bytes).
 PDF statistics:
- 69 PDF objects out of 1000 (max. 8388607)
+ 204 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
