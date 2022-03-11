@@ -71,10 +71,8 @@ public class Result implements Serializable {
     public String toString() {
         String sId = Integer.toString(this.stageId);
         String rId = Integer.toString(this.riderId);
-        String list = this.checkpoints.toString();
-        String splitList = this.getCheckpoints().toString();
-        return String.format("Stage[%s]-Rider[%s]: Checkpoints=%s;"+
-                             "SplitTimes=%s", sId, rId, list, splitList);
+        String list = this.getCheckpoints().toString();
+        return String.format("Stage[%s]-Rider[%s]: SplitTimes=%s", sId, rId, list);
     }
 
     /**
