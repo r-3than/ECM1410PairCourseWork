@@ -236,6 +236,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId) throws IDNotRecognisedException {
 		// TODO Auto-generated method stub
+		// TODO Thomas do this after mountain points
 		return null;
 	}
 
@@ -338,7 +339,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public void eraseCyclingPortal() {
 		// TODO Auto-generated method stub
-
+		// TODO Ethan do this
 	}
 
 	@Override
