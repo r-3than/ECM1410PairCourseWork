@@ -37,7 +37,23 @@ public class CyclingPortalTestApp {
         }
         
         testCyclingPortal2.eraseCyclingPortal();
+
+        System.out.println("------------------------------- ERASED");
+
+        for (int teamID : testCyclingPortal2.riderManager.getTeams()){
+            System.out.println(teamID);
+        }
+        for (int raceID : testCyclingPortal2.getRaceIds()){
+            System.out.println(raceID);
+            System.out.println(testCyclingPortal2.viewRaceDetails(raceID));
+        }
+
+        System.out.println("RACE REMOVEDID");
+        for (int removedID : Race.removedIds){
+            System.out.println(removedID);
+        }
         
+
         
     }
     

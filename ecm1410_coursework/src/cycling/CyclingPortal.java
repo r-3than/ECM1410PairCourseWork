@@ -338,8 +338,13 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public void eraseCyclingPortal() {
 		
-		this.riderManager = null;
-		this.riderManager = new RiderManager();
+		Team.teamNames.clear();
+		Team.teamTopId = 0;
+		Rider.ridersTopId = 0;
+
+		RiderManager.allRiders.clear();
+		RiderManager.allTeams.clear();
+
 
 		Race.allRaces.clear();
 		Race.removedIds.clear();
