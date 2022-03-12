@@ -145,7 +145,8 @@ public class Result implements Serializable {
      * @return The total time elapsed between the start and end checkpoints
      */
     public LocalTime getTotalElasped() {
-        return Result.getElapsed(this.checkpoints[0], this.checkpoints[-1]);
+        LocalTime[] times = this.checkpoints;
+        return Result.getElapsed(times[0], times[times.length-1]);
     }
 
     /**

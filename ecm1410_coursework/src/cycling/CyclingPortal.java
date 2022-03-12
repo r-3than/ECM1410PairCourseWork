@@ -211,9 +211,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 				if(riderRanks[i] == -1) {
 					riderRanks[i] = r.getRiderId();
 				} else {
-					LocalTime[] rTimes = r.getCheckpoints();
-					LocalTime[] compTimes = Result.getResult(stageId, riderRanks[i]).getCheckpoints();
-					if(rTimes[rTimes.length-1].isBefore(compTimes[compTimes.length-1])) {
+					if(r.getTotalElasped().isBefore(Result.getResult(stageId, riderRanks[i]).getTotalElasped())) {
 						int temp;
 						int prev = r.getRiderId();
 						for(int j=i; j<riderRanks.length; j++) {
@@ -327,7 +325,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			for(int r : riders) { ridersArray.add(r); }
 			for(int i=0; i<Math.min(points.length, distribution.length); i++) {
 				int overallPos = ridersArray.indexOf(riderRanks[i]);
-				if(overallPos<points.length) {
+				if(overallPos<points.length && overallPos!=-1) {
 					points[overallPos] += distribution[i];
 				}
 			}

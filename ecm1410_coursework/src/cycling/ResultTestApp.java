@@ -2,6 +2,7 @@ package cycling;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 public class ResultTestApp {
     public static void main(String[] args) throws IllegalNameException, InvalidNameException,
@@ -85,9 +86,9 @@ public class ResultTestApp {
             System.out.println(r.toString());
         }
         System.out.println("Rider Ranks:");
-        System.out.println(portal.getRidersRankInStage(stages[0]).toString());
-        System.out.println(portal.getRidersPointsInStage(stages[0]).toString());
-        System.out.println(portal.getRidersRankInStage(stages[1]).toString());
-        System.out.println(portal.getRidersMountainPointsInStage(stages[1]).toString());
+        System.out.println(Arrays.toString(portal.getRidersRankInStage(stages[0])));
+        System.out.println(Arrays.toString(portal.getRidersPointsInStage(stages[0])));
+        System.out.println(Arrays.toString(portal.getRidersRankInStage(stages[1])));
+        System.out.println(Arrays.toString(portal.getRidersMountainPointsInStage(stages[1])));
     }
 }
