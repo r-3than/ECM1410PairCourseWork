@@ -88,6 +88,7 @@ public class ResultTestApp {
         System.out.println("Rider Ranks:");
         System.out.println(Arrays.toString(portal.getRidersRankInStage(stages[0])));
         System.out.println(Arrays.toString(portal.getRidersPointsInStage(stages[0])));
+        System.out.println(Arrays.toString(portal.getRankedAdjustedElapsedTimesInStage(stages[0])));
         System.out.println(Arrays.toString(portal.getRidersRankInStage(stages[1])));
         System.out.println(Arrays.toString(portal.getRidersMountainPointsInStage(stages[1])));
     }

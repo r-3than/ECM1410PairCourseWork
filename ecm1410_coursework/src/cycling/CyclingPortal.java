@@ -235,17 +235,24 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId) throws IDNotRecognisedException {
 		int[] riderRanks = this.getRidersRankInStage(stageId);
+		//System.out.println(Arrays.toString(riderRanks));
 		LocalTime[] out = new LocalTime[riderRanks.length];
+		Arrays.fill(out, LocalTime.of(0, 0));
 		for(int i=0; i<out.length; i++) {
 			Result r = Result.getResult(stageId, riderRanks[i]);
 			LocalTime[] checkpoints = r.getCheckpoints();
 			LocalTime[] adjustedTimes = r.adjustedCheckpoints();
 			LocalTime adjustedSplit;
-			for(int j=0; j<adjustedTimes.length-1; j++) {
-				adjustedSplit = Result.getElapsed(checkpoints[j], adjustedTimes[j+1]);
-				out[j] = out[j].plusHours(adjustedSplit.getHour());
-				out[j] = out[j].plusMinutes(adjustedSplit.getMinute());
-				out[j] = out[j].plusSeconds(adjustedSplit.getSecond());
+			System.out.println(i);
+			System.out.println(Arrays.toString(checkpoints));
+			System.out.println(Arrays.toString(adjustedTimes));
+			// this is always the split for the rider id 0 ???
+			for(int j=0; j<adjustedTimes.length; j++) {
+				adjustedSplit = Result.getElapsed(checkpoints[j], adjustedTimes[j]);
+				System.out.println(adjustedSplit.toString());
+				out[i] = out[i].plusHours(adjustedSplit.getHour());
+				out[i] = out[i].plusMinutes(adjustedSplit.getMinute());
+				out[i] = out[i].plusSeconds(adjustedSplit.getSecond());
 			}
 		}
 		return out;
