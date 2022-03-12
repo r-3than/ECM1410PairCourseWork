@@ -188,7 +188,10 @@ public class CyclingPortal implements CyclingPortalInterface {
 		LocalTime elapsedTime = adjustedTimes[0];
 		for(int i=1; i<adjustedTimes.length; i++) {
 			LocalTime t = adjustedTimes[i];
-			elapsedTime.plusHours(t.getHour()).plusMinutes(t.getMinute()).plusSeconds(t.getSecond()).plusNanos(t.getNano());
+			//elapsedTime.plusHours(t.getHour()).plusMinutes(t.getMinute()).plusSeconds(t.getSecond()).plusNanos(t.getNano());
+			elapsedTime = elapsedTime.plusHours(t.getHour());
+			elapsedTime = elapsedTime.plusMinutes(t.getMinute());
+			elapsedTime = elapsedTime.plusSeconds(t.getSecond());
 		}
 		return elapsedTime;
 	}
@@ -231,9 +234,21 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		// TODO Thomas do this after mountain points
-		return null;
+		int[] riderRanks = this.getRidersRankInStage(stageId);
+		LocalTime[] out = new LocalTime[riderRanks.length];
+		for(int i=0; i<out.length; i++) {
+			Result r = Result.getResult(stageId, riderRanks[i]);
+			LocalTime[] checkpoints = r.getCheckpoints();
+			LocalTime[] adjustedTimes = r.adjustedCheckpoints();
+			LocalTime adjustedSplit;
+			for(int j=0; j<adjustedTimes.length-1; j++) {
+				adjustedSplit = Result.getElapsed(checkpoints[j], adjustedTimes[j+1]);
+				out[j] = out[j].plusHours(adjustedSplit.getHour());
+				out[j] = out[j].plusMinutes(adjustedSplit.getMinute());
+				out[j] = out[j].plusSeconds(adjustedSplit.getSecond());
+			}
+		}
+		return out;
 	}
 
 	@Override
@@ -301,25 +316,22 @@ public class CyclingPortal implements CyclingPortalInterface {
 				for(int i=0; i<riderRanks.length; i++) {
 					if(riderRanks[i] == -1) {
 						riderRanks[i] = r.getRiderId();
-					} else {
-						Result compare = Result.getResult(stageId, riderRanks[i]);
-						if(r.getCheckpoints()[s].isBefore(compare.getCheckpoints()[s])) {
-							int temp;
-							int prev = r.getRiderId();
-							for(int j=i; j<riderRanks.length; j++) {
-								temp = riderRanks[j];
-								riderRanks[j] = prev;
-								prev = temp;
-								if(prev == -1) {
-									break;
-								}
+						break;
+					} else if(r.getCheckpoints()[s].isBefore(Result.getResult(stageId, riderRanks[i]).getCheckpoints()[s])) {
+						int temp;
+						int prev = r.getRiderId();
+						for(int j=i; j<riderRanks.length; j++) {
+							temp = riderRanks[j];
+							riderRanks[j] = prev;
+							prev = temp;
+							if(prev == -1) {
+								break;
 							}
 						}
 						break;
 					}
 				}
 			}
-			//return riderRanks;
 			ArrayList<Integer> ridersArray = new ArrayList<Integer>();
 			for(int r : riders) { ridersArray.add(r); }
 			for(int i=0; i<Math.min(points.length, distribution.length); i++) {
