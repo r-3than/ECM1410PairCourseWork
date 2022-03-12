@@ -210,17 +210,16 @@ public class CyclingPortal implements CyclingPortalInterface {
 			for(int i=0; i<riderRanks.length; i++) {
 				if(riderRanks[i] == -1) {
 					riderRanks[i] = r.getRiderId();
-				} else {
-					if(r.getTotalElasped().isBefore(Result.getResult(stageId, riderRanks[i]).getTotalElasped())) {
-						int temp;
-						int prev = r.getRiderId();
-						for(int j=i; j<riderRanks.length; j++) {
-							temp = riderRanks[j];
-							riderRanks[j] = prev;
-							prev = temp;
-							if(prev == -1) {
-								break;
-							}
+					break;
+				} else if(r.getTotalElasped().isBefore(Result.getResult(stageId, riderRanks[i]).getTotalElasped())) {
+					int temp;
+					int prev = r.getRiderId();
+					for(int j=i; j<riderRanks.length; j++) {
+						temp = riderRanks[j];
+						riderRanks[j] = prev;
+						prev = temp;
+						if(prev == -1) {
+							break;
 						}
 					}
 					break;

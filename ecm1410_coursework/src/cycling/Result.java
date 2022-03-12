@@ -83,7 +83,9 @@ public class Result implements Serializable {
         for(int i=0; i<l; i++) {
             times[i] = this.getCheckpoints()[i].format(formatter);
         }
-        return String.format("Stage[%s]-Rider[%s]: SplitTimes=%s", sId, rId, Arrays.toString(times));
+        return String.format("Stage[%s]-Rider[%s]: SplitTimes=%s; Total=%s",
+                             sId, rId, Arrays.toString(times),
+                             getTotalElasped().format(formatter));
     }
 
     /**
