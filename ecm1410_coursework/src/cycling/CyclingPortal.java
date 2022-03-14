@@ -595,14 +595,60 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public int[] getRidersPointClassificationRank(int raceId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Integer> order = new ArrayList<Integer>();
+		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
+			order.add(riderId);
+		}
+		int[] points = getRidersPointsInRace(raceId);
+		int[] out = new int[order.size()];
+		for(int i=0; i<out.length; i++) {
+			int maxPoints = -1;
+			int nextId = -1;
+			for(int j=0; j<order.size(); j++) {
+				int id = order.get(j);
+				if(points[id] > maxPoints) {
+					maxPoints = points[j];
+					nextId = id;
+				}
+			}
+			if(maxPoints < 0) {
+				break;
+			} else {
+				out[i] = nextId;
+				order.set(nextId, -1);
+			}
+		}
+		return out;
+		// TODO Test this (tom)
 	}
 
 	@Override
 	public int[] getRidersMountainPointClassificationRank(int raceId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		// effectively a clone of the method above
+		ArrayList<Integer> order = new ArrayList<Integer>();
+		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
+			order.add(riderId);
+		}
+		int[] points = getRidersMountainPointsInRace(raceId);
+		int[] out = new int[order.size()];
+		for(int i=0; i<out.length; i++) {
+			int maxPoints = -1;
+			int nextId = -1;
+			for(int j=0; j<order.size(); j++) {
+				int id = order.get(j);
+				if(points[id] > maxPoints) {
+					maxPoints = points[j];
+					nextId = id;
+				}
+			}
+			if(maxPoints < 0) {
+				break;
+			} else {
+				out[i] = nextId;
+				order.set(nextId, -1);
+			}
+		}
+		return out;
+		// TODO Test this (tom)
 	}
-
 }
