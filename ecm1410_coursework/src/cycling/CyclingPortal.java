@@ -92,8 +92,8 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public int addIntermediateSprintToStage(int stageId, double location) throws IDNotRecognisedException,
 			InvalidLocationException, InvalidStageStateException, InvalidStageTypeException {
-		// TODO Check inputs?
-		return Stage.addSegmentToStage(stageId, location, SegmentType.SPRINT, 0.0, location);
+		// TODO test
+		return Stage.addSegmentToStage(stageId, location, SegmentType.SPRINT, 0.0, 0.0);
 	}
 
 	@Override
