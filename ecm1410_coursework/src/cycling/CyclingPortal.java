@@ -237,18 +237,20 @@ public class CyclingPortal implements CyclingPortalInterface {
 		int[] riderRanks = this.getRidersRankInStage(stageId);
 		//System.out.println(Arrays.toString(riderRanks));
 		LocalTime[] out = new LocalTime[riderRanks.length];
-		Arrays.fill(out, LocalTime.of(0, 0));
+		Arrays.fill(out, Result.getResult(stageId, riderRanks[0]).getCheckpoints()[0]);
 		for(int i=0; i<out.length; i++) {
 			Result r = Result.getResult(stageId, riderRanks[i]);
 			LocalTime[] checkpoints = r.getCheckpoints();
 			LocalTime[] adjustedTimes = r.adjustedCheckpoints();
 			LocalTime adjustedSplit;
+			/*
 			System.out.println(i);
 			System.out.println(Arrays.toString(checkpoints));
 			System.out.println(Arrays.toString(adjustedTimes));
-			// this is always the split for the rider id 0 ???
+			*/
 			for(int j=0; j<adjustedTimes.length; j++) {
-				adjustedSplit = Result.getElapsed(checkpoints[j], adjustedTimes[j]);
+				//adjustedSplit = Result.getElapsed(checkpoints[j], adjustedTimes[j]);
+				adjustedSplit = Result.getElapsed(adjustedTimes[j], checkpoints[j]);
 				System.out.println(adjustedSplit.toString());
 				out[i] = out[i].plusHours(adjustedSplit.getHour());
 				out[i] = out[i].plusMinutes(adjustedSplit.getMinute());
