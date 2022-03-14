@@ -537,7 +537,13 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public LocalTime[] getGeneralClassificationTimesInRace(int raceId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub (Eth)
+		Race currentRace = Race.getRace(raceId);
+		int[] stageIds = currentRace.getStages();
+		for (int stageId : stageIds){
+			
+		}
+
 		return null;
 	}
 
@@ -555,7 +561,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public int[] getRidersGeneralClassificationRank(int raceId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub (Eth)
 		return null;
 	}
 
