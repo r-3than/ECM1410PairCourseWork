@@ -551,8 +551,20 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public int[] getRidersPointsInRace(int raceId) throws IDNotRecognisedException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Integer> order = new ArrayList<Integer>();
+		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
+			order.add(riderId);
+		}
+		int[] out = new int[order.size()];
+		int[] stageRank, stagePoints;
+		for(int stageId : Race.getStages(raceId)) {
+			stageRank = getRidersRankInStage(stageId);
+			stagePoints = getRidersPointsInStage(stageId);
+			for(int i=0; i<stageRank.length; i++) {
+				out[order.indexOf(stageRank[i])] += stagePoints[i];
+			}
+		}
+		return out;
 	}
 
 	@Override
