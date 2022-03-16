@@ -76,7 +76,7 @@ public class Race implements Serializable {
             for(int id : r.getStages()) {
                 r.removeStageFromRace(id);
             }
-            allRaces.remove(raceId);
+            allRaces.remove(r);
             removedIds.add(raceId);
         } else if (removed) {
             throw new IDNotRecognisedException("no race instance for raceID");
