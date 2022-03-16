@@ -54,7 +54,7 @@ public class CyclingPortalTestApp {
         for (int removedID : Race.removedIds){
             System.out.println(removedID);
         }
-        
+        testCyclingPortal2.riderManager.getRider(100);
 
         
     }

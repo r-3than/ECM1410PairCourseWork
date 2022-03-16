@@ -542,7 +542,14 @@ public class CyclingPortal implements CyclingPortalInterface {
 		// TODO Auto-generated method stub (Eth)
 		Race currentRace = Race.getRace(raceId);
 		int[] stageIds = currentRace.getStages();
+		int[] riderIds = this.riderManager.getRiderIds();
+		LocalTime[] riderTimes = new LocalTime[riderIds.length];
 		for (int stageId : stageIds){
+			Result[] temp = Result.getResultsInStage(stageId);
+			for(Result result: temp){
+				int riderId = result.getRiderId();
+			}
+			
 			
 		}
 
