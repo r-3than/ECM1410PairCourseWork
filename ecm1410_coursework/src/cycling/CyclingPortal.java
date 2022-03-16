@@ -657,6 +657,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			int nextId = -1;
 			for(int j=0; j<order.length; j++) {
 				int id = order[j];
+				if(id<0) { continue; }
 				if(points[id] > maxPoints) {
 					maxPoints = points[j];
 					nextId = id;
@@ -683,6 +684,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			int nextId = -1;
 			for(int j=0; j<order.length; j++) {
 				int id = order[j];
+				if(id<0) { continue; }
 				if(points[id] > maxPoints) {
 					maxPoints = points[j];
 					nextId = id;
