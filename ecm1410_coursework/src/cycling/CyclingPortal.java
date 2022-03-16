@@ -659,19 +659,15 @@ public class CyclingPortal implements CyclingPortalInterface {
 			int nextId = -1;
 			for(int j=0; j<order.size(); j++) {
 				int id = order.get(j);
-				System.out.print(id);
 				if(id<0) { continue; }
 				if(points[id] > maxPoints) {
 					maxPoints = points[j];
 					nextId = id;
 				}
 			}
-			//System.out.print(maxPoints);
-			//System.out.print(nextId);
 			if(maxPoints < 0) {
 				break;
 			} else {
-				System.out.printf("[%d]",nextId);
 				out[i] = nextId;
 				order.set(order.indexOf(nextId), -1);
 			}
