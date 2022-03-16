@@ -1,7 +1,8 @@
 package cycling;
 
 import java.util.Arrays;
-
+import java.util.Comparator;
+import java.util.HashMap;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -543,22 +544,37 @@ public class CyclingPortal implements CyclingPortalInterface {
 		Race currentRace = Race.getRace(raceId);
 		int[] stageIds = currentRace.getStages();
 		int[] riderIds = this.riderManager.getRiderIds();
-		int[] riderPos = new int[riderIds.length];
-		int[] riderElaspedTime = new int[riderIds.length];
-		LocalTime[] riderTimes = new LocalTime[riderIds.length];
+		HashMap<Integer,Long> riderElaspedTime = new HashMap<Integer,Long>(); //Rider Id -> totalTime (long)
 		for (int stageId : stageIds){
 			Result[] temp = Result.getResultsInStage(stageId);
 			for(Result result: temp){
 				int riderId = result.getRiderId();
 				LocalTime getTotalElasped = result.getTotalElasped();
-				int timeTaken = getTotalElasped.toSecondOfDay();
-				riderElaspedTime[riderId] = riderElaspedTime[riderId]+timeTaken;
+				long timeTaken = getTotalElasped.toNanoOfDay();
+				Long newTime = (Long)riderElaspedTime.get(riderId)+timeTaken;
+				riderElaspedTime.put(riderId,newTime);
 			}
 			
-			
+		}
+		long[][] riderTimePos = new long[riderIds.length][2];
+		int count = 0;
+		for (int riderId : riderIds){
+			Long finalRiderTime = riderElaspedTime.get(riderId);// ## -> [[time,riderId],....] sort by time!
+			riderTimePos[count][0] = riderId;
+			riderTimePos[count][1] = finalRiderTime;
+			count++;
+		}
+		Arrays.sort(riderTimePos, Comparator.comparingDouble(o -> o[1]));
+		LocalTime[] finalTimes = new LocalTime[riderIds.length];
+		count = 0;
+		for (long[] items : riderTimePos){
+			finalTimes[count]= LocalTime.ofNanoOfDay(items[1]);
+			count++;
 		}
 
-		return null;
+
+
+		return finalTimes;
 	}
 
 	@Override
@@ -600,7 +616,38 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public int[] getRidersGeneralClassificationRank(int raceId) throws IDNotRecognisedException {
 		// TODO Auto-generated method stub (Eth)
-		return null;
+		Race currentRace = Race.getRace(raceId);
+		int[] stageIds = currentRace.getStages();
+		int[] riderIds = this.riderManager.getRiderIds();
+		HashMap<Integer,Long> riderElaspedTime = new HashMap<Integer,Long>(); //Rider Id -> totalTime (long)
+		for (int stageId : stageIds){
+			Result[] temp = Result.getResultsInStage(stageId);
+			for(Result result: temp){
+				int riderId = result.getRiderId();
+				LocalTime getTotalElasped = result.getTotalElasped();
+				long timeTaken = getTotalElasped.toNanoOfDay();
+				Long newTime = (Long)riderElaspedTime.get(riderId)+timeTaken;
+				riderElaspedTime.put(riderId,newTime);
+			}
+			
+		}
+		long[][] riderTimePos = new long[riderIds.length][2];
+		int count = 0;
+		for (int riderId : riderIds){
+			Long finalRiderTime = riderElaspedTime.get(riderId);// ## -> [[time,riderId],....] sort by time!
+			riderTimePos[count][0] = riderId;
+			riderTimePos[count][1] = finalRiderTime;
+			count++;
+		}
+		Arrays.sort(riderTimePos, Comparator.comparingDouble(o -> o[1]));
+		int[] finalPos = new int[riderIds.length];
+		count = 0;
+		for (long[] items : riderTimePos){
+			finalPos[count]= (int)items[0];
+			count++;
+		}
+
+		return finalPos;
 	}
 
 	@Override
