@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.3.11)  16 MAR 2022 12:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.3.11)  16 MAR 2022 12:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -125,12 +125,12 @@ Overfull \hbox (16.80368pt too wide) in paragraph at lines 322--323
 [][][][][] 
  []
 
-) (../src/cycling/Stage.java [25] [26] [27] [28] [29] [30]
+) (../src/cycling/Stage.java [25] [26] [27] [28] [29]
 Overfull \hbox (16.80368pt too wide) in paragraph at lines 228--229
 [][][][][] 
  []
 
-
+[30]
 Overfull \hbox (27.60379pt too wide) in paragraph at lines 256--257
 [][][][][] 
  []
@@ -190,12 +190,12 @@ Overfull \hbox (22.20374pt too wide) in paragraph at lines 181--182
 [][][][][] 
  []
 
-[43]
+
 Overfull \hbox (27.60379pt too wide) in paragraph at lines 197--198
 [][][][][] 
  []
 
-
+[43]
 Overfull \hbox (60.00412pt too wide) in paragraph at lines 215--216
 [][][][][] 
  []
@@ -219,13 +219,13 @@ Overfull \hbox (0.60352pt too wide) in paragraph at lines 302--303
 Here is how much of TeX's memory you used:
  3575 strings out of 478659
  52592 string characters out of 2858166
- 795129 words of memory out of 3000000
+ 798129 words of memory out of 3000000
  21683 multiletter control sequences out of 15000+600000
  404849 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,6n,48p,369b,1686s stack positions out of 5000i,500n,10000p,200000b,80000s
 {D:/PROGRAMS/MiKTeX/fonts/enc/dvips/base/8r.enc}<D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on printout.pdf (60 pages, 149168 bytes).
+Output written on printout.pdf (60 pages, 149108 bytes).
 PDF statistics:
  216 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
