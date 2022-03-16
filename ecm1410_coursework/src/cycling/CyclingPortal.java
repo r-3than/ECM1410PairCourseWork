@@ -537,6 +537,9 @@ public class CyclingPortal implements CyclingPortalInterface {
 		int[] stageIds = currentRace.getStages();
 		int[] riderIds = this.riderManager.getRiderIds();
 		HashMap<Integer,Long> riderElaspedTime = new HashMap<Integer,Long>(); //Rider Id -> totalTime (long)
+		for (int riderId : riderIds){
+			riderElaspedTime.put(riderId,0L);
+		}
 		for (int stageId : stageIds){
 			Result[] temp = Result.getResultsInStage(stageId);
 			for(Result result: temp){
@@ -611,6 +614,9 @@ public class CyclingPortal implements CyclingPortalInterface {
 		int[] stageIds = currentRace.getStages();
 		int[] riderIds = this.riderManager.getRiderIds();
 		HashMap<Integer,Long> riderElaspedTime = new HashMap<Integer,Long>(); //Rider Id -> totalTime (long)
+		for (int riderId : riderIds){
+			riderElaspedTime.put(riderId,0L);
+		}
 		for (int stageId : stageIds){
 			Result[] temp = Result.getResultsInStage(stageId);
 			for(Result result: temp){
