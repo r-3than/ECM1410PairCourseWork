@@ -177,5 +177,15 @@ public class RiderManager implements Serializable{
             Rider.ridersTopId = lastRider.getRiderId()+1;
         }
     }
+    int [] getRiderIds(){
+        int[] riderIdArray = new int[allRiders.size()];
+        int count = 0;
+        for (Rider rider : RiderManager.allRiders){
+            riderIdArray[count] = rider.getRiderId();
+            count++;
+
+        }
+        return riderIdArray;
+    }
 
 }
