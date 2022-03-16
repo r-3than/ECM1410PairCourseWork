@@ -543,11 +543,16 @@ public class CyclingPortal implements CyclingPortalInterface {
 		Race currentRace = Race.getRace(raceId);
 		int[] stageIds = currentRace.getStages();
 		int[] riderIds = this.riderManager.getRiderIds();
+		int[] riderPos = new int[riderIds.length];
+		int[] riderElaspedTime = new int[riderIds.length];
 		LocalTime[] riderTimes = new LocalTime[riderIds.length];
 		for (int stageId : stageIds){
 			Result[] temp = Result.getResultsInStage(stageId);
 			for(Result result: temp){
 				int riderId = result.getRiderId();
+				LocalTime getTotalElasped = result.getTotalElasped();
+				int timeTaken = getTotalElasped.toSecondOfDay();
+				riderElaspedTime[riderId] = riderElaspedTime[riderId]+timeTaken;
 			}
 			
 			
