@@ -77,7 +77,7 @@ public class Stage implements Serializable {
             for(int id : s.getSegments()) {
                 s.removeSegmentFromStage(id);
             }
-            allStages.remove(stageId);
+            allStages.remove(s);
             removedIds.add(stageId);
         } else if (removed) {
             throw new IDNotRecognisedException("no stage instance for stageID");

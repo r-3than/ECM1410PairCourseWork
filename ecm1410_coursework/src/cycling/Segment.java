@@ -75,11 +75,9 @@ public class Segment implements Serializable {
                                      IDNotRecognisedException {
         boolean removed = Segment.removedIds.contains(segmentId);
         if(segmentId<Segment.idMax && segmentId >= 0 && !removed) {
-            allSegments.remove(segmentId);
-            Segment.idMax--;
-            for(int i=segmentId;i<allSegments.size();i++) {
-                getSegment(i).segmentId--; 
-            }
+            Segment s = getSegment(segmentId);
+            allSegments.remove(s);
+            removedIds.add(segmentId);
         } else if (removed) {
             throw new IDNotRecognisedException("no segment instance for "+
                                                 "segmentId");
