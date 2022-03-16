@@ -92,12 +92,9 @@ public class ResultTestApp {
         System.out.println(Arrays.toString(portal.getRidersRankInStage(stages[1])));
         System.out.println(Arrays.toString(portal.getRidersMountainPointsInStage(stages[1])));
 
-        // TODO needs getRidersGeneralClassificationRank
-        /*
         System.out.println(Arrays.toString(portal.getRidersPointsInRace(race)));
         System.out.println(Arrays.toString(portal.getRidersPointClassificationRank(race)));
         System.out.println(Arrays.toString(portal.getRidersMountainPointsInRace(race)));
         System.out.println(Arrays.toString(portal.getRidersMountainPointClassificationRank(race)));
-        */
     }
 }
