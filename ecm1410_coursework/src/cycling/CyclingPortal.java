@@ -93,7 +93,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public int addIntermediateSprintToStage(int stageId, double location) throws IDNotRecognisedException,
 			InvalidLocationException, InvalidStageStateException, InvalidStageTypeException {
-		// TODO test
 		return Stage.addSegmentToStage(stageId, location, SegmentType.SPRINT, 0.0, 0.0);
 	}
 
@@ -236,21 +235,14 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId) throws IDNotRecognisedException {
 		int[] riderRanks = this.getRidersRankInStage(stageId);
-		//System.out.println(Arrays.toString(riderRanks));
 		LocalTime[] out = new LocalTime[riderRanks.length];
-		Arrays.fill(out, Result.getResult(stageId, riderRanks[0]).getCheckpoints()[0]);
 		for(int i=0; i<out.length; i++) {
 			Result r = Result.getResult(stageId, riderRanks[i]);
 			LocalTime[] checkpoints = r.getCheckpoints();
 			LocalTime[] adjustedTimes = r.adjustedCheckpoints();
+			out[i] = adjustedTimes[0];
 			LocalTime adjustedSplit;
-			/*
-			System.out.println(i);
-			System.out.println(Arrays.toString(checkpoints));
-			System.out.println(Arrays.toString(adjustedTimes));
-			*/
 			for(int j=0; j<adjustedTimes.length; j++) {
-				//adjustedSplit = Result.getElapsed(checkpoints[j], adjustedTimes[j]);
 				adjustedSplit = Result.getElapsed(adjustedTimes[j], checkpoints[j]);
 				System.out.println(adjustedSplit.toString());
 				out[i] = out[i].plusHours(adjustedSplit.getHour());
@@ -523,14 +515,15 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public void removeRaceByName(String name) throws NameNotRecognisedException {
 		boolean found = false;
-		for (int raceId : Race.getAllRaceIds()){ //Throwing this exception is impossible!
+		for (int raceId : Race.getAllRaceIds()){
 			try {
 				if (name == Race.getRaceName(raceId)){
 					Race.removeRace(raceId);
 				}
 			}
 			catch(Exception c){
-				assert(false); //Assert false for this!
+				assert(false); // Exception will not throw by for each condition
+				// This try catch is easier than moving exceptions to CyclingPortal level
 			}
 
 		}
