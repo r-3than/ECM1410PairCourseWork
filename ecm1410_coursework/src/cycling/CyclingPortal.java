@@ -648,25 +648,32 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public int[] getRidersPointClassificationRank(int raceId) throws IDNotRecognisedException {
-		int[] order = getRidersGeneralClassificationRank(raceId);
+		ArrayList<Integer> order = new ArrayList<Integer>();
+		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
+			order.add(riderId);
+		}
 		int[] points = getRidersPointsInRace(raceId);
-		int[] out = new int[order.length];
+		int[] out = new int[order.size()];
 		for(int i=0; i<out.length; i++) {
 			int maxPoints = -1;
 			int nextId = -1;
-			for(int j=0; j<order.length; j++) {
-				int id = order[j];
+			for(int j=0; j<order.size(); j++) {
+				int id = order.get(j);
+				System.out.print(id);
 				if(id<0) { continue; }
 				if(points[id] > maxPoints) {
 					maxPoints = points[j];
 					nextId = id;
 				}
 			}
+			//System.out.print(maxPoints);
+			//System.out.print(nextId);
 			if(maxPoints < 0) {
 				break;
 			} else {
+				System.out.printf("[%d]",nextId);
 				out[i] = nextId;
-				order[nextId] = -1;
+				order.set(order.indexOf(nextId), -1);
 			}
 		}
 		return out;
@@ -674,15 +681,17 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public int[] getRidersMountainPointClassificationRank(int raceId) throws IDNotRecognisedException {
-		// effectively a clone of the method above
-		int[] order = getRidersGeneralClassificationRank(raceId);
+		ArrayList<Integer> order = new ArrayList<Integer>();
+		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
+			order.add(riderId);
+		}
 		int[] points = getRidersMountainPointsInRace(raceId);
-		int[] out = new int[order.length];
+		int[] out = new int[order.size()];
 		for(int i=0; i<out.length; i++) {
 			int maxPoints = -1;
 			int nextId = -1;
-			for(int j=0; j<order.length; j++) {
-				int id = order[j];
+			for(int j=0; j<order.size(); j++) {
+				int id = order.get(j);
 				if(id<0) { continue; }
 				if(points[id] > maxPoints) {
 					maxPoints = points[j];
@@ -693,7 +702,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 				break;
 			} else {
 				out[i] = nextId;
-				order[nextId] = -1;
+				order.set(order.indexOf(nextId), -1);
 			}
 		}
 		return out;
