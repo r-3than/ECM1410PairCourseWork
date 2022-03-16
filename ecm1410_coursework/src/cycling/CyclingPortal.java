@@ -244,7 +244,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 			LocalTime adjustedSplit;
 			for(int j=0; j<adjustedTimes.length; j++) {
 				adjustedSplit = Result.getElapsed(adjustedTimes[j], checkpoints[j]);
-				System.out.println(adjustedSplit.toString());
 				out[i] = out[i].plusHours(adjustedSplit.getHour());
 				out[i] = out[i].plusMinutes(adjustedSplit.getMinute());
 				out[i] = out[i].plusSeconds(adjustedSplit.getSecond());
@@ -657,6 +656,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			int nextId = -1;
 			for(int j=0; j<order.length; j++) {
 				int id = order[j];
+				if(id<0) { continue; }
 				if(points[id] > maxPoints) {
 					maxPoints = points[j];
 					nextId = id;
@@ -683,6 +683,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			int nextId = -1;
 			for(int j=0; j<order.length; j++) {
 				int id = order[j];
+				if(id<0) { continue; }
 				if(points[id] > maxPoints) {
 					maxPoints = points[j];
 					nextId = id;
