@@ -522,14 +522,15 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public void removeRaceByName(String name) throws NameNotRecognisedException {
 		boolean found = false;
-		for (int raceId : Race.getAllRaceIds()){ //Throwing this exception is impossible!
+		for (int raceId : Race.getAllRaceIds()){
 			try {
 				if (name == Race.getRaceName(raceId)){
 					Race.removeRace(raceId);
 				}
 			}
 			catch(Exception c){
-				assert(false); //Assert false for this!
+				assert(false); // Exception will not throw by for each condition
+				// This try catch is easier than moving exceptions to CyclingPortal level
 			}
 
 		}
