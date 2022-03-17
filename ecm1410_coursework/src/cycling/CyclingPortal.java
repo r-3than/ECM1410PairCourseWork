@@ -175,7 +175,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 		for(int i=0; i<checkpointTimes.length; i++) {
 			out[i] = checkpointTimes[i];
 		}
-		out[-1] = result.getTotalElasped();
+		out[checkpointTimes.length] = result.getTotalElasped();
 		return out;
 	}
 
@@ -188,10 +188,10 @@ public class CyclingPortal implements CyclingPortalInterface {
 		LocalTime elapsedTime = adjustedTimes[0];
 		for(int i=1; i<adjustedTimes.length; i++) {
 			LocalTime t = adjustedTimes[i];
-			//elapsedTime.plusHours(t.getHour()).plusMinutes(t.getMinute()).plusSeconds(t.getSecond()).plusNanos(t.getNano());
 			elapsedTime = elapsedTime.plusHours(t.getHour());
 			elapsedTime = elapsedTime.plusMinutes(t.getMinute());
 			elapsedTime = elapsedTime.plusSeconds(t.getSecond());
+			elapsedTime = elapsedTime.plusNanos(t.getNano());
 		}
 		return elapsedTime;
 	}
@@ -208,7 +208,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public int[] getRidersRankInStage(int stageId) throws IDNotRecognisedException {
 		Result[] results = Result.getResultsInStage(stageId);
 		int[] riderRanks = new int[results.length];
-		Arrays.fill(riderRanks, -1);
+		Arrays.fill(riderRanks, -1); // 0 may be a rider id
 		for(Result r : results) {
 			for(int i=0; i<riderRanks.length; i++) {
 				if(riderRanks[i] == -1) {
@@ -247,6 +247,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 				out[i] = out[i].plusHours(adjustedSplit.getHour());
 				out[i] = out[i].plusMinutes(adjustedSplit.getMinute());
 				out[i] = out[i].plusSeconds(adjustedSplit.getSecond());
+				out[i] = out[i].plusNanos(adjustedSplit.getNano());
 			}
 		}
 		return out;
@@ -312,7 +313,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			}
 			// get ranks for segment
 			int[] riderRanks = new int[results.length];
-			Arrays.fill(riderRanks, -1);
+			Arrays.fill(riderRanks, -1); // 0 may be a rider id
 			for(Result r : results) {
 				for(int i=0; i<riderRanks.length; i++) {
 					if(riderRanks[i] == -1) {

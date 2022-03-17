@@ -160,7 +160,9 @@ public class Result implements Serializable {
         int hours = (int)a.until(b, ChronoUnit.HOURS);
         int minuites = (int)a.until(b, ChronoUnit.MINUTES);
         int seconds = (int)a.until(b, ChronoUnit.SECONDS);
-        return LocalTime.of(hours%24, minuites%60, seconds%60);
+        double nanos = a.until(b, ChronoUnit.NANOS);
+        nanos = nanos%Math.pow(10, 9);
+        return LocalTime.of(hours%24, minuites%60, seconds%60, (int)nanos);
     }
     
     /**
