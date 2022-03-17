@@ -12,19 +12,17 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
 
-
-
 /**
  * CyclingPortal implements CyclingPortalInterface; contains methods for
  * handling the following classes: Race, Stage, Segment, RiderManager (and in
  * turn Rider and Team), and Result.
  * These classes are used manage races and their subdivisions, teams and their
- * riders, and to calculate and assign points.
- * Also contains methods for saving and loading MiniCyclingPortalInterface to
+ * riders, and to calculate and assign points from riders' results.
+ * Also contains methods for saving and loading (Mini)CyclingPortalInterface to
  * and from a file.
  * 
  * @author Ethan Ray & Thomas Newbold
- * @version 1.0
+ * @version 1.1
  *
  */
 public class CyclingPortal implements CyclingPortalInterface {
@@ -93,6 +91,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public int addIntermediateSprintToStage(int stageId, double location) throws IDNotRecognisedException,
 			InvalidLocationException, InvalidStageStateException, InvalidStageTypeException {
+		// adds stage with type SPRINT, and length 0.0
 		return Stage.addSegmentToStage(stageId, location, SegmentType.SPRINT, 0.0, 0.0);
 	}
 
@@ -119,7 +118,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public void removeTeam(int teamId) throws IDNotRecognisedException {
 		riderManager.removeTeam(teamId);
-
 	}
 
 	@Override
@@ -135,13 +133,11 @@ public class CyclingPortal implements CyclingPortalInterface {
 	@Override
 	public int createRider(int teamID, String name, int yearOfBirth) throws IDNotRecognisedException, IllegalArgumentException {
 		return riderManager.createRider(teamID, name, yearOfBirth);
-		
 	}
 
 	@Override
 	public void removeRider(int riderId) throws IDNotRecognisedException {
 		riderManager.removeRider(riderId);
-
 	}
 
 	@Override
@@ -155,7 +151,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 		}
 		try {
 			Result.getResult(stageId, riderId);
-			throw new DuplicatedResultException();
+			throw new DuplicatedResultException("result already exists for rider in stage");
 		} catch(IDNotRecognisedException ex) {
 			Stage.getStage(stageId);
 			riderManager.getRider(riderId);
@@ -176,6 +172,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			out[i] = checkpointTimes[i];
 		}
 		out[checkpointTimes.length] = result.getTotalElasped();
+		// adds total elapsed time to end of split times list
 		return out;
 	}
 
@@ -192,6 +189,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			elapsedTime = elapsedTime.plusMinutes(t.getMinute());
 			elapsedTime = elapsedTime.plusSeconds(t.getSecond());
 			elapsedTime = elapsedTime.plusNanos(t.getNano());
+			// sums adjusted split times
 		}
 		return elapsedTime;
 	}
@@ -242,9 +240,11 @@ public class CyclingPortal implements CyclingPortalInterface {
 			LocalTime[] checkpoints = r.getCheckpoints();
 			LocalTime[] adjustedTimes = r.adjustedCheckpoints();
 			out[i] = adjustedTimes[0];
+			// adjusted splits measured from adjusted start time
 			LocalTime adjustedSplit;
 			for(int j=0; j<adjustedTimes.length; j++) {
 				adjustedSplit = Result.getElapsed(adjustedTimes[j], checkpoints[j]);
+				// adjusted per segment
 				out[i] = out[i].plusHours(adjustedSplit.getHour());
 				out[i] = out[i].plusMinutes(adjustedSplit.getMinute());
 				out[i] = out[i].plusSeconds(adjustedSplit.getSecond());
@@ -260,6 +260,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 		int[] points = new int[Result.getResultsInStage(stageId).length];
 		int[] distribution = new int[15];
 		// distributions from https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
+		// The points to be awarded in order for the stage
 		switch(type) {
 			case FLAT:
 				distribution = new int[]{50,30,20,18,16,14,12,10,8,7,6,5,4,3,2};
@@ -276,6 +277,19 @@ public class CyclingPortal implements CyclingPortalInterface {
 		}
 		for(int i=0; i<Math.min(points.length, distribution.length); i++) {
 			points[i] = distribution[i];
+		}
+		// check for SPRINT checkpoints
+		distribution = new int[]{20,17,15,13,11,10,9,8,7,6,5,4,3,2,1};
+		ArrayList<Integer> ridersArray = new ArrayList<Integer>();
+		for(int r : getRidersRankInStage(stageId)) { ridersArray.add(r); }
+		 // converts RRIS from int[] to ArrayList
+		for(int segmentId : Stage.getSegments(stageId)) {
+			if(Segment.getSegmentType(segmentId).equals(SegmentType.SPRINT)) {
+				// TODO
+				for(int i=0; i<Math.min(points.length, distribution.length); i++) {
+					points[i] += distribution[i];
+				}
+			}
 		}
 		return points;
 	}
