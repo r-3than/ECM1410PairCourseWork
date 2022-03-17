@@ -82,19 +82,26 @@ public class ResultTestApp {
         for(Result r : stage1) {
             System.out.println(r.toString());
         }
+        System.out.println("");
         for(Result r : stage2) {
             System.out.println(r.toString());
         }
-        System.out.println("Rider Ranks:");
+        System.out.println("\nStage 0:");
         System.out.println(Arrays.toString(portal.getRidersRankInStage(stages[0])));
         System.out.println(Arrays.toString(portal.getRidersPointsInStage(stages[0])));
+        System.out.println(Arrays.toString(portal.getRidersMountainPointsInStage(stages[0])));
+        System.out.println("Adjusted elapsed times in stage 0:");
         System.out.println(Arrays.toString(portal.getRankedAdjustedElapsedTimesInStage(stages[0])));
+        System.out.println("Stage 1:");
         System.out.println(Arrays.toString(portal.getRidersRankInStage(stages[1])));
+        System.out.println(Arrays.toString(portal.getRidersPointsInStage(stages[1])));
         System.out.println(Arrays.toString(portal.getRidersMountainPointsInStage(stages[1])));
 
-        System.out.println(Arrays.toString(portal.getRidersPointsInRace(race)));
+        System.out.println("\nRace Classification:");
         System.out.println(Arrays.toString(portal.getRidersPointClassificationRank(race)));
-        System.out.println(Arrays.toString(portal.getRidersMountainPointsInRace(race)));
+        System.out.println(Arrays.toString(portal.getRidersPointsInRace(race)));
+        System.out.println("Race Classification (Mountain):");
         System.out.println(Arrays.toString(portal.getRidersMountainPointClassificationRank(race)));
+        System.out.println(Arrays.toString(portal.getRidersMountainPointsInRace(race)));
     }
 }
