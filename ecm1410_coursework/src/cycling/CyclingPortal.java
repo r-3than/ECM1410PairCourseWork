@@ -282,12 +282,41 @@ public class CyclingPortal implements CyclingPortalInterface {
 		distribution = new int[]{20,17,15,13,11,10,9,8,7,6,5,4,3,2,1};
 		ArrayList<Integer> ridersArray = new ArrayList<Integer>();
 		for(int r : getRidersRankInStage(stageId)) { ridersArray.add(r); }
-		 // converts RRIS from int[] to ArrayList
-		for(int segmentId : Stage.getSegments(stageId)) {
-			if(Segment.getSegmentType(segmentId).equals(SegmentType.SPRINT)) {
-				// TODO
+		// converts RRIS from int[] to ArrayList
+		int[] segments = Stage.getSegments(stageId);
+		Result[] results;
+		for(int s=0; s<segments.length; s++) {
+			if(Segment.getSegmentType(segments[s]).equals(SegmentType.SPRINT)) {
+				// get ranks for segment
+				results = Result.getResultsInStage(stageId);
+				int[] riderRanks = new int[results.length];
+				Arrays.fill(riderRanks, -1); // 0 may be a rider id
+				for(Result r : results) {
+					for(int i=0; i<riderRanks.length; i++) {
+						if(riderRanks[i] == -1) {
+							riderRanks[i] = r.getRiderId();
+							break;
+						} else if(r.getCheckpoints()[s].isBefore(Result.getResult(stageId, riderRanks[i]).getCheckpoints()[s])) {
+							int temp;
+							int prev = r.getRiderId();
+							for(int j=i; j<riderRanks.length; j++) {
+								temp = riderRanks[j];
+								riderRanks[j] = prev;
+								prev = temp;
+								if(prev == -1) {
+									break;
+								}
+							}
+							break;
+						}
+					}
+				}
+				// adds points to position of rider in overall ranking
 				for(int i=0; i<Math.min(points.length, distribution.length); i++) {
-					points[i] += distribution[i];
+					int overallPos = ridersArray.indexOf(riderRanks[i]);
+					if(overallPos<points.length && overallPos!=-1) {
+						points[overallPos] += distribution[i];
+					}
 				}
 			}
 		}
