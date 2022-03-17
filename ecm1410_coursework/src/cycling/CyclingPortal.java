@@ -215,6 +215,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 					riderRanks[i] = r.getRiderId();
 					break;
 				} else if(r.getTotalElasped().isBefore(Result.getResult(stageId, riderRanks[i]).getTotalElasped())) {
+					// add id at position i, move other ids down
 					int temp;
 					int prev = r.getRiderId();
 					for(int j=i; j<riderRanks.length; j++) {
@@ -334,6 +335,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 					}
 				}
 			}
+			// adds points to position of rider in overall ranking
 			ArrayList<Integer> ridersArray = new ArrayList<Integer>();
 			for(int r : riders) { ridersArray.add(r); }
 			for(int i=0; i<Math.min(points.length, distribution.length); i++) {
@@ -528,7 +530,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 		}
 		if (!found){ throw new NameNotRecognisedException("Name not in System.");}
-
 	}
 
 	@Override
@@ -576,7 +577,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public int[] getRidersPointsInRace(int raceId) throws IDNotRecognisedException {
 		ArrayList<Integer> order = new ArrayList<Integer>();
 		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
-			order.add(riderId);
+			order.add(riderId); // converts GCR from int[] to ArrayList
 		}
 		int[] out = new int[order.size()];
 		int[] stageRank, stagePoints;
@@ -585,6 +586,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			stagePoints = getRidersPointsInStage(stageId);
 			for(int i=0; i<stageRank.length; i++) {
 				out[order.indexOf(stageRank[i])] += stagePoints[i];
+				// orders points from stagePoints by order using stageRank
 			}
 		}
 		return out;
@@ -594,7 +596,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public int[] getRidersMountainPointsInRace(int raceId) throws IDNotRecognisedException {
 		ArrayList<Integer> order = new ArrayList<Integer>();
 		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
-			order.add(riderId);
+			order.add(riderId); // converts GCR from int[] to ArrayList
 		}
 		int[] out = new int[order.size()];
 		int[] stageRank, stagePoints;
@@ -603,6 +605,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			stagePoints = getRidersMountainPointsInStage(stageId);
 			for(int i=0; i<stageRank.length; i++) {
 				out[order.indexOf(stageRank[i])] += stagePoints[i];
+				// orders points from stagePoints by order using stageRank
 			}
 		}
 		return out;
@@ -651,7 +654,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public int[] getRidersPointClassificationRank(int raceId) throws IDNotRecognisedException {
 		ArrayList<Integer> order = new ArrayList<Integer>();
 		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
-			order.add(riderId);
+			order.add(riderId); // converts GCR from int[] to ArrayList
 		}
 		int[] points = getRidersPointsInRace(raceId);
 		int[] out = new int[order.size()];
@@ -665,12 +668,14 @@ public class CyclingPortal implements CyclingPortalInterface {
 					maxPoints = points[j];
 					nextId = id;
 				}
+				// fetches highest points
 			}
 			if(maxPoints < 0) {
 				break;
 			} else {
 				out[i] = nextId;
 				order.set(order.indexOf(nextId), -1);
+				// adds id to out, removes from check (order)
 			}
 		}
 		return out;
@@ -680,7 +685,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 	public int[] getRidersMountainPointClassificationRank(int raceId) throws IDNotRecognisedException {
 		ArrayList<Integer> order = new ArrayList<Integer>();
 		for(int riderId : getRidersGeneralClassificationRank(raceId)) {
-			order.add(riderId);
+			order.add(riderId); // converts GCR from int[] to ArrayList
 		}
 		int[] points = getRidersMountainPointsInRace(raceId);
 		int[] out = new int[order.size()];
@@ -694,12 +699,14 @@ public class CyclingPortal implements CyclingPortalInterface {
 					maxPoints = points[j];
 					nextId = id;
 				}
+				// fetches highest points
 			}
 			if(maxPoints < 0) {
 				break;
 			} else {
 				out[i] = nextId;
 				order.set(order.indexOf(nextId), -1);
+				// adds id to out, removes from check (order)
 			}
 		}
 		return out;
