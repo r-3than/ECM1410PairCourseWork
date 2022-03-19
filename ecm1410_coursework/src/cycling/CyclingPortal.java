@@ -447,6 +447,11 @@ public class CyclingPortal implements CyclingPortalInterface {
 	}
 
 	@Override
+	/**
+     * @param raceId filename String - A vaild race Id to get the the riders rank in order.
+     * @throws IOException name String - Has to be non-null or IllegalArgumentException is thrown.
+	 * @throws ClassNotFoundException if in the save file their is a non specified Class.
+     */
 	public void loadCyclingPortal(String filename) throws IOException, ClassNotFoundException {
 		try {
  
@@ -463,12 +468,12 @@ public class CyclingPortal implements CyclingPortalInterface {
 			
 			Class<?> classFlag = null;
 
-			allObjects = (ArrayList) ois.readObject();
+			allObjects = (ArrayList) ois.readObject(); //Get all objects in the filename
 			for (Object tempObj : allObjects){
-				ArrayList Objects = (ArrayList) tempObj;
+				ArrayList Objects = (ArrayList) tempObj; //Convert all the objects to an arrayList
 			for (Object obj : Objects){
 				if (classFlag != null){
-					if (obj.getClass() != classFlag && obj.getClass() != Integer.class){
+					if (obj.getClass() != classFlag && obj.getClass() != Integer.class){ //Get our defiend classs and add all the removeds ids back from save
 						if (classFlag == Race.class){
 							Race.removedIds = removedIds;
 						}
@@ -484,14 +489,14 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 					}
 					else{
-						Integer removedId = (Integer) obj;
+						Integer removedId = (Integer) obj; //Fix removedIds
 						removedIds.add(removedId);
 
 					}
 				}
 				String objClass = obj.getClass().getName();
-				System.out.println(objClass);
-				if (obj.getClass() == Rider.class){
+				System.out.println(objClass);					// Do all the magic of added each class we need
+				if (obj.getClass() == Rider.class){ 
 					Rider newRider = (Rider) obj;
 					allRiders.add(newRider);
 					System.out.println("NEW RIDER");
@@ -529,7 +534,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 				System.out.println(obj.getClass());
 			}
 		}
-		if (classFlag == Race.class){
+		if (classFlag == Race.class){ //
 			Race.removedIds = removedIds;
 		}
 		if (classFlag == Segment.class){
@@ -577,25 +582,25 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public LocalTime[] getGeneralClassificationTimesInRace(int raceId) throws IDNotRecognisedException {
-		Race currentRace = Race.getRace(raceId);
-		int[] stageIds = currentRace.getStages();
-		int[] riderIds = this.riderManager.getRiderIds();
-		HashMap<Integer,Long> riderElaspedTime = new HashMap<Integer,Long>(); //Rider Id -> totalTime (long)
+		Race currentRace = Race.getRace(raceId); //get race
+		int[] stageIds = currentRace.getStages(); // get all stages in the race
+		int[] riderIds = this.riderManager.getRiderIds(); // get all rider Ids in the system
+		HashMap<Integer,Long> riderElaspedTime = new HashMap<Integer,Long>(); //Rider Id : totalTime (long)
 		for (int riderId : riderIds){
-			riderElaspedTime.put(riderId,0L);
+			riderElaspedTime.put(riderId,0L); // (Map all RiderId's to a long of total time starting of 0) (Total time is in nano seconds hence the long)
 		}
-		for (int stageId : stageIds){
-			Result[] temp = Result.getResultsInStage(stageId);
-			for(Result result: temp){
+		for (int stageId : stageIds){ 
+			Result[] temp = Result.getResultsInStage(stageId); //Get all the resuts in the each stage
+			for(Result result: temp){ //get the rider id of each stage and their timeTaken.
 				int riderId = result.getRiderId();
 				LocalTime getTotalElasped = result.getTotalElasped();
 				long timeTaken = getTotalElasped.toNanoOfDay();
 				Long newTime = (Long)riderElaspedTime.get(riderId)+timeTaken;
-				riderElaspedTime.put(riderId,newTime);
+				riderElaspedTime.put(riderId,newTime); // update the hash map
 			}
 			
 		}
-		long[][] riderTimePos = new long[riderIds.length][2];
+		long[][] riderTimePos = new long[riderIds.length][2]; //2d arr to hold riderId and timetaken
 		int count = 0;
 		for (int riderId : riderIds){
 			Long finalRiderTime = riderElaspedTime.get(riderId);// ## -> [[time,riderId],....] sort by time!
@@ -653,28 +658,27 @@ public class CyclingPortal implements CyclingPortalInterface {
 		}
 		return out;
 	}
-
 	@Override
 	public int[] getRidersGeneralClassificationRank(int raceId) throws IDNotRecognisedException {
-		Race currentRace = Race.getRace(raceId);
-		int[] stageIds = currentRace.getStages();
-		int[] riderIds = this.riderManager.getRiderIds();
-		HashMap<Integer,Long> riderElaspedTime = new HashMap<Integer,Long>(); //Rider Id -> totalTime (long)
+		Race currentRace = Race.getRace(raceId); //get race
+		int[] stageIds = currentRace.getStages(); // get all stages in the race
+		int[] riderIds = this.riderManager.getRiderIds(); // get all rider Ids in the system
+		HashMap<Integer,Long> riderElaspedTime = new HashMap<Integer,Long>(); //Rider Id : totalTime (long)
 		for (int riderId : riderIds){
-			riderElaspedTime.put(riderId,0L);
+			riderElaspedTime.put(riderId,0L); // (Map all RiderId's to a long of total time starting of 0) (Total time is in nano seconds hence the long)
 		}
-		for (int stageId : stageIds){
-			Result[] temp = Result.getResultsInStage(stageId);
-			for(Result result: temp){
+		for (int stageId : stageIds){ 
+			Result[] temp = Result.getResultsInStage(stageId); //Get all the resuts in the each stage
+			for(Result result: temp){ //get the rider id of each stage and their timeTaken.
 				int riderId = result.getRiderId();
 				LocalTime getTotalElasped = result.getTotalElasped();
 				long timeTaken = getTotalElasped.toNanoOfDay();
 				Long newTime = (Long)riderElaspedTime.get(riderId)+timeTaken;
-				riderElaspedTime.put(riderId,newTime);
+				riderElaspedTime.put(riderId,newTime); // update the hash map
 			}
 			
 		}
-		long[][] riderTimePos = new long[riderIds.length][2];
+		long[][] riderTimePos = new long[riderIds.length][2]; //2d arr to hold riderId and timetaken
 		int count = 0;
 		for (int riderId : riderIds){
 			Long finalRiderTime = riderElaspedTime.get(riderId);// ## -> [[time,riderId],....] sort by time!
@@ -682,7 +686,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			riderTimePos[count][1] = finalRiderTime;
 			count++;
 		}
-		Arrays.sort(riderTimePos, Comparator.comparingDouble(o -> o[1]));
+		Arrays.sort(riderTimePos, Comparator.comparingDouble(o -> o[1])); // Sort by time.
 		int[] finalPos = new int[riderIds.length];
 		count = 0;
 		for (long[] items : riderTimePos){
