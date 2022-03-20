@@ -2,6 +2,7 @@ package cycling;
 
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class CyclingPortalTestApp {
     public static void main(String[] args) throws IDNotRecognisedException,IllegalNameException,InvalidNameException,IOException,ClassNotFoundException{
@@ -55,6 +56,14 @@ public class CyclingPortalTestApp {
             System.out.println(removedID);
         }
         //testCyclingPortal2.riderManager.getRider(100); errors correctly
+        int racetest1 = testCyclingPortal2.createRace("RACETEST1", "The coolest race ever!");
+        try {
+            testCyclingPortal2.addStageToRace(racetest1, "Stage1", "DESC TEST", 10.0, LocalDateTime.now(), StageType.FLAT);
+        } catch (InvalidLengthException e) {
+            e.printStackTrace();
+        }
+        System.out.println(testCyclingPortal2.getRidersGeneralClassificationRank(0);
+
 
         
     }
