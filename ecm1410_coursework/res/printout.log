@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.3.11)  16 MAR 2022 12:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.3.11)  21 MAR 2022 15:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"d:/DATA/UNIVERSITY/Computer Science/ECM1410/COURSEWORK/ECM1410PairCourseWork/ECM1410PairCourseWork/ecm1410_coursework/res/printout.tex"
-(d:/DATA/UNIVERSITY/Computer Science/ECM1410/COURSEWORK/ECM1410PairCourseWork/ECM1410PairCourseWork/ecm1410_coursework/res/printout.tex
+**"d:/DATA/UNIVERSITY/Computer Science/ECM1410/COURSEWORK/ECM1410PairCourseWork/ecm1410_coursework/res/printout.tex"
+(d:/DATA/UNIVERSITY/Computer Science/ECM1410/COURSEWORK/ECM1410PairCourseWork/ecm1410_coursework/res/printout.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2021-11-22> (D:\PROGRAMS\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -110,124 +110,124 @@ LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 21
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) (../src/cycling/CyclingPortal.java [1
 
-{C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16]) (../src/cycling/Race.java [17] [18] [19] [20]
+{C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]) (../src/cycling/Race.java [19] [20] [21] [22] [23]
 Overfull \hbox (22.20374pt too wide) in paragraph at lines 192--193
 [][][][][] 
  []
 
-[21] [22]
+[24]
 Overfull \hbox (11.40363pt too wide) in paragraph at lines 253--254
 [][][][][] 
  []
 
-[23] [24]
+[25] [26]
 Overfull \hbox (16.80368pt too wide) in paragraph at lines 322--323
 [][][][][] 
  []
 
-) (../src/cycling/Stage.java [25] [26] [27] [28] [29] [30]
-Overfull \hbox (16.80368pt too wide) in paragraph at lines 228--229
+) [27] (../src/cycling/Stage.java [28] [29] [30] [31] [32]
+Overfull \hbox (16.80368pt too wide) in paragraph at lines 230--231
 [][][][][] 
  []
 
 
-Overfull \hbox (27.60379pt too wide) in paragraph at lines 256--257
+Overfull \hbox (27.60379pt too wide) in paragraph at lines 258--259
 [][][][][] 
  []
 
-[31]
-Overfull \hbox (54.60406pt too wide) in paragraph at lines 285--286
+[33]
+Overfull \hbox (54.60406pt too wide) in paragraph at lines 287--288
 [][][][][] 
  []
 
-[32] [33]
-Overfull \hbox (11.40363pt too wide) in paragraph at lines 351--352
+[34] [35]
+Overfull \hbox (11.40363pt too wide) in paragraph at lines 353--354
+[][][][][] 
+ []
+
+[36]
+Overfull \hbox (16.80368pt too wide) in paragraph at lines 387--388
 [][][][][] 
  []
 
 
-Overfull \hbox (16.80368pt too wide) in paragraph at lines 385--386
-[][][][][] 
- []
-
-[34]
-Overfull \hbox (26.00357pt too wide) in paragraph at lines 419--420
+Overfull \hbox (26.00357pt too wide) in paragraph at lines 421--422
 [][] 
  []
 
-[35] [36]
-Overfull \hbox (0.60352pt too wide) in paragraph at lines 474--475
+[37] [38]
+Overfull \hbox (0.60352pt too wide) in paragraph at lines 476--477
 [][][][][] 
  []
 
 
-Overfull \hbox (0.60352pt too wide) in paragraph at lines 475--476
+Overfull \hbox (0.60352pt too wide) in paragraph at lines 477--478
 [][][][][] 
  []
 
 
-Overfull \hbox (11.40363pt too wide) in paragraph at lines 476--477
+Overfull \hbox (11.40363pt too wide) in paragraph at lines 478--479
 [][][][][] 
  []
 
 
-Overfull \hbox (6.00357pt too wide) in paragraph at lines 477--478
+Overfull \hbox (6.00357pt too wide) in paragraph at lines 479--480
+[][][][][] 
+ []
+
+[39]
+Overfull \hbox (0.60352pt too wide) in paragraph at lines 492--493
 [][][][][] 
  []
 
 
-Overfull \hbox (0.60352pt too wide) in paragraph at lines 490--491
+Overfull \hbox (16.80368pt too wide) in paragraph at lines 511--512
 [][][][][] 
  []
 
-[37]
-Overfull \hbox (16.80368pt too wide) in paragraph at lines 509--510
-[][][][][] 
- []
-
-) (../src/cycling/StageState.java [38]) (../src/cycling/Segment.java [39] [40] [41] [42]
-Overfull \hbox (22.20374pt too wide) in paragraph at lines 181--182
-[][][][][] 
- []
-
-[43]
-Overfull \hbox (27.60379pt too wide) in paragraph at lines 197--198
-[][][][][] 
- []
-
-
-Overfull \hbox (60.00412pt too wide) in paragraph at lines 215--216
-[][][][][] 
- []
-
-[44]
-Overfull \hbox (11.40363pt too wide) in paragraph at lines 248--249
+[40]) (../src/cycling/StageState.java) (../src/cycling/Segment.java [41] [42] [43] [44]
+Overfull \hbox (22.20374pt too wide) in paragraph at lines 182--183
 [][][][][] 
  []
 
 [45]
-Overfull \hbox (69.20401pt too wide) in paragraph at lines 284--285
+Overfull \hbox (27.60379pt too wide) in paragraph at lines 198--199
+[][][][][] 
+ []
+
+
+Overfull \hbox (60.00412pt too wide) in paragraph at lines 216--217
+[][][][][] 
+ []
+
+[46]
+Overfull \hbox (11.40363pt too wide) in paragraph at lines 249--250
+[][][][][] 
+ []
+
+[47]
+Overfull \hbox (69.20401pt too wide) in paragraph at lines 285--286
 [][] 
  []
 
 
-Overfull \hbox (0.60352pt too wide) in paragraph at lines 302--303
+Overfull \hbox (0.60352pt too wide) in paragraph at lines 303--304
 [][][][][] 
  []
 
-) (../src/cycling/Result.java [46] [47] [48] [49] [50]) (../src/cycling/Team.java [51] [52]) (../src/cycling/Rider.java [53] [54]) (../src/cycling/RiderManager.java [55] [56] [57] [58] [59]) [60] (printout.aux) ) 
+) [48] (../src/cycling/Result.java [49] [50] [51] [52]) (../src/cycling/Team.java [53] [54]) [55] (../src/cycling/Rider.java [56]) (../src/cycling/RiderManager.java [57] [58] [59] [60] [61]) (../src/cycling/RaceTestApp.java [62]) [63] (../src/cycling/ResultTestApp.java [64] [65]) (../src/cycling/RiderManagerTestApp.java [66] [67]) (../src/cycling/CyclingPortalTestApp.java [68] [69]) [70] (printout.aux) ) 
 Here is how much of TeX's memory you used:
- 3576 strings out of 478659
- 52602 string characters out of 2858166
- 795129 words of memory out of 3000000
- 21684 multiletter control sequences out of 15000+600000
+ 3628 strings out of 478659
+ 53708 string characters out of 2858166
+ 812129 words of memory out of 3000000
+ 21724 multiletter control sequences out of 15000+600000
  404849 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,6n,48p,369b,1686s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,6n,48p,417b,1688s stack positions out of 5000i,500n,10000p,200000b,80000s
 {D:/PROGRAMS/MiKTeX/fonts/enc/dvips/base/8r.enc}<D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on printout.pdf (60 pages, 149152 bytes).
+Output written on printout.pdf (70 pages, 165798 bytes).
 PDF statistics:
- 216 PDF objects out of 1000 (max. 8388607)
+ 248 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
