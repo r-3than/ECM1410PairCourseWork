@@ -534,7 +534,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 				System.out.println(obj.getClass());
 			}
 		}
-		if (classFlag == Race.class){ //
+		if (classFlag == Race.class){ // Add last removed IDs 
 			Race.removedIds = removedIds;
 		}
 		if (classFlag == Segment.class){
@@ -544,7 +544,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 			Stage.removedIds = removedIds;
 		}
 
-			this.riderManager.setAllTeams(allTeams);
+			this.riderManager.setAllTeams(allTeams); //Load all team reiders ids etc etc.
 			this.riderManager.setAllRiders(allRiders);
 			Race.allRaces = allRaces;
 			Race.loadId();
