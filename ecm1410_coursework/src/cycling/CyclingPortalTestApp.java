@@ -62,7 +62,7 @@ public class CyclingPortalTestApp {
         } catch (InvalidLengthException e) {
             e.printStackTrace();
         }
-        System.out.println(testCyclingPortal2.getRidersGeneralClassificationRank(0);
+        //System.out.println(testCyclingPortal2.getRidersGeneralClassificationRank(0));
 
 
         
