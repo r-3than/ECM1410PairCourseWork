@@ -45,6 +45,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 		for(int id : Race.getStages(raceId)) {
 			sum += Stage.getStageLength(id);
 		}
+		// calculates total stage length to append to string
 		return Race.toString(raceId)+Double.toString(sum)+";";
 	}
 
@@ -393,7 +394,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 	@Override
 	public void eraseCyclingPortal() {
-		
 		Team.teamNames.clear();
 		Team.teamTopId = 0;
 		Rider.ridersTopId = 0;
@@ -415,8 +415,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 		Stage.loadId();
 
 		Result.allResults.clear();
-
-
 	}
 
 	@Override
@@ -439,7 +437,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
 			oos.flush();
 			oos.close();
-
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
