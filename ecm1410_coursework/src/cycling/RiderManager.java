@@ -162,6 +162,9 @@ public class RiderManager implements Serializable{
         int riderIndex = getIndexForRiderId(riderId);
         return allRiders.get(riderIndex);
     }
+    /**
+     * @param allTeams ArrayList<Team> - A list of all teams to be set.
+     */
     void setAllTeams(ArrayList<Team> allTeams){
 
         RiderManager.allTeams = allTeams;
@@ -170,6 +173,9 @@ public class RiderManager implements Serializable{
         Team.teamTopId = lastTeam.getId()+1;
         }
     }
+    /**
+     * @param allRider ArrayList<Rider> - A list of all riders to be set.
+     */
     void setAllRiders(ArrayList<Rider> allRiders){
         RiderManager.allRiders = allRiders;
         if (allRiders.size() != 0){
@@ -177,6 +183,9 @@ public class RiderManager implements Serializable{
             Rider.ridersTopId = lastRider.getRiderId()+1;
         }
     }
+    /**
+     * @return The list of all rider Ids
+     */
     int [] getRiderIds(){
         int[] riderIdArray = new int[allRiders.size()];
         int count = 0;
