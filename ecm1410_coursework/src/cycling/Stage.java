@@ -171,6 +171,7 @@ public class Stage implements Serializable {
                 break;
             default:
                 state = "null state";
+                assert(false); // exception will be thrown in this case when stage is created
         }
         String name = this.stageName;
         String description = this.stageDescription;
@@ -194,6 +195,7 @@ public class Stage implements Serializable {
                 break;
             default:
                 type = "null type";
+                assert(false); // exception will be thrown in this case when stage is created
         }
         return String.format("Stage[%s](%s): %s (%s); %s; %skm; %s; SegmentIds=%s;",
                              id, state, name, type, description, length,

@@ -144,6 +144,7 @@ public class Segment implements Serializable {
                 break;
             default:
                 type = "null category";
+                assert(false); // exception will be thrown in this case when segment is created
         }
         String averageGrad = Double.toString(this.segmentAverageGradient);
         String length = Double.toString(this.segmentLength);
