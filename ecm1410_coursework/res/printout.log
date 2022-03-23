@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.3.11)  21 MAR 2022 15:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.3.11)  23 MAR 2022 12:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -215,17 +215,17 @@ Overfull \hbox (0.60352pt too wide) in paragraph at lines 303--304
 [][][][][] 
  []
 
-) [48] (../src/cycling/Result.java [49] [50] [51] [52]) (../src/cycling/Team.java [53] [54]) [55] (../src/cycling/Rider.java [56]) (../src/cycling/RiderManager.java [57] [58] [59] [60] [61]) (../src/cycling/RaceTestApp.java [62]) [63] (../src/cycling/ResultTestApp.java [64] [65]) (../src/cycling/RiderManagerTestApp.java [66] [67]) (../src/cycling/CyclingPortalTestApp.java [68] [69]) [70] (printout.aux) ) 
+) [48] (../src/cycling/Result.java [49] [50] [51] [52]) (../src/cycling/Team.java [53] [54]) [55] (../src/cycling/Rider.java [56]) (../src/cycling/RiderManager.java [57] [58] [59] [60] [61] [62]) (../src/cycling/RaceTestApp.java [63]) (../src/cycling/ResultTestApp.java [64] [65] [66]) (../src/cycling/RiderManagerTestApp.java [67]) (../src/cycling/CyclingPortalTestApp.java [68] [69]) [70] (printout.aux) ) 
 Here is how much of TeX's memory you used:
  3628 strings out of 478659
  53708 string characters out of 2858166
- 812129 words of memory out of 3000000
+ 797129 words of memory out of 3000000
  21724 multiletter control sequences out of 15000+600000
  404849 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,6n,48p,417b,1688s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,6n,48p,419b,1688s stack positions out of 5000i,500n,10000p,200000b,80000s
 {D:/PROGRAMS/MiKTeX/fonts/enc/dvips/base/8r.enc}<D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/PROGRAMS/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on printout.pdf (70 pages, 165798 bytes).
+Output written on printout.pdf (70 pages, 167522 bytes).
 PDF statistics:
  248 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
