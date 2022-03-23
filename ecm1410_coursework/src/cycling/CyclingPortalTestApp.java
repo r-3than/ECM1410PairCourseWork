@@ -4,6 +4,15 @@ package cycling;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+
+/** 
+ * Testing for the CyclingPortal.
+ * 
+ * 
+ * @author Ethan Ray & Thomas Newbold.
+ * @version 1.0
+ * 
+ */
 public class CyclingPortalTestApp {
     public static void main(String[] args) throws IDNotRecognisedException,IllegalNameException,InvalidNameException,IOException,ClassNotFoundException{
         if (true){

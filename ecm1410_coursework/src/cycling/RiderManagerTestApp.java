@@ -1,5 +1,13 @@
 package cycling;
 import java.util.Arrays;
+/** 
+ * Testing for the RiderManager class.
+ * 
+ * 
+ * @author Ethan Ray
+ * @version 1.0
+ * 
+ */
 
 public class RiderManagerTestApp {
     public static void main(String[] args) throws IllegalNameException,InvalidNameException,IDNotRecognisedException{

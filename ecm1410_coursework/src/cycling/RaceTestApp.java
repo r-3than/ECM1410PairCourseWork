@@ -2,6 +2,15 @@ package cycling;
 
 import java.time.LocalDateTime;
 
+
+/** 
+ * Testing for the Race class.
+ * 
+ * 
+ * @author Thomas Newbold
+ * @version 1.0
+ * 
+ */
 public class RaceTestApp {
     public static void main(String[] args) throws IllegalNameException,
                             InvalidNameException, InvalidLengthException,

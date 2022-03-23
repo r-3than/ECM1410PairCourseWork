@@ -3,6 +3,14 @@ package cycling;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
+/** 
+ * Testing for the Result class.
+ * 
+ * 
+ * @author Thomas Newbold
+ * @version 1.0
+ * 
+ */
 
 public class ResultTestApp {
     public static void main(String[] args) throws IllegalNameException, InvalidNameException,

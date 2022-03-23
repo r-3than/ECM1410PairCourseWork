@@ -3,6 +3,15 @@ package cycling;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/** 
+ * RiderManager handles Teams and Riders and their respective interactions.
+ * 
+ * 
+ * @author Ethan Ray
+ * @version 1.0
+ * 
+ */
+
 public class RiderManager implements Serializable{
     public static ArrayList<Rider> allRiders = new ArrayList<>();
     public static ArrayList<Team> allTeams = new ArrayList<>();
