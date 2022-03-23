@@ -24,8 +24,8 @@ public class RiderManager implements Serializable{
      * @return riderId of the rider created.
      * @throws IDNotRecognisedException teamId int - If the ID doesn't exist IDNotRecognisedException is thrown.
      * @throws IllegalArgumentException yearOfBirth int - A year that the rider was born in. Has to be above 1900 or IllegalArgumentException is thrown.
-     */
-    int createRider(int teamID, String name, int yearOfBirth) throws IDNotRecognisedException,IllegalArgumentException{
+    */
+    public int createRider(int teamID, String name, int yearOfBirth) throws IDNotRecognisedException,IllegalArgumentException{
         int teamIndex = getIndexForTeamId(teamID);
         Rider newRider = new Rider(teamID,name,yearOfBirth);
         allRiders.add(newRider);
@@ -37,7 +37,7 @@ public class RiderManager implements Serializable{
      * @param riderId int - A riderId of a rider to be removed. If the ID doesn't exist IDNotRecognisedException is thrown.
      * @throws IDNotRecognisedException riderId int - If the ID doesn't exist IDNotRecognisedException is thrown.
      */
-    void removeRider(int riderId) throws IDNotRecognisedException
+    public void removeRider(int riderId) throws IDNotRecognisedException
     {
         int riderIndex = getIndexForRiderId(riderId);
         int teamId = allRiders.get(riderIndex).getRiderTeamId();
@@ -51,7 +51,7 @@ public class RiderManager implements Serializable{
      * @throws IDNotRecognisedException riderId int - If the ID doesn't exist IDNotRecognisedException is thrown.
      * @return An int which is the index that maps to the riderId.
      */
-    int getIndexForRiderId(int riderId) throws IDNotRecognisedException{
+    public int getIndexForRiderId(int riderId) throws IDNotRecognisedException{
         int index =-1;
         if (allRiders.size() == 0){
             throw new IDNotRecognisedException("No rider exists with that ID");
@@ -73,7 +73,7 @@ public class RiderManager implements Serializable{
      * @throws IllegalNameException name String - Is a duplicate name of any other Team, IllegalNameException will be thrown.
      * @throws InvailNameException name String - If the name is null, empty, has more than 30 characters, or has white spaces will throw InvaildNameException.
      */
-    int createTeam(String name, String description) throws IllegalNameException, InvalidNameException{
+    public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException{
         Team newTeam = new Team(name,description);
         allTeams.add(newTeam);
         return newTeam.getId();
@@ -82,7 +82,7 @@ public class RiderManager implements Serializable{
      * @param teamId int - A teamId of a rider to be removed. If the ID doesn't exist IDNotRecognisedException is thrown.
      * @throws IDNotRecognisedException riderId int - If the ID doesn't exist IDNotRecognisedException is thrown.
      */
-    void removeTeam(int teamId) throws IDNotRecognisedException{ // Delete team and all riders in that team
+    public void removeTeam(int teamId) throws IDNotRecognisedException{ // Delete team and all riders in that team
         int teamIndex = getIndexForTeamId(teamId);
         Team currentTeam = allTeams.get(teamIndex);
         for (Integer riderId : currentTeam.getRiderIds()) {
@@ -95,7 +95,7 @@ public class RiderManager implements Serializable{
      * @return All the teamId's that are currently in the system as an int[]
      */
 
-    int[] getTeams(){
+    public int[] getTeams(){
         int [] allTeamIds = new int[allTeams.size()];
         for (int i=0; i<allTeams.size();i++){
             allTeamIds[i]=allTeams.get(i).getId();
@@ -107,7 +107,7 @@ public class RiderManager implements Serializable{
      * @throws IDNotRecognisedException teamId int - If the ID doesn't exist IDNotRecognisedException is thrown.
      * @return All the riderId's in a team as an int[]
      */
-    int[] getTeamRiders(int teamId) throws IDNotRecognisedException{
+    public int[] getTeamRiders(int teamId) throws IDNotRecognisedException{
         Team currentTeam = getTeam(teamId);
         return currentTeam.getRiderIds();
 
@@ -115,7 +115,7 @@ public class RiderManager implements Serializable{
     /**
      * @return All team names in the system as an String[]
      */
-    String[] getTeamsNames(){
+    public String[] getTeamsNames(){
         String [] allTeamNames = new String[allTeams.size()];
         for (int i=0; i<allTeams.size();i++){
             allTeamNames[i] = allTeams.get(i).getTeamName();
@@ -125,7 +125,7 @@ public class RiderManager implements Serializable{
     /**
      * @return All rider names in the system as an String[]
      */
-    String[] getRidersNames(){
+    public String[] getRidersNames(){
         String [] allRiderNames = new String[allRiders.size()];
         for (int i=0; i<allRiders.size();i++){
             allRiderNames[i] = allRiders.get(i).getRiderName();
@@ -137,7 +137,7 @@ public class RiderManager implements Serializable{
      * @throws IDNotRecognisedException teamId int - If the ID doesn't exist IDNotRecognisedException is thrown.
      * @return An int which is the index that maps to the teamId.
      */
-    int getIndexForTeamId(int teamId) throws IDNotRecognisedException{
+    public int getIndexForTeamId(int teamId) throws IDNotRecognisedException{
         int index =-1;
         if (allTeams.size() == 0){
             throw new IDNotRecognisedException("No Team exists with that ID");
@@ -158,7 +158,7 @@ public class RiderManager implements Serializable{
      * @throws IDNotRecognisedException teamId int - If the ID doesn't exist IDNotRecognisedException is thrown.
      * @return A Team object with the teamId parsed.
      */
-    Team getTeam(int teamId) throws IDNotRecognisedException{
+    public Team getTeam(int teamId) throws IDNotRecognisedException{
         int teamIndex = getIndexForTeamId(teamId);
         return allTeams.get(teamIndex);
     }
@@ -167,14 +167,14 @@ public class RiderManager implements Serializable{
      * @throws IDNotRecognisedException riderId int - If the ID doesn't exist IDNotRecognisedException is thrown.
      * @return A Rider object with the riderId parsed.
      */
-    Rider getRider(int riderId) throws IDNotRecognisedException{
+    public Rider getRider(int riderId) throws IDNotRecognisedException{
         int riderIndex = getIndexForRiderId(riderId);
         return allRiders.get(riderIndex);
     }
     /**
      * @param allTeams ArrayList<Team> - A list of all teams to be set.
      */
-    void setAllTeams(ArrayList<Team> allTeams){
+    public void setAllTeams(ArrayList<Team> allTeams){
 
         RiderManager.allTeams = allTeams;
         if (allTeams.size() != 0){
@@ -185,7 +185,7 @@ public class RiderManager implements Serializable{
     /**
      * @param allRider ArrayList<Rider> - A list of all riders to be set.
      */
-    void setAllRiders(ArrayList<Rider> allRiders){
+    public void setAllRiders(ArrayList<Rider> allRiders){
         RiderManager.allRiders = allRiders;
         if (allRiders.size() != 0){
             Rider lastRider = allRiders.get(allRiders.size()-1);
@@ -195,7 +195,7 @@ public class RiderManager implements Serializable{
     /**
      * @return The list of all rider Ids
      */
-    int [] getRiderIds(){
+    public int [] getRiderIds(){
         int[] riderIdArray = new int[allRiders.size()];
         int count = 0;
         for (Rider rider : RiderManager.allRiders){
